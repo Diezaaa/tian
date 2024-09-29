@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/LayoutUnregistered.css">
+    @RenderSection("Style", required: true)
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Plus Jakarta Sans-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><img src="~/images/Logo.svg" id="logo"></li>
+            <li><img src="~/images/hamburger.svg" id="menu"></li>
+        </ul>
+
+
+        <div id="menu_slider" class="closed">
+            <ul>
+                <li><a asp-controller="Unregistered" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Unregistered" asp-action="About">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>  
+        @RenderBody()
+    </main>
+    <footer>
+        <div><span>Support email: </span>kotvesopogah@gmail.com</div>
+    </footer>
+
+    <!--scripts-->
+    @RenderSection("AdditionalJs", required: false)
+    <script src="~/js/menu.js"></script>
+</body>
+</html>

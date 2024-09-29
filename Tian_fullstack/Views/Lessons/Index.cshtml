@@ -1,0 +1,37 @@
+﻿@model List<Lesson>
+@{
+    ViewData["Title"] = "Create a lesson";
+    Layout = "_LayoutCrudOperations";
+}
+@section Style {
+    <link rel="stylesheet" href="~/css/ModelIndex.css"/>
+}
+<h1>Lessons list:</h1>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Order
+            </th>
+
+            <th>
+                Title
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var lesson in Model)
+        {
+        <tr>
+
+            <td>
+                @lesson.Order
+            </td>
+            <td>
+                @lesson.Title
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Lessons" asp-action="Create">Crate a new lesson</a>

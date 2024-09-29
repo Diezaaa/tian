@@ -1,0 +1,35 @@
+﻿body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+#logo {
+    width: 80px;
+}
+
+header {
+    width: 90%;
+    margin: auto;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+h1{
+    font-size: 25px;
+    padding: 10px;
+}
+main {
+    min-height: calc(100vh - 88.25px);
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    background-color: rgba(215, 220, 227, 0.48);
+    border-radius: 20px;
+}
+h1, a{
+    display:block;
+    text-align:center;
+}

@@ -1,0 +1,113 @@
+﻿
+main {
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+    min-height: 100vh
+}
+
+#avatar_and_bio {
+    margin-top: 35px;
+    margin-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+    #avatar_and_bio img {
+        width: 82px;
+        margin-bottom: 20px;
+    }
+
+
+    #avatar_and_bio h1, #nickname {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+#nickname {
+    font-weight: bold;
+}
+
+#avatar_and_bio p, h1 {
+    width: 83%;
+}
+
+#stats {
+    height: 70px;
+    display: flex;
+    gap: 20px;
+}
+
+#day_streak img {
+    width: 30px;
+}
+
+#day_streak {
+    flex: 1;
+    width: 50%;
+    background-color: rgba(215, 220, 227, 0.48);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+#percents {
+    flex: 1;
+    background-color: rgba(215, 220, 227, 0.48);
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    align-items: center;
+}
+
+.badges_title {
+    border-radius: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    background-color: rgba(215, 220, 227, 0.48);
+}
+
+#no_badges {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.badge img {
+    width: 50px;
+    height: 50px;
+}
+
+#badges {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.badge {
+    flex-direction: column;
+    display: flex;
+    border-radius: 20px;
+    align-items: center;
+    text-align: center;
+    width: 110px;
+    padding-bottom: 5px;
+    background-color: rgba(215, 220, 227, 0.48);
+    font-size: 14px;
+}
+
+    .badge span {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }

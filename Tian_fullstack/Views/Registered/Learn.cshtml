@@ -1,0 +1,21 @@
+﻿@model List<Lesson>
+@{
+    ViewData["Title"] = "Learn";
+    Layout = "_LayoutRegistered";
+}
+@section Style {
+    <link rel="stylesheet" href="~/css/Learn.css" />
+}
+@section HeaderZone{
+    <p>Progress: 0%</p>
+}
+<div id="lessons">
+@foreach (var lesson in Model)
+{
+    <a class="lesson" id="first_lesson" title="@lesson.Title" asp-controller="Registered" asp-action="Lesson" asp-route-lessonId="@lesson.Order" asp-route-slideOrder="1">
+        <img src="../images/play_button.svg">
+    </a>
+    <div class="line">
+    </div>
+}
+</div>

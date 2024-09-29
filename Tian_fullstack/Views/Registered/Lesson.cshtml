@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Lesson";
+    Layout = "_LayoutRegistered";
+}
+@section Style {
+    <link rel="stylesheet" href="~/css/Lesson.css" />
+}
+@section BodyZone{
+    <div id="progress_bar">
+        @{
+        if (ViewBag.slide.Order > 1)
+            {
+                <a asp-controller="Registered" asp-action="Lesson" asp-route-lessonID="@ViewBag.slide.LessonId" asp-route-slideOrder="@(@ViewBag.slide.Order - 1)">&#60;</a>
+            }
+        }
+        <span class="completed_sublesson"></span>
+        <span class="sublesson"></span>
+        <span class="sublesson"></span>
+        <span class="sublesson"></span>
+        <span class="sublesson"></span>
+        @{
+            if (ViewBag.slide.Order != ViewBag.orderOfTheLastSlide) 
+            {
+                <a asp-controller="Registered" asp-action="Lesson" asp-route-lessonID="@ViewBag.slide.LessonId" asp-route-slideOrder="@(@ViewBag.slide.Order + 1)">></a>
+            }
+        }
+    </div>
+}
+
+<div id="inner">
+    @ViewBag.slide.Content
+</div>

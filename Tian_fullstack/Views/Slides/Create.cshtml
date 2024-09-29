@@ -1,0 +1,30 @@
+﻿@model Tian_fullstack.Models.Slide;
+@{
+    ViewData["Title"] = "Create a lesson";
+    Layout = "_LayoutCrudOperations";
+}
+@section Style {
+    <link rel="stylesheet" href="~/css/ModelCreate.css" />
+}
+
+<form method="post">
+    <label for="Lesson">Lesson: </label>
+    <input id="Lesson" asp-for="LessonId" />
+    <label for="order">Order: </label>
+    <input id="order" asp-for="Order" />
+    <label for="Content">Content: </label>
+    <input id="Content" asp-for="Content" class="bigInput"/>
+    <span>Options:</span>
+    <br />
+    <label for="option1">Option 1:</label>
+    <input id="option1" asp-for="Options[0]"/>
+    <label for="option1">Option 2:</label>
+    <input id="option1" asp-for="Options[1]"/>
+    <label for="option1">Option 3:</label>
+    <input id="option1" asp-for="Options[2]" />
+    <label for="option1">Option 4:</label>
+    <input id="option1" asp-for="Options[3]" />
+    <label for="correctOption">CorrectOption:</label>
+    <input id="correctOption" asp-for="CorrectOptionIndex" min="1" value="">
+    <button type="submit">Create</button>
+</form>

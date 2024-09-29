@@ -1,0 +1,92 @@
+﻿
+
+#top {
+    width: 90%;
+    margin: auto;
+    background-color: rgba(215, 220, 227, 0.48);
+    height: calc(100vh - 88.25px);
+    border-radius: 20px;
+}
+
+    #top h1 {
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: 50px;
+        font-size: 25px;
+        text-align: center;
+        font-weight: bold;
+        width: 85%;
+    }
+
+    #top p {
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: 35px;
+        line-height: 25px;
+        font-weight: bold;
+        text-align: center;
+        width: 70%;
+    }
+
+main {
+    overflow: auto;
+    width: 90%;
+    margin: auto;
+    max-width: 800px;
+    background-color: rgba(215, 220, 227, 0.48);
+    min-height: 100vh;
+    border-radius: 20px;
+}
+
+
+
+.lesson {
+    margin: auto;
+    --b: #644dff;
+    --bb: #4836bb;
+    --bbb: #654dff63;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.125em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #fff;
+    background: var(--b);
+    border: 2px solid var(--bb);
+    border-radius: .75rem;
+    box-shadow: 0 8px 0 var(--bb);
+    transition: all .1s ease;
+}
+
+.lesson img {
+    width: 25px;
+}
+
+.lesson:active {
+    transform: translateY(8px);
+    box-shadow: 0 0 0 #4836bb;
+    transition: all .1s ease;
+}
+
+.line {
+    background-color: #A5B4FC;
+    width: 5px;
+    margin: auto;
+    height: 20vh;
+}
+
+
+.lesson_description {
+    display: inline-flex
+}
+#lessons{
+    margin: 20px;
+}
+#lessons div:last-child {
+   height:0;
+}

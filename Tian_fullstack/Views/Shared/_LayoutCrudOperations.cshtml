@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <!-- Plus Jakarta Sans-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    <!--Styles-->
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/LayoutCrudOperations.css"/>
+    @RenderSection("Style", required: true)
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <header>
+        <img src="~/images/Logo.svg" id="logo">
+    </header>
+    <main>
+        @RenderBody()
+        <a asp-controller="Registered" asp-action="AdminPanel"> &lt;&lt; Back to admin panel</a>
+    </main>
+</body>
+</html>

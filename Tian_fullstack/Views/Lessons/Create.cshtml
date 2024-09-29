@@ -1,0 +1,23 @@
+﻿@model Lesson
+@{
+    ViewData["Title"] = "Create a lesson";
+    Layout = "_LayoutCrudOperations";
+}
+
+@section Style {
+    <link rel="stylesheet" href="~/css/ModelCreate.css" />
+}
+
+<h1>Create a new lesson</h1>
+<form method="post">
+    <label for="order">Order: </label>
+    <input id="order" asp-for="Order" />  <!-- Use Item1 to access Lesson -->
+    <span asp-validation-for="Order" class="hints"></span>
+
+    <label for="title">Title: </label>
+    <input id="title" asp-for="Title" />  <!-- Use Item1 to access Lesson -->
+    <span asp-validation-for="Title" class="hints"></span>
+    <button type="submit">Create</button>
+</form>
+
+<a asp-controller="Lessons" asp-action="Index">&lt;&lt; Back to the lessons</a>
