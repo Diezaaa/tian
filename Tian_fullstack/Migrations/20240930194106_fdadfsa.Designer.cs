@@ -12,8 +12,8 @@ using Tian_fullstack.Data;
 namespace Tian_fullstack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240928161204_afdasdf")]
-    partial class afdasdf
+    [Migration("20240930194106_fdadfsa")]
+    partial class fdadfsa
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,20 +43,6 @@ namespace Tian_fullstack.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Lessons");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Order = 1,
-                            Title = "Hello world"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Order = 2,
-                            Title = "AFSSAFFSAFAFS"
-                        });
                 });
 
             modelBuilder.Entity("Tian_fullstack.Models.Slide", b =>
@@ -74,7 +60,10 @@ namespace Tian_fullstack.Migrations
                     b.Property<int?>("CorrectOptionIndex")
                         .HasColumnType("int");
 
-                    b.Property<int>("LessonId")
+                    b.Property<int?>("LessonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LessonNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Options")
@@ -84,31 +73,21 @@ namespace Tian_fullstack.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
+                    b.Property<bool>("enableCodeEditor")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LessonId");
 
                     b.ToTable("Slides");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Content = "What's the color of the sky",
-                            CorrectOptionIndex = 0,
-                            LessonId = 1,
-                            Options = "[\"Blue\",\"Red\",\"Brown\"]",
-                            Order = 0
-                        });
                 });
 
             modelBuilder.Entity("Tian_fullstack.Models.Slide", b =>
                 {
                     b.HasOne("Tian_fullstack.Models.Lesson", null)
                         .WithMany("Slides")
-                        .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LessonId");
                 });
 
             modelBuilder.Entity("Tian_fullstack.Models.Lesson", b =>

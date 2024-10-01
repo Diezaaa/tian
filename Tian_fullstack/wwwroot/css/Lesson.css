@@ -1,21 +1,17 @@
 ﻿
 #inner {
     align-content: center;
-    width: 75%;
     height: calc(100vh - 138.25px);
     margin: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
+    font-size: 17px;
+    width: 70%;
     justify-content: center;
     gap: 35px;
 }
 
-#text {
-    display: flex;
-    font-size: 18px;
-    justify-content: center;
-}
 
 #image {
     display: flex;
@@ -28,7 +24,7 @@
         display: block;
     }
 
-button {
+button, .option {
     --b: #644dff;
     --bb: #4836bb;
     --bbb: #654dff63;
@@ -49,7 +45,12 @@ button {
     box-shadow: 0 8px 0 var(--bb);
     transition: all .1s ease;
 }
-    button:active {
+
+button{
+    margin:auto;
+    width: 110px;
+}
+    button:active, .option:active {
         transform: translateY(8px);
         box-shadow: 0 0 0 #4836bb;
         transition: all .1s ease;
@@ -98,4 +99,25 @@ main {
 
 button {
     display: block;
+}
+
+.option {
+    min-height:fit-content;
+    padding: 7px;
+    --b: #A594F9;
+    --bb: #CDC1FF;
+    --bbb: #A594F9;
+    margin: 20px;
+}
+
+#isCorrect{
+    color:green;
+    font-weight:bolder;
+}
+#isIncorrect {
+    color: red;
+    font-weight: bolder;
+}
+#slidePhoto{
+    width: 85%;
 }

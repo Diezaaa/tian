@@ -9,15 +9,76 @@
 }
 
 <h1>Create a new lesson</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <label for="order">Order: </label>
-    <input id="order" asp-for="Order" />  <!-- Use Item1 to access Lesson -->
-    <span asp-validation-for="Order" class="hints"></span>
+    <input id="order" asp-for="Order" />
 
     <label for="title">Title: </label>
     <input id="title" asp-for="Title" />  <!-- Use Item1 to access Lesson -->
     <span asp-validation-for="Title" class="hints"></span>
-    <button type="submit">Create</button>
+    <span>Slides:</span>
+    <button type="button" id="addSlideBtn">+</button>
+    <div id="slides">
+        <div>
+            <span>Slide 1:</span>
+            <hr />
+            <label for="content">Contnet: </label>
+            <textarea id="content" asp-for="Slides[0].Content" for="content"></textarea>
+            <label for="enableCodeEditor">Enable code editor?</label>
+            <input type="checkbox" asp-for="Slides[0].enableCodeEditor"/>
+            <label for="Slides" >Upload Image</label>
+            <input type="file" name="imageFiles" />
+            <span>Options:</span>
+            <br />
+            <label for="option1">Option 1:</label>
+            <input id="option1" asp-for="Slides[0].Options[0]" />
+            <label for="option2">Option 2:</label>
+            <input id="option2" asp-for="Slides[0].Options[1]" />
+            <label for="option3">Option 3:</label>
+            <input id="option3" asp-for="Slides[0].Options[2]" />
+            <label for="option4">Option 4:</label>
+            <input id="option4" asp-for="Slides[0].Options[3]" />
+            <label for="correctAnswer">Correct Answer:</label>
+            <input id="correctAnswer" asp-for="Slides[0].CorrectOptionIndex"/>
+        </div>
+    </div>
+    <button type="submit" id="sumbitBtn">Create</button>
 </form>
 
 <a asp-controller="Lessons" asp-action="Index">&lt;&lt; Back to the lessons</a>
+<script>
+document.querySelectorAll('input[type="file"]').forEach(input => {
+    const blankFile = new File([], " "); // Create a blank file with no extension
+    const dataTransfer = new DataTransfer(); // Create a DataTransfer object
+    dataTransfer.items.add(blankFile); // Add the blank file to the DataTransfer object
+    input.files = dataTransfer.files; // Assign the files property of the file input
+});
+    let addSlideBtn = document.getElementById('addSlideBtn');
+    let slidesDiv = document.getElementById('slides');
+    let numberOfSlides = 1;
+    addSlideBtn.addEventListener("click", function () {
+        slidesDiv.insertAdjacentHTML('beforeend', `<div>
+                    <span>Slide ${numberOfSlides+1}:</span>
+            <hr />
+                <label for="enableCodeEditor">Enable code editor?</label>
+                <input type="checkbox" name="Slides[${numberOfSlides}].enableCodeEditor"/>
+                <label for="Slides" >Upload Image</label>
+                                <input type="file" name ="imageFiles" />
+                <label for="content">Contnet: </label>
+                <textarea id="content" name="Slides[${numberOfSlides}].Content" for="content"></textarea>
+                <span>Options:</span>
+            <br />
+            <label for="option1">Option 1:</label>
+                    <input id="option1" name="Slides[${numberOfSlides}].Options[0]" />
+            <label for="option2">Option 2:</label>
+                <input id="option2" name="Slides[${numberOfSlides}].Options[1]" />
+            <label for="option3">Option 3:</label>
+                    <input id="option3" name="Slides[${numberOfSlides}].Options[2]" />
+            <label for="option4">Option 4:</label>
+                    <input id="option4" name="Slides[${numberOfSlides}].Options[3]" />
+            <label for="correctAnswer">Correct Answer:</label>
+                    <input id="correctAnswer" name="Slides[${numberOfSlides}].CorrectOptionIndex"/></div>`);
+        numberOfSlides++;
+    })
+  
+</script>

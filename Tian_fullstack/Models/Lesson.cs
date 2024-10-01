@@ -11,6 +11,6 @@ namespace Tian_fullstack.Models
         public int Order { get; set; }
         [Required]
         public string Title { get; set; }
-
+        public List<Slide> Slides { get; set; }
     }
 }

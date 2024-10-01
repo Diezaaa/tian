@@ -2,12 +2,10 @@
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace Tian_fullstack.Migrations
 {
     /// <inheritdoc />
-    public partial class addingSlidesFieldToLessonModel : Migration
+    public partial class kkklkh : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,11 +30,12 @@ namespace Tian_fullstack.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LessonId = table.Column<int>(type: "int", nullable: false),
+                    LessonNumber = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Options = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CorrectOptionIndex = table.Column<int>(type: "int", nullable: true)
+                    CorrectOptionIndex = table.Column<int>(type: "int", nullable: true),
+                    LessonId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,23 +44,8 @@ namespace Tian_fullstack.Migrations
                         name: "FK_Slides_Lessons_LessonId",
                         column: x => x.LessonId,
                         principalTable: "Lessons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
-
-            migrationBuilder.InsertData(
-                table: "Lessons",
-                columns: new[] { "Id", "Order", "Title" },
-                values: new object[,]
-                {
-                    { 1, 1, "Hello world" },
-                    { 2, 2, "AFSSAFFSAFAFS" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Slides",
-                columns: new[] { "Id", "Content", "CorrectOptionIndex", "LessonId", "Options", "Order" },
-                values: new object[] { 1, "What's the color of the sky", 0, 1, "[\"Blue\",\"Red\",\"Brown\"]", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Slides_LessonId",

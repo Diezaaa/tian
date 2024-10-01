@@ -8,25 +8,60 @@
 @section BodyZone{
     <div id="progress_bar">
         @{
-        if (ViewBag.slide.Order > 1)
+        if (@ViewBag.slide.Order > 1)
             {
-                <a asp-controller="Registered" asp-action="Lesson" asp-route-lessonID="@ViewBag.slide.LessonId" asp-route-slideOrder="@(@ViewBag.slide.Order - 1)">&#60;</a>
+                <a asp-controller="Registered" asp-action="Lesson" asp-route-lessonID="@ViewBag.slide.LessonNumber" asp-route-slideOrder="@(@ViewBag.slide.Order - 1)">&#60;-</a>
             }
         }
-        <span class="completed_sublesson"></span>
-        <span class="sublesson"></span>
-        <span class="sublesson"></span>
-        <span class="sublesson"></span>
-        <span class="sublesson"></span>
-        @{
-            if (ViewBag.slide.Order != ViewBag.orderOfTheLastSlide) 
+        @for (int i = 1; i <= ViewBag.numberOfSlides; i++)
+        {
+            if (ViewBag.slide.Order >= i)
             {
-                <a asp-controller="Registered" asp-action="Lesson" asp-route-lessonID="@ViewBag.slide.LessonId" asp-route-slideOrder="@(@ViewBag.slide.Order + 1)">></a>
+                <span class="completed_sublesson"></span>
+
+            }
+            else
+            {
+                <span class="sublesson"></span>
             }
         }
+        @if (@ViewBag.slide.Order != @ViewBag.orderOfTheLastSlide) 
+            {
+                <a asp-controller="Registered" asp-action="Lesson" asp-route-lessonID="@ViewBag.slide.LessonNumber" asp-route-slideOrder="@(@ViewBag.slide.Order + 1)">-></a>
+            }
     </div>
 }
 
 <div id="inner">
-    @ViewBag.slide.Content
+    @Html.Raw(ViewBag.slide.Content.Replace(Environment.NewLine, "<br />"))
+    @if (ViewBag.slide.ImagePath is not null)
+    {
+        <img src="~/images/imagesForSlides/@ViewBag.slide.ImagePath" id="slidePhoto" />
+    }
+    @if (ViewBag.slide.enableCodeEditor)
+    {
+        <iframe frameBorder="0"
+                height="450px"
+                src="https://onecompiler.com/embed/python"
+                width="100%"></iframe>
+    }
+    @if (ViewBag.isAQuiz)
+    {
+        <form method="post" asp-controller="Registered" asp-action="Lesson">
+        @{
+            int i = 0;
+        }
+            @foreach (var option in @ViewBag.slide.Options)
+            {
+                <label class="option">
+                    <input type="radio" name="option" value="@(++i)">
+                    @option
+                </label>
+
+            }
+        <button type="submit">Check</button>
+        </form>
+        <p id="isCorrect">@TempData["isCorrect"]</p>
+        <p id="isIncorrect">@TempData["isIncorrect"]</p>
+    }
 </div>

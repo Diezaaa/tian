@@ -30,6 +30,7 @@ input {
     border: 1px solid #CBD5E1;
     border-radius: 123px;
     height:23px;
+    display:block;
     border-color: #4F46E5;
     margin-bottom: 12px;
 }
@@ -103,4 +104,14 @@ button:hover {
 .hints {
     margin-bottom: 12px;
     color: red;
+}
+
+span{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+button{
+    width: fit-content;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
