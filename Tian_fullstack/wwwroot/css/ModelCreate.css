@@ -1,20 +1,11 @@
-﻿main {
-    max-width: 800px;
-    width: 90%;
-    margin: auto;
-    background-color: rgba(215, 220, 227, 0.48);
-    min-height: calc(100vh - 88.25px);
-    padding-bottom: 20px;
-    border-radius: 20px;
+﻿
+main h1 {
+    font-size: 32px;
+    font-weight: bolder;
+    padding-top: 32px;
+    text-align: center;
+    color: #4F46E5;
 }
-
-    main h1 {
-        font-size: 32px;
-        font-weight: bolder;
-        padding-top: 32px;
-        text-align: center;
-        color: #4F46E5;
-    }
 
 form {
     width: 90%;
@@ -25,8 +16,11 @@ form {
     margin-right: auto;
     margin-top: 30px;
 }
+textarea{
+    padding: 6px;
+}
 
-input {
+input, textarea {
     border: 1px solid #CBD5E1;
     border-radius: 123px;
     height:23px;
@@ -48,7 +42,7 @@ input {
     }
 }
 
-input:focus {
+input:focus, textarea:focus {
     outline: none;
     animation-name: glowing;
     animation-duration: 2s;
@@ -56,11 +50,8 @@ input:focus {
 }
 
 label {
-    margin-bottom: 5px;
-}
-
-#addingASlide{
-    width: 30px;
+    display: block;
+    margin-bottom: 2.35px;
 }
 
 #sumbitBtn {
@@ -95,7 +86,7 @@ a {
     }
 }
 
-button:hover {
+button:hover{
     animation-name: color_changing;
     animation-duration: 1s;
     animation-fill-mode: forwards
@@ -114,4 +105,66 @@ button{
     width: fit-content;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+#addSlideBtn {
+    height: 28px;
+    border-radius: 1234px;
+    background-color: #FFFFFF;
+    border: 1px solid #4F46E5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+textarea {
+    border-radius: 15px;
+    min-width: 80%;
+    height: 100px;
+    max-width: 100%;
+}
+.labelAndCheckBox {
+    display: flex;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.labelAndCheckBox input {
+    margin: 0;
+    display: inline;
+    padding: 0;
+}
+
+.labelAndCheckBox label {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+input[type="file"] {
+    border-radius: 15px;
+}
+input[type="file"]::file-selector-button {
+    height: 100%;
+    border: 0;
+    border-right: 1px solid #4F46E5;
+}
+.currentImage {
+    padding-right: -10px;
+    width: calc(80% + 3px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    border-radius: 15px;
+    border: 1px solid #4F46E5;
+    margin-bottom: 10px;
+
+}
+
+img {
+    width: 60px;
+    margin-bottom: 2.5px;
+}
+span{
+    display: block;
+    margin-bottom: 9px;
+    margin-top: 9px;
 }

@@ -17,17 +17,20 @@
     <input id="title" asp-for="Title" />  <!-- Use Item1 to access Lesson -->
     <span asp-validation-for="Title" class="hints"></span>
     <span>Slides:</span>
-    <button type="button" id="addSlideBtn">+</button>
+    <button type="button" id="addSlideBtn">Add a slide</button>
     <div id="slides">
         <div>
+            <hr />
             <span>Slide 1:</span>
             <hr />
             <label for="content">Contnet: </label>
             <textarea id="content" asp-for="Slides[0].Content" for="content"></textarea>
-            <label for="enableCodeEditor">Enable code editor?</label>
-            <input type="checkbox" asp-for="Slides[0].enableCodeEditor"/>
+            <div class="enableEditor">
+                <input type="checkbox" asp-for="Slides[0].enableCodeEditor"/>
+                <label for="enableCodeEditor">Enable code editor?</label>
+            </div>
             <label for="Slides" >Upload Image</label>
-            <input type="file" name="imageFiles" />
+            <input type="file" name="imageFiles" class="uploadFiles" />
             <span>Options:</span>
             <br />
             <label for="option1">Option 1:</label>
@@ -47,38 +50,49 @@
 
 <a asp-controller="Lessons" asp-action="Index">&lt;&lt; Back to the lessons</a>
 <script>
-document.querySelectorAll('input[type="file"]').forEach(input => {
-    const blankFile = new File([], " "); // Create a blank file with no extension
-    const dataTransfer = new DataTransfer(); // Create a DataTransfer object
-    dataTransfer.items.add(blankFile); // Add the blank file to the DataTransfer object
-    input.files = dataTransfer.files; // Assign the files property of the file input
-});
+    function addAblankFile() {
+        let file = new File([], " ");
+        let allInputs = document.querySelectorAll('input[type="file"]');
+        let input = allInputs[allInputs.length - 1];
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        input.files = dataTransfer.files;
+    }
+    addAblankFile();
     let addSlideBtn = document.getElementById('addSlideBtn');
     let slidesDiv = document.getElementById('slides');
     let numberOfSlides = 1;
     addSlideBtn.addEventListener("click", function () {
-        slidesDiv.insertAdjacentHTML('beforeend', `<div>
-                    <span>Slide ${numberOfSlides+1}:</span>
-            <hr />
-                <label for="enableCodeEditor">Enable code editor?</label>
-                <input type="checkbox" name="Slides[${numberOfSlides}].enableCodeEditor"/>
-                <label for="Slides" >Upload Image</label>
-                                <input type="file" name ="imageFiles" />
+        slidesDiv.insertAdjacentHTML('beforeend', `
+        <div>
+                <hr>
+                <span>Slide ${numberOfSlides + 1}:</span>
+                <hr>
                 <label for="content">Contnet: </label>
-                <textarea id="content" name="Slides[${numberOfSlides}].Content" for="content"></textarea>
+                <textarea id="content" for="content" data-val="true" data-val-required="The Content field is required." name="Slides[${numberOfSlides}].Content"></textarea>
+                <div class="enableEditor">
+                <input type="checkbox" data-val="true" data-val-required="The enableCodeEditor field is required." id="Slides_${numberOfSlides}__enableCodeEditor" name="Slides[${numberOfSlides}].enableCodeEditor" value="true">
+                <label for="enableCodeEditor">Enable code editor?</label>
+                </div>
+                <div>
+                <label for="Slides">Upload Image</label>
+                <input type="file" name="imageFiles">
+                </div>
                 <span>Options:</span>
-            <br />
-            <label for="option1">Option 1:</label>
-                    <input id="option1" name="Slides[${numberOfSlides}].Options[0]" />
-            <label for="option2">Option 2:</label>
-                <input id="option2" name="Slides[${numberOfSlides}].Options[1]" />
-            <label for="option3">Option 3:</label>
-                    <input id="option3" name="Slides[${numberOfSlides}].Options[2]" />
-            <label for="option4">Option 4:</label>
-                    <input id="option4" name="Slides[${numberOfSlides}].Options[3]" />
-            <label for="correctAnswer">Correct Answer:</label>
-                    <input id="correctAnswer" name="Slides[${numberOfSlides}].CorrectOptionIndex"/></div>`);
+                <br>
+                <label for="option1">Option 1:</label>
+                <input id="option1" type="text" name="Slides[${numberOfSlides}].Options[0]" value="">
+                <label for="option2">Option 2:</label>
+                <input id="option2" type="text" name="Slides[${numberOfSlides}].Options[1]" value="">
+                <label for="option3">Option 3:</label>
+                <input id="option3" type="text" name="Slides[${numberOfSlides}].Options[2]" value="">
+                <label for="option4">Option 4:</label>
+                <input id="option4" type="text" name="Slides[${numberOfSlides}].Options[3]" value="">
+                <label for="correctAnswer">Correct Answer:</label>
+                <input id="correctAnswer" type="number" data-val="true" data-val-range="The field CorrectOptionIndex must be between 1 and 4." data-val-range-max="4" data-val-range-min="1" name="Slides[${numberOfSlides}].CorrectOptionIndex" value=""><input name="__Invariant" type="hidden" value="Slides[${numberOfSlides}].CorrectOptionIndex">
+         </div>`);
         numberOfSlides++;
+        addAblankFile();
     })
   
 </script>

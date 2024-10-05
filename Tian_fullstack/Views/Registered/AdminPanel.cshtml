@@ -20,14 +20,7 @@
     </header>
     <main>
         <h1>Admin panel</h1>
-
-    @foreach (var table in ViewBag.tables)
-    {
-        <a asp-controller="@table" asp-action="Index">
-            View @table
-        </a>
-        <br />
-    }
+        <a asp-controller="Lessons" asp-action="index">Lessons control</a>
     </main>
 </body>
 </html>

@@ -29,10 +29,10 @@
     }
 
 main {
-    overflow: auto;
     width: 90%;
     margin: auto;
     max-width: 800px;
+    position: relative;
     background-color: rgba(215, 220, 227, 0.48);
     min-height: 100vh;
     border-radius: 20px;
@@ -41,7 +41,6 @@ main {
 
 
 .lesson {
-    margin: auto;
     --b: #644dff;
     --bb: #4836bb;
     --bbb: #654dff63;
@@ -76,7 +75,6 @@ main {
 .line {
     background-color: #A5B4FC;
     width: 5px;
-    margin: auto;
     height: 20vh;
 }
 
@@ -84,9 +82,29 @@ main {
 .lesson_description {
     display: inline-flex
 }
-#lessons{
-    margin: 20px;
-}
+
 #lessons div:last-child {
    height:0;
+}
+#lessons {
+    height: fit-content;
+    width: fit-content;
+    margin-left: calc(50% - 26px);
+    padding-bottom: 20px;
+}
+.line{
+    margin-left: calc(50% - 3px)
+}
+#prgoress {
+    position: sticky;
+    top: 50%;
+    color: #4836bb;
+    font-weight: bolder;
+    border: 2px solid #4836bb;
+    border-radius: .75rem;
+    padding: 5px;
+    font-size: 19px;
+    margin-bottom: 50px;
+    width: fit-content;
+    margin-left: calc(25% - 53.405px)
 }

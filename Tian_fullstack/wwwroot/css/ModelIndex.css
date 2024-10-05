@@ -57,11 +57,17 @@ table {
     border:solid black 1px;
     border-radius:6px;
     margin: auto;
+    max-width: 90%;
+    min-width: 50%
 }
 
 td, th {
     border-left:solid black 1px;
     border-top:solid black 1px;
+}
+
+td{
+    text-align: center;
 }
 
 th {
@@ -76,4 +82,16 @@ h1, a{
     display:block;
     text-align: center;
     padding: 10px;
+}
+
+#actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.editBtn{
+    padding:0;
+    display: block;
+    margin-right: 5px;
+    margin-left: 5px;
 }

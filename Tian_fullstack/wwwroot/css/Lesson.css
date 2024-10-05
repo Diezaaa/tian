@@ -1,13 +1,13 @@
 ﻿
 #inner {
     align-content: center;
-    height: calc(100vh - 138.25px);
+    min-height: calc(100vh - 208.25px);
     margin: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
-    font-size: 17px;
-    width: 70%;
+    font-size: 19px;
+    width: 87%;
     justify-content: center;
     gap: 35px;
 }
@@ -119,5 +119,28 @@ button {
     font-weight: bolder;
 }
 #slidePhoto{
-    width: 85%;
+    width: 70%;
+    min-width: 320px;
+}
+pre{
+    background-color: #f4f4f4;
+}
+
+code {
+    border-radius: 3px;
+    font-family: courier, monospace;
+    padding: 0 3px;
+    width: 90%;
+}
+
+iframe{
+    height: 400px;
+}
+
+h1{
+    font-size: 21px;
+    font-weight: bolder;
+}
+.arrow{
+    height: 32px;
 }

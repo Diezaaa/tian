@@ -118,7 +118,6 @@ namespace Tian_fullstack.Controllers
         // Views for admins
         public IActionResult AdminPanel()
         {
-            ViewBag.tables = _db.Model.GetEntityTypes().Select(t => t.GetTableName()).ToList();
             return View();
         }
     }
