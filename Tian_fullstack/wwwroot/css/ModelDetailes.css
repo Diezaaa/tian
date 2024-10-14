@@ -32,3 +32,9 @@ a {
     text-align: center;
     color: #4F46E5;
 }
+.content{
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+}

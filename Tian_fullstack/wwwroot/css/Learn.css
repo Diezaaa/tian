@@ -40,10 +40,10 @@ main {
 
 
 
+
 .lesson {
-    --b: #644dff;
-    --bb: #4836bb;
-    --bbb: #654dff63;
+    margin: auto;
+    box-shadow: 0 8px 0;
     cursor: pointer;
     width: 48px;
     height: 48px;
@@ -55,10 +55,8 @@ main {
     font-weight: 800;
     letter-spacing: 2px;
     color: #fff;
-    background: var(--b);
-    border: 2px solid var(--bb);
+    border: 2px solid;
     border-radius: .75rem;
-    box-shadow: 0 8px 0 var(--bb);
     transition: all .1s ease;
 }
 
@@ -68,12 +66,13 @@ main {
 
 .lesson:active {
     transform: translateY(8px);
-    box-shadow: 0 0 0 #4836bb;
+    box-shadow: 0px 0px 0px #4836bb;
     transition: all .1s ease;
 }
 
 .line {
-    background-color: #A5B4FC;
+    background-color: grey;
+    opacity: 0.5;
     width: 5px;
     height: 20vh;
 }
@@ -107,4 +106,9 @@ main {
     margin-bottom: 50px;
     width: fit-content;
     margin-left: calc(25% - 53.405px)
+}
+
+#slidePhoto{
+    margin:auto;
+    display:block;
 }

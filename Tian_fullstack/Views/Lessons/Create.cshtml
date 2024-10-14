@@ -9,22 +9,23 @@
 }
 
 <h1>Create a new lesson</h1>
-<form method="post" enctype="multipart/form-data">
-    <label for="order">Order: </label>
-    <input id="order" asp-for="Order" />
-
-    <label for="title">Title: </label>
-    <input id="title" asp-for="Title" />  <!-- Use Item1 to access Lesson -->
-    <span asp-validation-for="Title" class="hints"></span>
+<form method="post" enctype="multipart/form-data" id="lessonForm">
+    <label for="Order">Order: </label>
+    <input id="Order" asp-for="Order" />
+    <span class="error" id="OrderError"></span>
+    <label for="Title">Title: </label>
+    <input id="Title" asp-for="Title" />
+    <span class="error" id="TitleError"></span>
     <span>Slides:</span>
     <button type="button" id="addSlideBtn">Add a slide</button>
     <div id="slides">
-        <div>
+        <div class="slide">
             <hr />
             <span>Slide 1:</span>
             <hr />
-            <label for="content">Contnet: </label>
-            <textarea id="content" asp-for="Slides[0].Content" for="content"></textarea>
+            <label for="slide0Content">Contnet: </label>
+            <textarea id="slide0Content" asp-for="Slides[0].Content" for="content"></textarea>
+            <span id="slide0ContentError" class="error"></span>
             <div class="enableEditor">
                 <input type="checkbox" asp-for="Slides[0].enableCodeEditor"/>
                 <label for="enableCodeEditor">Enable code editor?</label>
@@ -33,23 +34,27 @@
             <input type="file" name="imageFiles" class="uploadFiles" />
             <span>Options:</span>
             <br />
-            <label for="option1">Option 1:</label>
-            <input id="option1" asp-for="Slides[0].Options[0]" />
-            <label for="option2">Option 2:</label>
-            <input id="option2" asp-for="Slides[0].Options[1]" />
-            <label for="option3">Option 3:</label>
-            <input id="option3" asp-for="Slides[0].Options[2]" />
-            <label for="option4">Option 4:</label>
-            <input id="option4" asp-for="Slides[0].Options[3]" />
-            <label for="correctAnswer">Correct Answer:</label>
-            <input id="correctAnswer" asp-for="Slides[0].CorrectOptionIndex"/>
+            <label for="slide0Option1">Option 1:</label>
+            <input id="slide0Option1" asp-for="Slides[0].Options[0]" />
+            <label for="slide0Option2">Option 2:</label>
+            <input id="slide0Option2" asp-for="Slides[0].Options[1]" />
+            <label for="slide0Option3">Option 3:</label>
+            <input id="slide0Option3" asp-for="Slides[0].Options[2]" />
+            <label for="v">Option 4:</label>
+            <input id="slide0Option4" asp-for="Slides[0].Options[3]" />
+            <label for="slide0CorrectAnswer">Correct Answer:</label>
+            <input id="slide0CorrectAnswer" asp-for="Slides[0].CorrectOptionIndex"/>
+            <span id="slide0OptionsMessage" class="error"></span>
         </div>
     </div>
     <button type="submit" id="sumbitBtn">Create</button>
 </form>
 
 <a asp-controller="Lessons" asp-action="Index">&lt;&lt; Back to the lessons</a>
-<script>
+@section Scripts
+{
+    <script src="~/js/lessonValidation.js"></script>
+    <script>
     function addAblankFile() {
         let file = new File([], " ");
         let allInputs = document.querySelectorAll('input[type="file"]');
@@ -64,14 +69,15 @@
     let numberOfSlides = 1;
     addSlideBtn.addEventListener("click", function () {
         slidesDiv.insertAdjacentHTML('beforeend', `
-        <div>
+        <div class="slide">
                 <hr>
                 <span>Slide ${numberOfSlides + 1}:</span>
                 <hr>
-                <label for="content">Contnet: </label>
-                <textarea id="content" for="content" data-val="true" data-val-required="The Content field is required." name="Slides[${numberOfSlides}].Content"></textarea>
+                <label for="slide${numberOfSlides}Content">Contnet: </label>
+                <textarea id="slide${numberOfSlides}Content" name="Slides[${numberOfSlides}].Content"></textarea>
+                <span id="slide${numberOfSlides}ContentError" class="error"></span>
                 <div class="enableEditor">
-                <input type="checkbox" data-val="true" data-val-required="The enableCodeEditor field is required." id="Slides_${numberOfSlides}__enableCodeEditor" name="Slides[${numberOfSlides}].enableCodeEditor" value="true">
+                <input type="checkbox">
                 <label for="enableCodeEditor">Enable code editor?</label>
                 </div>
                 <div>
@@ -81,18 +87,20 @@
                 <span>Options:</span>
                 <br>
                 <label for="option1">Option 1:</label>
-                <input id="option1" type="text" name="Slides[${numberOfSlides}].Options[0]" value="">
-                <label for="option2">Option 2:</label>
-                <input id="option2" type="text" name="Slides[${numberOfSlides}].Options[1]" value="">
-                <label for="option3">Option 3:</label>
-                <input id="option3" type="text" name="Slides[${numberOfSlides}].Options[2]" value="">
-                <label for="option4">Option 4:</label>
-                <input id="option4" type="text" name="Slides[${numberOfSlides}].Options[3]" value="">
-                <label for="correctAnswer">Correct Answer:</label>
-                <input id="correctAnswer" type="number" data-val="true" data-val-range="The field CorrectOptionIndex must be between 1 and 4." data-val-range-max="4" data-val-range-min="1" name="Slides[${numberOfSlides}].CorrectOptionIndex" value=""><input name="__Invariant" type="hidden" value="Slides[${numberOfSlides}].CorrectOptionIndex">
+                <input id="slide${numberOfSlides}Option1" type="text" name="Slides[${numberOfSlides}].Options[0]" value="">
+                <label for="slide${numberOfSlides}Option2">Option 2:</label>
+                <input id="slide${numberOfSlides}Option2" type="text" name="Slides[${numberOfSlides}].Options[1]" value="">
+                <label for="slide${numberOfSlides}Option3">Option 3:</label>
+                <input id="slide${numberOfSlides}Option3" type="text" name="Slides[${numberOfSlides}].Options[2]" value="">
+                <label for="slide${numberOfSlides}Option4">Option 4:</label>
+                <input id="slide${numberOfSlides}Option4" type="text" name="Slides[${numberOfSlides}].Options[3]" value="">
+                <label for="slide${numberOfSlides}CorrectAnswer">Correct Answer:</label>
+                <input id="slide${numberOfSlides}CorrectAnswer" type="number" name="Slides[${numberOfSlides}].CorrectOptionIndex">
+                <span id="slide${numberOfSlides}OptionsMessage" class="error"></span>
          </div>`);
         numberOfSlides++;
         addAblankFile();
     })
-  
+
 </script>
+}

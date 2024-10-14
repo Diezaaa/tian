@@ -19,7 +19,10 @@
             <hr />
             <span class="bold">Slide @(i + 1):</span>
             <hr />
-            <p><span class="bold">Contnet: </span>@Html.Raw(@Model.Slides[i].Content.Replace(Environment.NewLine, "<br />"))</p>
+            <span class="bold">Contnet: </span>
+            <div class="content">
+                <p >@Html.Raw(@Model.Slides[i].Content.Replace(Environment.NewLine, "<br />"))</p>
+            </div>
             <p><span class="bold">Is code editor enabled:</span> @(Model.Slides[i].enableCodeEditor)</p>
             <div class="currentImage">
                 <span class="bold">Current image:</span>

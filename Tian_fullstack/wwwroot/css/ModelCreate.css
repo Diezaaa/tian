@@ -92,7 +92,7 @@ button:hover{
     animation-fill-mode: forwards
 }
 
-.hints {
+.error {
     margin-bottom: 12px;
     color: red;
 }
@@ -167,4 +167,15 @@ span{
     display: block;
     margin-bottom: 9px;
     margin-top: 9px;
+}
+.enableEditor {
+    display: flex;
+    align-items:center;
+}
+input[type="checkbox"]{
+    padding:0;
+    margin:3px;
+}
+label{
+    height:fit-content;
 }

@@ -68,6 +68,8 @@ td, th {
 
 td{
     text-align: center;
+    vertical-align: middle;
+    padding: 5px;
 }
 
 th {
@@ -84,14 +86,14 @@ h1, a{
     padding: 10px;
 }
 
-#actions {
+.actions {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction:column;
+    vertical-align:middle
 }
 
 .editBtn{
     padding:0;
     display: block;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin:5px;
 }

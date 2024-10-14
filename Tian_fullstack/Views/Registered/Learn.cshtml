@@ -22,3 +22,30 @@
     </div>
 }
 </div>
+<script>
+    let lessons = document.getElementsByClassName("lesson");
+    let colors = [
+        `background: #1cc94a;
+        border-color: #0c7a2a;
+        color: #0c7a2a;`,
+        `background: #1486e3;
+        border-color: #0c4d82;
+        color:  #0c4d82;`,
+        `background: #e81010;
+        border-color: #780b0b;
+        color: #780b0b;`,
+        `background: #f200ff;
+        border-color: #77097d;
+        color: #77097d;`
+    ]
+    let counter = 0;
+    for (let i = 0; i < document.getElementsByClassName("lesson").length; i++) 
+    { 
+        if (counter == colors.length) 
+        {
+            counter = 0;
+        }
+        lessons[i].style.cssText += colors[counter];
+        counter++;
+    }
+</script>

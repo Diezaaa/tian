@@ -19,6 +19,13 @@
     <main>
         @RenderBody()
         <a asp-controller="Registered" asp-action="AdminPanel"> &lt;&lt; Back to admin panel</a>
+
     </main>
+    @RenderSection("Scripts", required: false)
+    <script>
+        document.querySelector('form').addEventListener('submit', function() {
+            document.querySelector('button').disabled = true;
+        });
+    </script>
 </body>
 </html>

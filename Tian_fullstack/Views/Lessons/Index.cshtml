@@ -33,10 +33,12 @@
             <td>
                 @lesson.Title
             </td>
-            <td id="actions">
-                <a asp-action="Edit" asp-route-lessonId="@lesson.Id" class="editBtn">Edit</a>
-                <a asp-action="Delete" asp-route-lessonId="@lesson.Id" class="editBtn">Delete</a>
-                <a asp-action="Detailes" asp-route-lessonId="@lesson.Id" class="editBtn">Detailes</a>
+            <td >
+                <div class ="actions">
+                    <a asp-action="Edit" asp-route-lessonId="@lesson.Id" class="editBtn">Edit</a>
+                    <a asp-action="Delete" asp-route-lessonId="@lesson.Id" class="editBtn">Delete</a>
+                    <a asp-action="Detailes" asp-route-lessonId="@lesson.Id" class="editBtn">Detailes</a>
+                </div>
             </td>
         </tr>
         }
