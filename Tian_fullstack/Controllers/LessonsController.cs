@@ -18,11 +18,10 @@ namespace Tian_fullstack.Controllers
             _db = db;
             _hostEnvironment = hostEnvironment;
         }
+
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public IActionResult Index()
         {
-            Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-            Response.Headers["Pragma"] = "no-cache";
-            Response.Headers["Expires"] = "0";
             var lessonsList = _db.Lessons.ToList().OrderBy(lesson => lesson.Order).ToList();
             return View(lessonsList);
         }
@@ -67,13 +66,12 @@ namespace Tian_fullstack.Controllers
             }
 
 
-            return View();
+            return RedirectToAction("Index");
         }
+
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public IActionResult Edit()
         {
-            Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-            Response.Headers["Pragma"] = "no-cache";
-            Response.Headers["Expires"] = "0";
             var lesson =  _db.Lessons.Include(l => l.Slides).FirstOrDefault(l => l.Id == int.Parse(HttpContext.Request.Query["lessonId"]));
             if (lesson == null)
             {
@@ -86,7 +84,6 @@ namespace Tian_fullstack.Controllers
         {
             void deleteSlideImageIfExist(int orderNumber)
             {
-                var gafasdf = _db.Slides.FirstOrDefault(p => p.LessonNumber == obj.Slides[0].LessonNumber && p.Order == obj.Slides[orderNumber].Order);
                 if (_db.Slides.FirstOrDefault(p => p.LessonNumber == obj.Slides[0].LessonNumber && p.Order == obj.Slides[orderNumber].Order) != null)
                 {
                     if ((_db.Slides.FirstOrDefault(p => p.LessonNumber == obj.Slides[0].LessonNumber && p.Order == obj.Slides[orderNumber].Order).ImagePath != null))
@@ -143,18 +140,7 @@ namespace Tian_fullstack.Controllers
                 i++;
             }
 
-            foreach (var lessonSlide in obj.Slides)
-            {
-                foreach (var slide in _db.Slides)
-                {
-                    if (slide.Order == lessonSlide.Order && slide.LessonNumber == lessonSlide.LessonNumber)
-                    {
-                        _db.Slides.Remove(slide);
-                        _db.Slides.Add(lessonSlide);
-                        break;
-                    }
-                }
-            }
+            _db.Slides.RemoveRange(_db.Slides.Where(s => s.LessonNumber == obj.Order));
 
             ModelState.Clear();
             if (ModelState.IsValid)

@@ -102,7 +102,7 @@ button {
 }
 
 .option {
-    min-height:fit-content;
+    min-height: fit-content;
     padding: 7px;
     --b: #A594F9;
     --bb: #CDC1FF;
@@ -110,12 +110,18 @@ button {
     margin: 20px;
 }
 
-#isCorrect{
-    color:green;
-    font-weight:bolder;
+#isCorrect {
+    padding-top: 20px;
+    color: green;
+    margin: auto;
+    font-weight: bolder;
+    width: fit-content;
 }
 #isIncorrect {
+    padding-top: 20px;
+    width: fit-content;
     color: red;
+    margin: auto;
     font-weight: bolder;
 }
 #slidePhoto {

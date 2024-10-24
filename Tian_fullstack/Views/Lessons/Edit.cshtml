@@ -26,31 +26,32 @@
         <div class="slide">
             <hr />
             <span>Slide @(1+i):</span>
+            <button class="delete" type="button">Delete</button>
             <hr />
             <label for="slide@(i)Content">Contnet: </label>
             <textarea id="slide@(i)Content" asp-for="Slides[@i].Content" for="content"></textarea>
             <span id="slide@(i)ContentError" class="error"></span>
             <div class="labelAndCheckBox">
-                <input type="checkbox" asp-for="Slides[i].enableCodeEditor"/>
-                <label for="enableCodeEditor">Enable code editor?</label>
+                <input type="checkbox" name="Slides[i].enableCodeEditor" id="slideEditor" value="true">
+                <label for="slideEditor">Enable code editor?</label>
             </div>
             @if (Model.Slides[i].ImagePath != null)
             {
                 <div class="currentImage">
-                    <label for="Slides">Upload Image</label>
-                    <input type="file" name="imageFiles" class="uploadFiles" />
+                    <label for="slideFile">Upload Image</label>
+                    <input id="slideFile" type="file" name="imageFiles" class="uploadFiles" />
                     <span>Original image: </span>
                     <img src="~/images/imagesForSlides/@Model.Slides[i].ImagePath" />
                         <div class="labelAndCheckBox">
-                        <input type="checkbox" name="deleteOriginal @i" />
-                        <label for="enableCodeEditor">Delete original image?</label>
+                        <input type="checkbox" name="deleteOriginal @i" id="slideDelete"/>
+                        <label for="slideDelete">Delete original image?</label>
                     </div>
                 </div>
             }
             else
             {
-                <label for="Slides">Upload Image</label>
-                <input type="file" name="imageFiles" class="uploadFiles" />
+                <label for="slideFile">Upload Image</label>
+                <input type="file" name="imageFiles" id="slideFile">
             }
             <span>Options:</span>
             <label for="slide@(i)Option1">Option 1:</label>
@@ -63,7 +64,6 @@
             <input id="slide@(i)Option4" asp-for="Slides[i].Options[3]" />
             <label for="slide@(i)CorrectAnswer">Correct Answer:</label>
             <input id="slide@(i)CorrectAnswer" asp-for="Slides[i].CorrectOptionIndex"/>
-            <span asp-validation-for="Slides[@i].CorrectOptionIndex" class="error"></span> 
             <span id="slide@(i)OptionsMessage" class="error"></span>
         </div>
     }
@@ -82,55 +82,94 @@
         input.files = dataTransfer.files; // Assign the files property of the file input
     });
 </script>
-<script>
-    function addAblankFile() {
-        let file = new File([], " ");
-        let allInputs = document.querySelectorAll('input[type="file"]');
-        let input = allInputs[allInputs.length - 1];
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        input.files = dataTransfer.files;
-    }
-    addAblankFile();
-    let addSlideBtn = document.getElementById('addSlideBtn');
-    let slidesDiv = document.getElementById('slides');
-    let numberOfSlides = @i;
+    <script>
+        function addAblankFile() {
+            let file = new File([], " ");
+            let allInputs = document.querySelectorAll('input[type="file"]');
+            let input = allInputs[allInputs.length - 1];
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            input.files = dataTransfer.files;
+        }
+        let addSlideBtn = document.getElementById('addSlideBtn');
+        let slidesDiv = document.getElementById('slides');
         addSlideBtn.addEventListener("click", function () {
             slidesDiv.insertAdjacentHTML('beforeend', `
                 <div class="slide">
                         <hr>
-                        <span>Slide ${numberOfSlides + 1}:</span>
+                        <span>Slide : </span>
+                        <button class="delete" type="button">Delete</button>
                         <hr>
-                        <label for="slide${numberOfSlides}Content">Contnet: </label>
-                        <textarea id="slide${numberOfSlides}Content" name="Slides[${numberOfSlides}].Content"></textarea>
-                        <span id="slide${numberOfSlides}ContentError" class="error"></span>
+                        <label for="slideContent">Contnet: </label>
+                        <textarea id="slideContent" name="Slides[].Content"></textarea>
+                        <span id="slideContentError" class="error"></span>
                         <div class="enableEditor">
-                        <input type="checkbox">
-                        <label for="enableCodeEditor">Enable code editor?</label>
+                                <input type="checkbox" name="Slides[].enableCodeEditor" id="slideEditor" value="true">
+                                <label for="slideEditor">Enable code editor?</label>
                         </div>
                         <div>
-                        <label for="Slides">Upload Image</label>
-                        <input type="file" name="imageFiles">
+                        <label for="slideFile">Upload Image</label>
+                        <input type="file" name="imageFiles" id="slideFile">
                         </div>
                         <span>Options:</span>
                         <br>
                         <label for="option1">Option 1:</label>
-                        <input id="slide${numberOfSlides}Option1" type="text" name="Slides[${numberOfSlides}].Options[0]" value="">
-                        <label for="slide${numberOfSlides}Option2">Option 2:</label>
-                        <input id="slide${numberOfSlides}Option2" type="text" name="Slides[${numberOfSlides}].Options[1]" value="">
-                        <label for="slide${numberOfSlides}Option3">Option 3:</label>
-                        <input id="slide${numberOfSlides}Option3" type="text" name="Slides[${numberOfSlides}].Options[2]" value="">
-                        <label for="slide${numberOfSlides}Option4">Option 4:</label>
-                        <input id="slide${numberOfSlides}Option4" type="text" name="Slides[${numberOfSlides}].Options[3]" value="">
-                        <label for="slide${numberOfSlides}CorrectAnswer">Correct Answer:</label>
-                        <input id="slide${numberOfSlides}CorrectAnswer" type="number" name="Slides[${numberOfSlides}].CorrectOptionIndex">
-                        <span id="slide${numberOfSlides}OptionsMessage" class="error"></span>
+                        <input id="slideOption1" type="text" name="Slides[].Options[0]" value="">
+                        <label for="slideOption2">Option 2:</label>
+                        <input id="slideOption2" type="text" name="Slides[].Options[1]" value="">
+                        <label for="slideOption3">Option 3:</label>
+                        <input id="slideOption3" type="text" name="Slides[].Options[2]" value="">
+                        <label for="slideOption4">Option 4:</label>
+                        <input id="slideOption4" type="text" name="Slides[].Options[3]" value="">
+                        <label for="slideCorrectAnswer">Correct Answer:</label>
+                        <input id="slideCorrectAnswer" type="number" name="Slides[].CorrectOptionIndex">
+                        <span id="slideOptionsMessage" class="error"></span>
                  </div>`);
-            numberOfSlides++;
             addAblankFile();
         })
-</script>
+
+    </script>
+    <script>
+        let deleteBtns = document.getElementsByClassName("delete")
+        for (let i = 0; i < deleteBtns.length; i++) {
+            deleteBtns[i].addEventListener("click", () => { deleteSlide(event); orderSlides() })
+        }
+        addSlideBtn.addEventListener("click", () => {
+            orderSlides()
+            let deleteBtns = document.getElementsByClassName("delete")
+            for (let i = 0; i < deleteBtns.length; i++) {
+                deleteBtns[i].addEventListener("click", () => { deleteSlide(event); orderSlides() })
+            }
+        })
+        function deleteSlide(event) {
+            event.target.parentNode.remove()
+        }
+        function changeSlideNum(string, slideNum, position) {
+            if (!isNaN(parseInt(string[position]))) {
+                string = string.replace(/\d/, '');
+            }
+            let firstPart = string.slice(0, position)
+            let secondPart = string.slice(position)
+            return firstPart + slideNum + secondPart;
+        }
+        function orderSlides() {
+            for (let i = 0; i < document.getElementsByClassName("slide").length; i++) {
+                slideInputsLabels = document.getElementsByClassName("slide")[i].querySelectorAll("input:not([type='hidden'],[type='file']), textarea, label, .error")
+                document.getElementsByClassName("slide")[i].querySelector("span:first-of-type").innerText = `Slide ${i + 1}`
+                slideInputsLabels.forEach((elem) => {
+                    if (elem.tagName == "INPUT" || elem.tagName == "TEXTAREA") {
+                        elem.setAttribute("id", changeSlideNum(elem.getAttribute("id"), i, 5))
+                        elem.setAttribute("name", changeSlideNum(elem.getAttribute("name"), i, 7))
+
+                    }
+                    else if (elem.tagName == "SPAN") {
+                        elem.setAttribute("id", changeSlideNum(elem.getAttribute("id"), i, 5))
+                    }
+                    else if (elem.tagName == "LABEL") {
+                        elem.setAttribute("for", changeSlideNum(elem.getAttribute("for"), i, 5))
+                    }
+                })
+            }
+        }
+    </script>
 }
-
-
-
