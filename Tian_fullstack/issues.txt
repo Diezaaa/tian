@@ -1,0 +1,8 @@
+﻿Known issues:
+1 - After slide deletion the image of the slide remains in the memory of the server
+2 - After submitting a form of a lesson without slides, custom error doesn't appear
+3 - After clicking "Choose File" in the edit lesson page and in the create lesson page not choosing a file
+	can lead to unexpected behavior
+4 - The validation script for reg doesn't prevent entering a date in the future
+	in birth date field
+5 - The validation script doesn't prevent entering negative order while creating a lesson

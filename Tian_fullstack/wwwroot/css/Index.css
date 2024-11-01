@@ -1,0 +1,162 @@
+﻿#top {
+    margin: auto;
+    background-color: rgba(215, 220, 227, 0.48);
+    padding-bottom: 1px;
+    border-radius: 20px;
+}
+
+    #top h1 {
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: 50px;
+        font-size: 25px;
+        text-align: center;
+        font-weight: bold;
+        width: 85%;
+    }
+
+    #top p {
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: 35px;
+        line-height: 25px;
+        font-weight: bold;
+        text-align: center;
+        width: 70%;
+    }
+
+@keyframes flying_rocket {
+    0% {
+        padding-top: 0;
+        padding-left: 0;
+        margin-bottom: 10%;
+    }
+
+    100% {
+        padding-top: 6px;
+        margin-bottom: calc(10% - 6px)
+    }
+}
+
+#pc {
+    display: block;
+    padding-bottom: 10%;
+    margin-top: 10%;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 60%;
+    animation-name: flying_rocket;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+#start {
+    width: 150px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-top: 15%;
+    font-size: 18px;
+    background-color: #4F46E5;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 1234px;
+}
+
+#demo {
+    margin-right: auto;
+    margin-left: auto;
+    background-color: rgba(215, 220, 227, 0.48);
+    border-radius: 20px;
+    margin-top: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+    #demo h1 {
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    #demo h1 {
+        width: 65%;
+        margin: auto;
+    }
+
+    #demo p {
+        width: 65%;
+        margin: auto;
+    }
+
+#devices {
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#demo img {
+    margin-top: 20px;
+    height: 200px;
+}
+
+@keyframes glwoing {
+    from {
+        box-shadow: 0 0 0px #4F46E5, 0 0 0px #4F46E5, 0 0 0px #4F46E5, 0 0 0px #4F46E5;
+        border: none
+    }
+
+    to {
+        box-shadow: 0 0 4px #4F46E5, 0 0 30px #4F46E5, 0 0 40px #4F46E5, 0 0 150px #4F46E5;
+        border: none;
+    }
+}
+
+#start:hover {
+    animation: glwoing 1s forwards;
+    animation-play-state: running;
+}
+
+#benefits {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: auto;
+    margin-left: auto;
+    height: 660px;
+    border-radius: 20px;
+}
+
+.benefit {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: rgba(226,232,240, 0.48);
+    border-radius: 20px;
+    min-height: 200px;
+}
+
+    .benefit h1 {
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+.benefit_text {
+    width: 65%;
+}
+
+#interactive_lessons {
+    text-align: center;
+}
+
+.benefit_image img {
+    width: 80px;
+}
