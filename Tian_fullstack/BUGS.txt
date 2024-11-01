@@ -1,0 +1,6 @@
+﻿Known bugs:
+1 - After slide deletion the image of the slide remains in the memory of the server
+2 - After submitting a form of a lesson without slides, custom error doesn't appear
+3 - After clicking "Choose File" in the edit lesson page and in the create lesson page not choosing a file
+	can lead to unexpected behavior
+4 - 
