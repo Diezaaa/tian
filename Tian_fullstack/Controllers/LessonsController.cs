@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Tian_fullstack.Data;
-using Tian_fullstack.Models;
+using Tian_fullstack.Areas.Learning.Models;
 
 namespace Tian_fullstack.Controllers
 {
