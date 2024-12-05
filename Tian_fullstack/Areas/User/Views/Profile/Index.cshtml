@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Tian_fullstack.Areas.Account.Models
+@model User
+@{
     ViewData["Title"] = "Profile";
     Layout = "_LayoutRegistered";
 }
@@ -10,52 +12,85 @@
         <img src="~/images/settings.svg" id="settings" />
     </a>
 }
-<div id="avatar_and_bio">
-    <img src="../images/avatar_placholder.png">
-    <p id="nickname">Your name</p>
-    <h1>Bio:</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Odio eu feugiat pretium nibh ipsum consequat nisl vel. Viverra nibh cras pulvinar mattis. Vitae auctor eu augue ut. Ac
-</div>
-<div id="stats">
-    <div id="day_streak">
-        <img src="../images/fire_icon.svg">
-        0 days streak
+<div id="inner">
+    <div id="avatar">
+        <img src="../images/avatar_default.svg">
+        <p id="nickname">@ViewBag.user.UserName</p>
     </div>
-    <div id="percents">
-        0% is completed
+    <div id="stats">
+        <div id="day_streak">
+            <img src="../images/fire_icon.svg">
+            @ViewBag.streak days streak
+        </div>
+        <div id="percents">
+            @ViewBag.percents% is completed
+        </div>
     </div>
-</div>
-<div class="badges_title">
-    Badges you have:
-</div>
-<p id="no_badges">You don't have any badges</p>
-<div class="badges_title">
-    Badges you don't have:
-</div>
-<div id="badges">
-    <div class="badge">
-        <img src="../images/final_emoji.png">
-        <span>Finalist</span>
-        Complete the entire course
+    <!-- The achievements system isn't good, make it with mdoels-->
+    <div class="badges_title">
+        Achievements you have:
     </div>
-    <div class="badge">
-        <img src="../images/first_steps_badge.png">
-        <span>First Steps</span>
-        Complete the first lesson
+    <div class="badges">
+        @if (ViewBag.percents >= 50)
+        {
+            <div class="badge">
+                <img src="../images/half_way_badge.png">
+                <span>Halfway there</span>
+                Complete 50% of the course
+            </div>
+        }
+        @if (ViewBag.percents == 100)
+        {
+            <div class="badge">
+                <img src="../images/final_emoji.png">
+                <span>Finalist</span>
+                Complete the entire course
+            </div>
+        }
+        @if (ViewBag.iSFirstLesson)
+        {
+            <div class="badge">
+                <img src="../images/first_steps_badge.png">
+                <span>First Steps</span>
+                Complete the first lesson
+            </div>
+        }
+        else if (!ViewBag.iSFirstLesson && !(ViewBag.percents == 100) && !(ViewBag.percents >= 50))
+        {
+            <p id="no_badges">You have no achievements!</p>
+        }
     </div>
-    <div class="badge">
-        <img src="../images/final_emoji.png">
-        <span>Syntax Master</span>
-        Write the first line of code
+    <div class="badges_title">
+        Achievements you don't have:
     </div>
-    <div class="badge">
-        <img src="../images/half_way_badge.png">
-        <span>Halfway there</span>
-        Complete 50% of the course
-    </div>
-    <div class="badge">
-        <img src="../images/quiz_champion_badge.png">
-        <span>Quiz Champion</span>
-        Score 100% on all quizzes
+    <div class="badges">
+        @if (ViewBag.percents < 50)
+        {
+            <div class="badge">
+                <img src="../images/half_way_badge.png">
+                <span>Halfway there</span>
+                Complete 50% of the course
+            </div>
+        }
+        @if (ViewBag.percents != 100)
+        {
+            <div class="badge">
+                <img src="../images/final_emoji.png">
+                <span>Finalist</span>
+                Complete the entire course
+            </div>
+        }
+        @if (!ViewBag.iSFirstLesson)
+        {
+            <div class="badge">
+                <img src="../images/first_steps_badge.png">
+                <span>First Steps</span>
+                Complete the first lesson
+            </div>
+        }
+        else if (ViewBag.iSFirstLesson && ViewBag.percents == 100 && ViewBag.percents >= 50)
+        {
+            <p id="no_badges">You have gotten all the achievements!</p>
+        }
     </div>
 </div>

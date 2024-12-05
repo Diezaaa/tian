@@ -6,7 +6,7 @@
     flex-direction: column;
     font-size: 19px;
     width: 87%;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -125,21 +125,21 @@ button {
     font-weight: bolder;
 }
 #slidePhoto {
-    width: 70%;
-    min-width: 320px;
+    width: 100%;
     margin: auto;
     display: block;
 
 }
-pre{
+pre {
+    overflow-x: auto;
+    padding: 10px;
     background-color: #f4f4f4;
 }
 
 code {
+
     border-radius: 3px;
     font-family: courier, monospace;
-    padding: 0 3px;
-    width: 90%;
 }
 
 iframe{
@@ -153,4 +153,8 @@ h1{
 }
 .arrow{
     height: 32px;
+}
+main{
+    display: flex;
+    flex-direction: column;
 }

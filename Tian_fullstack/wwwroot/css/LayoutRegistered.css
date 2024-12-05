@@ -7,12 +7,13 @@
 }
 
 #settings{
-    width: 35px;
+    height: 30px;
 }
 
 header {
     width: 90%;
     margin: auto;
+    height: 30px;
     padding-bottom: 15px;
     padding-left: 15px;
     padding-right: 15px;
@@ -20,6 +21,11 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+/* Reseting styles of the navbar for displaying it more correctly*/
+nav * {
+    all: unset;
 }
 
 nav {
@@ -45,10 +51,13 @@ nav {
         height: 100%;
     }
 
-    nav div {
-        text-align: center;
+    nav ul li{
+        display:flex;
     }
-
+    nav img{
+        display:block;
+    justify-self: center;
+    }
 
 footer {
     border-radius: 20px 20px 0px 0px;
@@ -56,6 +65,7 @@ footer {
     margin: auto;
     background-color: rgba(215, 220, 227, 0.48);
     height: 120px;
+    text-align: center;
     max-width: 800px;
     display: flex;
     align-items: center;
@@ -64,4 +74,40 @@ footer {
 
     footer span {
         color: #4F46E5;
+        font-weight:bold;
     }
+
+
+h1 {
+    font-size: 35px;
+    padding: 10px;
+    display: block;
+    text-align: center;
+}
+
+a {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+
+main {
+    min-height: calc(100vh - 88.25px);
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    background-color: rgba(215, 220, 227, 0.48);
+    border-radius: 20px;
+}
+#inner{
+    width: 90%;
+    margin: auto;
+}
+
+/* Highlighting the current page's link */
+.active {
+    font-weight: bold;
+    color: #007bff; /* Example: Bootstrap primary color */
+    text-decoration: underline;
+    filter: hue-rotate(90deg);
+}

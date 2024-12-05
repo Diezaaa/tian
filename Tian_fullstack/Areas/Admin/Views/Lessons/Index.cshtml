@@ -2,7 +2,7 @@
 @model List<Lesson>
 @{
     ViewData["Title"] = "Create a lesson";
-    Layout = "_LayoutCrudOperations";
+    Layout = "_LayoutRegistered";
 }
 @section Style {
     <link rel="stylesheet" href="~/css/ModelIndex.css"/>
@@ -48,3 +48,4 @@
 
 </div>
 <a asp-controller="Lessons" asp-action="Create">Crate a new lesson</a>
+<a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>

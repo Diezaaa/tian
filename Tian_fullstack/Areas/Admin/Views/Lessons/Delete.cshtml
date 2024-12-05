@@ -2,7 +2,7 @@
 @model Lesson
 @{
     ViewData["Title"] = "Create a lesson";
-    Layout = "_LayoutCrudOperations";
+    Layout = "_LayoutRegistered";
 }
 
 @section Style {
@@ -13,3 +13,4 @@
     <button type="submit">I'm sure</button>
 </form>
 <a asp-controller="Lessons" asp-action="Index">&lt;&lt; Back to the lessons</a>
+<a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>

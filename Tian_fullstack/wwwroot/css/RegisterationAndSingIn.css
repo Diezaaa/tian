@@ -32,7 +32,6 @@ input {
     border-radius: 123px;
     height: 28px;
     border-color: #4F46E5;
-    margin-bottom: 23px;
 }
 
 @keyframes glowing {
@@ -54,6 +53,7 @@ input:focus {
 
 label {
     margin-bottom: 8px;
+    margin-top: 4px;
 }
 
 button {
@@ -67,6 +67,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 15px;
 }
 
 a {
@@ -95,23 +96,19 @@ button:hover {
     animation-fill-mode: forwards
 }
 
-#phone {
-    display: flex;
-    gap: 20px;
-}
 
-#number {
-    flex: 8;
-}
-
-#country_code {
-    flex: 2;
-}
-legend {
-    margin-bottom: 8px;
-}
-
-#hints {
-    margin-bottom: 8px;
+span[class$="error"]{
+    margin-bottom: 18px;
     color: red;
+    margin-top: 6px;
+}
+
+.validation-summary-errors li {
+    color: red;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+#hints{
+    color: red;
+    margin-top: 15px;
 }

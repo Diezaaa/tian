@@ -10,30 +10,22 @@
         <
     </a>
 }
-@section BodyZone{
-    <div id="progress_bar">
-        <span><</span>
-        <span class="completed_sublesson"></span>
-        <span class="sublesson"></span>
-        <span class="sublesson"></span>
-        <span class="sublesson"></span>
-        <span class="sublesson"></span>
-        <span>></span>
-    </div>
-}
+<div id="inner">
 <div id="avatar">
-    <img src="../images/avatar_placholder.png" id="photo">
-    <img src="../images/edit_button.png" id="edit_button">
+        <img src="~/images/avatar_default.svg" id="photo">
+    <img src="~/images/edit_button.png" id="edit_button">
 </div>
 <div id="inputs">
     <label for="nickname">Your name: </label>
     <input type="text" id="nickname">
-    <label for="bio">Bio</label>
-    <input type="text" id="bio">
     <label for="email">Email: </label>
     <input type="email" id="email">
 </div>
 <a class="setting">Change password</a>
-<a class="setting" id="delete_acc">Delete account</a>
-<a>
-</a>
+<form asp-controller="Profile" asp-action="LogOut" id="logOutButton">
+    <button type="submit" class="setting">Log out</button>
+</form>
+<form asp-controller="Profile" asp-action="DeleteAcc">
+        <button id="delete_acc" type="submit" class="setting">Delete account</button>
+</form>
+</div>

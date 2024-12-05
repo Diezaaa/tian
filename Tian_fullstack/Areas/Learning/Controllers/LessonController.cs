@@ -1,39 +1,52 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using System.Web;
+using Tian_fullstack.Areas.Account.Models;
+using Tian_fullstack.Areas.Learning.Models;
 using Tian_fullstack.Data;
-using Tian_fullstack.Models;
 
 
 namespace Tian_fullstack.Areas.Learning.Controllers
 {
     [Area("Learning")]
+    [Authorize]
     public class LessonController : Controller
     {
         private readonly ApplicationDbContext _db;
-        public LessonController(ApplicationDbContext db)
+        private readonly UserDbContext _userDb;
+        private readonly UserManager<Account.Models.User> _userManager;
+        public LessonController(ApplicationDbContext db, UserDbContext userdb, UserManager<Account.Models.User> userManager)
         {
             _db = db;
+            _userManager = userManager;
+            _userDb = userdb;
         }
-
-        public IActionResult Lesson()
+        public async Task <IActionResult> Lesson()
         {
+            var user = await _userManager.GetUserAsync(User);
+            var currentUserId = user.Id.ToString();
+            var userCompletedLessons = await _userDb.CompletedLessons.Where(p => p.UserId == currentUserId).ToListAsync();
+            var lastLessonNumber = userCompletedLessons.OrderBy(p => p.LastLessonNumber).Any() ?  (userCompletedLessons.OrderBy(p => p.LastLessonNumber).ToList()[0]).LastLessonNumber : -1;
+            // If a user enters a lesson that is two lessons ahead, he will be returned to learn page 
+            if (lastLessonNumber > Int32.Parse(HttpContext.Request.Query["lessonOrder"]) && Int32.Parse(HttpContext.Request.Query["lessonOrder"]) != 1)
+            {
+                return RedirectToAction("Index", "Learn", new { area = "Learning" });
+            }
             var slides = _db.Slides.ToList();
-            ViewBag.orderOfTheLastSlide = 0;
             ViewBag.numberOfSlides = 0;
             foreach (var slide in slides)
             {
-                if (slide.LessonNumber.ToString() == HttpContext.Request.Query["lessonId"])
+                if (slide.LessonNumber.ToString() == HttpContext.Request.Query["lessonOrder"])
                 {
-                    ViewBag.orderOfTheLastSlide++;
                     ViewBag.numberOfSlides++;
                 }
             }
             foreach (var slide in slides)
             {
-                if (slide.LessonNumber.ToString() == HttpContext.Request.Query["lessonId"] && slide.Order.ToString() == HttpContext.Request.Query["slideOrder"])
+                if (slide.LessonNumber.ToString() == HttpContext.Request.Query["lessonOrder"] && slide.Order.ToString() == HttpContext.Request.Query["slideOrder"])
                 {
                     ViewBag.slide = slide;
                 }
@@ -50,6 +63,14 @@ namespace Tian_fullstack.Areas.Learning.Controllers
             if (numberOfNulloptionsOfASlide == 4)
             {
                 ViewBag.isAQuiz = false;
+            }
+
+            // Update user's progress
+            if (Int32.Parse(HttpContext.Request.Query["slideOrder"]) == ViewBag.numberOfSlides && Int32.Parse(HttpContext.Request.Query["lessonOrder"]) > lastLessonNumber)
+            {
+                var newUserProgress = new CompletedLesson { LastLessonNumber = Int32.Parse(HttpContext.Request.Query["lessonOrder"]), UpdatedAt = DateTime.Now, UserId = currentUserId };
+                _userDb.CompletedLessons.Add(newUserProgress);
+                _userDb.SaveChanges();
             }
             return View();
         }
@@ -75,7 +96,7 @@ namespace Tian_fullstack.Areas.Learning.Controllers
             // Parse the query string to extract specific parameters
             var queryCollection = HttpUtility.ParseQueryString(uri.Query);
 
-            var lessonID = queryCollection["lessonID"];
+            var lessonID = queryCollection["lessonOrder"];
             var slideOrder = queryCollection["slideOrder"];
             for (int i = 0; i < slides.Count; i++)
             {

@@ -1,6 +1,12 @@
-﻿Known bugs:
+﻿Known issues:
 1 - After slide deletion the image of the slide remains in the memory of the server
 2 - After submitting a form of a lesson without slides, custom error doesn't appear
 3 - After clicking "Choose File" in the edit lesson page and in the create lesson page not choosing a file
 	can lead to unexpected behavior
-4 - 
+4 - The validation script for reg doesn't prevent entering a date in the future
+	in birth date field
+5 - The validation script doesn't prevent entering negative order while creating a lesson
+6 - The Validation doesn't prevent entering two idetrnical orders for two lessons
+6 - make backend validation that validates if there're not non-alphanumeric,eric values (currently this validation is only in the frontend)
+7 - An error appears somewhy when you don't fill the field of the phone number
+8 - after cretatina n acount erorr related to user progress is appeared

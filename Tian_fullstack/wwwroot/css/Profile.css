@@ -1,27 +1,20 @@
 ﻿
-main {
-    max-width: 800px;
-    width: 90%;
-    margin: auto;
-    min-height: 100vh
-}
-
-#avatar_and_bio {
-    margin-top: 35px;
-    margin-bottom: 35px;
+#avatar {
+    padding-top: 35px;
+    padding-bottom: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-    #avatar_and_bio img {
-        width: 82px;
+    #avatar img {
+        width: 70px;
         margin-bottom: 20px;
     }
 
 
-    #avatar_and_bio h1, #nickname {
+    #avatar h1, #nickname {
         text-align: center;
         margin-bottom: 10px;
     }
@@ -30,7 +23,7 @@ main {
     font-weight: bold;
 }
 
-#avatar_and_bio p, h1 {
+#avatar p, h1 {
     width: 83%;
 }
 
@@ -45,25 +38,33 @@ main {
 }
 
 #day_streak {
+    box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
+    -webkit-box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
+    -moz-box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
     flex: 1;
+    background-color: white;
     width: 50%;
-    background-color: rgba(215, 220, 227, 0.48);
     height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     border-radius: 20px;
+    text-align: center;
 }
 
 #percents {
+    box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
+    -webkit-box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
+    -moz-box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
     flex: 1;
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: white;
     height: 70px;
     display: flex;
     justify-content: center;
     border-radius: 20px;
     align-items: center;
+    text-align:center;
 }
 
 .badges_title {
@@ -73,7 +74,8 @@ main {
     justify-content: center;
     align-items: center;
     height: 35px;
-    background-color: rgba(215, 220, 227, 0.48);
+    border: 1px solid rgb(79,70,229);
+    background-color: white;
 }
 
 #no_badges {
@@ -86,7 +88,7 @@ main {
     height: 50px;
 }
 
-#badges {
+.badges {
     margin-top: 20px;
     display: flex;
     gap: 20px;
@@ -102,7 +104,10 @@ main {
     text-align: center;
     width: 110px;
     padding-bottom: 5px;
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: white;
+    box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
+    -webkit-box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
+    -moz-box-shadow: 2px 2px 21px -1px rgba(79,70,229,0.75);
     font-size: 14px;
 }
 
@@ -110,4 +115,8 @@ main {
         font-weight: bold;
         font-size: 16px;
         margin-bottom: 8px;
+    }
+    #inner{
+        padding-top:10px;
+        padding-bottom: 10px;
     }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Tian_fullstack.Areas.Account.Models;
+@model User
+@{
     ViewData["Title"] = "Registeration";
     Layout = "_LayoutUnregistered";
 }
@@ -6,26 +8,24 @@
     <link rel="stylesheet" href="~/css/RegisterationAndSingIn.css" />
 }
 <h1>Registration</h1>
-<form>
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All"></div>
     <label for="email">Email: </label>
-    <input type="email" id="email">
+    <input type="email" asp-for="Email" id="email">
     <label for="username">Username: </label>
-    <input type="text" id="username">
+    <input type="text" asp-for="UserName" id="username">
     <label for="first_name">First name: </label>
-    <input type="text" id="first_name">
+    <input type="text" asp-for="FirstName" id="first_name">
     <label for="surname">Surname: </label>
-    <input type="text" id="surname">
-    <fieldset id="phone">
-        <legend>Phone number: </legend>
-        <input type="text" id="country_code" placeholder="country code">
-        <input type="text" id="number" placeholder="number">
-    </fieldset>
+    <input type="text" asp-for="Surname" id="surname">
+    <label>Phone number: </label>
+    <input type="text" id="phoneNumber" asp-for="PhoneNumber">
     <label for="birth_day">Birth Date</label>
-    <input type="date" id="birth_day" min="1900-01-01">
+    <input type="date"  asp-for="BirthDay" id="birth_day" min="1900-01-01" required>
     <label for="password">Password: </label>
-    <input type="password" id="password">
+    <input type="password" name="password" id="password">
     <p id="hints"></p>
     <button type="submit" id="submit">sign up</button>
 </form>
 <a asp-area="Account" asp-controller="Login" asp-action="Index">Have an account?</a>
-<script src="~/js/checkInputReg.js"></script>
+<script src="~/js/signUpValidation.js"></script>

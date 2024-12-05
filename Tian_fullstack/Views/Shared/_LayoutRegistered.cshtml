@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <link rel="stylesheet" href="~/css/reset.css">
-    <link rel="stylesheet" href="~/css/LayoutRegistered.css">
+    <link rel="stylesheet" href="~/css/Reset.css">
     @RenderSection("Style", required: true)
+    <link rel="stylesheet" href="~/css/LayoutRegistered.css">
+
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -32,16 +33,29 @@
                 </a>
             </li>
             <li>
+                <a asp-area="User" asp-controller="Profile" asp-action="Index">
                     <div>
                         <img src="~/images/profile.svg">
                         <p>Profile</p>
                     </div>
                 </a>
             </li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li>
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <div>
+                        <img src="~/images/admin_panel_icon.png">
+                        <p>Admin panel</p>
+                    </div>
+                    </a>
+                </li>
+            }
         </ul>
     </nav>
     <footer>
         <div><span>Support email: </span>kotvesopogah@gmail.com</div>
     </footer>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
