@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.SqlServer.Server;
 using System.IO;
+using Tian_fullstack.Areas.Account.Models;
 using Tian_fullstack.Data;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -122,6 +123,12 @@ namespace Tian_fullstack.Areas.User.Controllers
             return View(user);
         }
 
+        //
+        //
+        // Add valdiation to the form
+        //
+        //
+        ///
         [HttpPost]
         public async Task<IActionResult> Settings(Account.Models.User editeduser,
                                                   IFormFile avatar)
@@ -165,6 +172,30 @@ namespace Tian_fullstack.Areas.User.Controllers
             // Saving edits
             await _userManager.UpdateAsync(existingUser);
             return RedirectToAction("Settings");
+        }
+
+        public async Task<IActionResult> ChangePassword()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        {
+            // Getting the current user
+            var user = await _userManager.GetUserAsync(User);
+
+            // Updating user's password if the current password is correct
+            var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+
+            // If the password was updated the user will be redirected to his profile page
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
     }
 }

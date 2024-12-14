@@ -45,7 +45,9 @@
             <button type="submit" id="save">Save</button>
         </div>
     </form>
-    <a class="setting">Change password</a>
+    <a asp-action ="ChangePassword" class="setting">
+        Change password
+    </a>
     <form asp-controller="Profile" asp-action="LogOut" id="logOutButton">
         <button type="submit" class="setting">Log out</button>
     </form>

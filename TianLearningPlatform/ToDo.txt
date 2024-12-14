@@ -8,3 +8,7 @@
 -refactor the register and sigin validation
 - Check if day streaks work
 - Change the deletion for lessons and users
+        // Add valdiation to the form in settings
+        - add a constriant for setting only 1:1 avatr pictures
+        - add confirming password in changing passowrd
+        - adding validation for changing passwrod
