@@ -1,0 +1,24 @@
+﻿@using Tian_fullstack.Areas.Account.Models
+@model User
+@{
+    ViewData["Title"] = "Create a lesson";
+    Layout = "_LayoutRegistered";
+}
+
+@section Style {
+    <link rel="stylesheet" href="~/css/ModelDelete.css" />
+}
+<h1><span class="red">User Deletion</span></h1>
+<div id="continner">
+    <p><span class="red">You'll NOT be able to recover the user.</span></p>
+    <p>Are you sure you want to delete the lesson called "@Model.UserName" from the database?</p>
+    <form asp-action="Delete" asp-route-username="@Model.UserName">
+        <div id="confirmation">
+            <label for="isConfirmed">I'm sure</label>
+            <input type="checkbox" name="isConfirmed" value="true" id="isConfirmed" required/>
+        </div>
+        <button type="submit">Delete</button>
+    </form>
+    <a asp-controller="Users" asp-action="Index">&lt;&lt; Back to the users</a>
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>
+</div>

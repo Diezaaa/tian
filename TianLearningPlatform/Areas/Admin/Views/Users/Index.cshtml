@@ -1,0 +1,51 @@
+﻿@model List<Tian_fullstack.Areas.Account.Models.User>
+@{
+    ViewData["Title"] = "Admin panel";
+}
+@{
+    Layout = "_LayoutRegistered";
+}
+
+@section Style {
+    <link rel="stylesheet" href="~/css/ModelIndex.css" />
+}
+<div>
+    <h1>Users list:</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Username
+                </th>
+
+                <th>
+                    Email
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @user.UserName
+                    </td>
+                    <td>
+                        @user.Email
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a asp-action="Detailes" asp-route-user="@user.UserName" class="editBtn">Detailes</a>
+                            <a asp-action="Delete" asp-route-user="@user.UserName">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>

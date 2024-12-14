@@ -1,0 +1,24 @@
+﻿@model Tian_fullstack.Areas.Account.Models.User
+@{
+    ViewData["Title"] = "Admin panel";
+}
+@{
+    Layout = "_LayoutRegistered";
+}
+
+@section Style{
+    <link rel="stylesheet" href="~/css/userDetailes.css" />
+}
+<h1>Detailes of user "@ViewBag.user.UserName"</h1>
+
+<div>
+    <span>First name:</span> @ViewBag.user.FirstName<br />
+    <span>Surname</span>: @ViewBag.user.Surname<br />
+    <span>Birth date</span>: @ViewBag.user.BirthDay<br />
+    <span>UserName</span>: @ViewBag.user.UserName<br />
+    <span>Email</span>: @ViewBag.user.Email<br />
+    <span>Phone number</span>: @ViewBag.user.PhoneNumber<br />
+    <span>Role</span>: @ViewBag.role.ToLower()<br />
+</div>
+<a asp-controller="Users" asp-action="Index">&lt;&lt; Back to users</a>
+<a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>

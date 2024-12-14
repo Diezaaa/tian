@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+    Layout = "_LayoutRegistered";
+}
+@section Style {
+    <link rel="stylesheet" href="~/css/ModelDelete.css" />
+}
+<h1><span class="red">Account deletion</span></h1>
+<div id="continner">
+    <p><span class="red">You'll NOT be able to recover the account.</span></p>
+    <p>Are you sure you want to delete your account? </p>
+
+    <form asp-action="Delete" method="post">
+        <div id="confirmation">
+            <label for="isConfirmed">I'm sure</label>
+            <input type="checkbox" name="isConfirmed" value="true" id="isConfirmed" required/>
+        </div>
+        <button type="submit">Delete</button>
+    </form>
+</div>

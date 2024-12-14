@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Admin panel";
+}
+@{
+    Layout = "_LayoutRegistered";
+}
+<!-- Plus Jakarta Sans-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+<!--Styles-->
+@section Style {
+    <link rel="stylesheet" href="~/css/AdminPanel.css" />
+}
+<h1>Admin panel</h1>
+<div id="continner">
+    <div id="group">
+        <div class="controllElem">
+            <img src="~/images/learn.svg"/>
+            <a asp-area="Admin" asp-controller="Lessons" asp-action="Index">Lessons control</a>
+        </div >
+        <div class="controllElem">
+            <img src="~/images/profile.svg"/>
+            <a asp-area="Admin" asp-controller="Users" asp-action="Index">Users control</a>
+        </div>
+    </div>
+</div>

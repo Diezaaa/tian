@@ -1,0 +1,60 @@
+﻿main{
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+}
+#continner {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+button {
+    width: 100%;
+    margin: auto;
+    height: 36px;
+    padding: 16px 24px 16px 24px;
+    border-radius: 1234px;
+    background-color: #FFFFFF;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+}
+
+@keyframes color_changing {
+    from {
+        background-color: white;
+        color: red;
+    }
+
+    to {
+        background-color: red;
+        color: white;
+    }
+}
+
+button:hover {
+    animation-name: color_changing;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+}
+a {
+    padding-top: 20px;
+    display: block;
+    text-align: center;
+    color: #4F46E5;
+}
+
+.red{
+    color:red;
+}
+
+#confirmation {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: max-content;
+    margin-right: auto;
+    margin-left: auto;
+}

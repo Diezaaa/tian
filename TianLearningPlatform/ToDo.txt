@@ -1,0 +1,10 @@
+- add good backend validations for all
+- make the birthfield must to be filled
+- add a message that says theat the credentail are wrong if the loogin failed
+- adding authtorization to admin panel
+- there's an additional to do list in the smarthpone
+- Add an error message to an unfilled birthday field
+- Check if day streak work
+-refactor the register and sigin validation
+- Check if day streaks work
+- Change the deletion for lessons and users

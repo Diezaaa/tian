@@ -1,0 +1,55 @@
+﻿@using Tian_fullstack.Areas.Account.Models
+@model User
+@{
+    ViewData["Title"] = "Settings";
+    Layout = "_LayoutRegistered";
+}
+@section Style {
+    <link rel="stylesheet" href="~/css/Settings.css" />
+}
+@section HeaderZone {
+    <a asp-area="User" asp-controller="Profile" asp-action="Index" id="back">
+        <
+    </a>
+}
+<div id="inner">
+
+    <form asp-action="Settings" method="post" enctype="multipart/form-data">
+        <div id="inputs">
+            <div id="avatar">
+                @if (Model.ImagePath != null)
+                {
+                    <img src="~/images/imagesForAvatars/@Model.ImagePath" id="image"/>
+                }
+                else
+                {
+                <img src="~/images/avatar_default.svg" id="image"/>
+                }
+                <div class="upload-btn">
+                    Upload Image
+                    <input type="file"
+                           name="avatar"
+                           accept=".png, .jpeg, .jpg">
+                </div>
+            </div>
+            <label for="userName">Username: </label>
+            <input id="userName" asp-for="UserName"/>
+            <label for="firstName">First name: </label>
+            <input id="firstName" asp-for="FirstName"/>
+            <label for="surName">Surname:</label>
+            <input id="surname" asp-for="Surname"/>
+            <label for="email">Email: </label>
+            <input id="email" asp-for="Email" />
+            <label for="phone">Phone number: </label>
+            <input id="phone" asp-for=PhoneNumber/>
+            <button type="submit" id="save">Save</button>
+        </div>
+    </form>
+    <a class="setting">Change password</a>
+    <form asp-controller="Profile" asp-action="LogOut" id="logOutButton">
+        <button type="submit" class="setting">Log out</button>
+    </form>
+    <a asp-controller="Profile" asp-action="Delete" id="delete_acc" class="setting">
+            Delete account
+    </a>
+</div>

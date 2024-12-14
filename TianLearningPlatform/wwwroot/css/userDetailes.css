@@ -1,0 +1,18 @@
+h1 {
+    color: #4F46E5;
+}
+div{
+margin: auto;
+width: max-content;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+span{
+    font-weight: bolder;
+}
+a {
+    padding-top: 20px;
+    display: block;
+    text-align: center;
+    color: #4F46E5;
+}
