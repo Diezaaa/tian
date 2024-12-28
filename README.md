@@ -75,4 +75,4 @@ This project uses the following technologies:
 If you have any questions, feel free to reach out:
 
 Email: kotvesopogah@gmail.com <br/>
-GitHub: Diezaaa
+GitHub: [Diezaaa](https://github.com/Diezaaa)
