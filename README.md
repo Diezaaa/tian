@@ -64,3 +64,6 @@ This project uses the following technologies:
 ### Frontend:
 - CSS & HTML: For structuring and styling the web pages.
 - JavaScript: Programming language used for front-end interactivity.
+
+## Contributing
+(will be open soon)
