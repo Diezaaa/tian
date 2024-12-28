@@ -66,6 +66,8 @@ This project uses the following technologies:
 
 ## License
 Copyright © 2024 Daniel Gertsykov. All Rights Reserved.
+Unauthorized use, modification, or distribution is prohibited.
+
 
 ## Contact
 If you have any questions, feel free to reach out:
