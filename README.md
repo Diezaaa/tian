@@ -1,10 +1,10 @@
 [![TianLogo](https://i.postimg.cc/SQvx4V0H/TianLogo.png)](https://postimg.cc/14DQcG3K)
 
-# Python Learning Platform - Study Project
+# Python Learning Platform
 
 Welcome to the Python Learning Platform! This web application is designed to help absolute beginners learn Python programming in an engaging and interactive way. With step-by-step lessons, quizzes, and hands-on practice, users will be able to master Python fundamentals and start coding confidently.
 
-**Note:** This project is a **study project** created for educational purposes. It aims to provide a practical learning tool to reinforce Python programming concepts.
+**Note:** This project is a **practice project** created for my personal learning and development. It serves as a way for me to apply and improve my programming skills, particularly in web development and Python.
 
 ## Table of Contents
 
@@ -34,7 +34,7 @@ The Python Learning Platform is designed to teach Python programming in a fun, i
 
 - **Interactive Coding Exercises:**
   - Edit and run Python code in an integrated code editor.
-  - Real-time feedback on code execution.
+  - Real-time feedback on code execution. (In development)
 
 - **Multi-Slide Lessons:**
   - Theoretical slides with clear explanations.
@@ -42,23 +42,13 @@ The Python Learning Platform is designed to teach Python programming in a fun, i
   - Quiz slides to test knowledge with multiple-choice questions.
 
 - **Practice Mode:**
-  - Practice exercises with instant feedback to help reinforce concepts.
+  - Practice exercises with instant feedback to help reinforce concepts. (In development)
 
 - **Progress Tracking:**
-  - Track your learning progress with visual statistics.
+  - Track your learning progress with visual statistics (Partially completed).
 
 ## Getting Started
 
 To get started with the Python Learning Platform locally, follow the instructions below.
 
-### Prerequisites
-
-- **Python 3.x**: Ensure Python 3.x is installed on your machine.
-- **Node.js & npm**: Required for the front-end build process.
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/python-learning-platform.git
-   cd python-learning-platform
+(Will be written soon)
