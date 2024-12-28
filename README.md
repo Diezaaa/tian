@@ -12,9 +12,8 @@ Welcome to the Python Learning Platform! This web application is designed to hel
 2. [Features](#features)
 3. [Getting Started](#getting-started)
 4. [Technologies Used](#technologies-used)
-5. [Contributing](#contributing)
-6. [License](#license)
-7. [Contact](#contact)
+5. [License](#license)
+6. [Contact](#contact)
 
 ## Introduction
 
@@ -65,11 +64,8 @@ This project uses the following technologies:
 - CSS & HTML: For structuring and styling the web pages.
 - JavaScript: Programming language used for front-end interactivity.
 
-## Contributing
-(will be opend soon)
-
 ## License
-(will be defined soon)
+Copyright © 2024 Daniel Gertsykov. All Rights Reserved.
 
 ## Contact
 If you have any questions, feel free to reach out:
