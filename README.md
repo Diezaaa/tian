@@ -45,7 +45,7 @@ The Python Learning Platform is designed to teach Python programming in a fun, i
   - Practice exercises with instant feedback to help reinforce concepts. (In development)
 
 - **Progress Tracking:**
-  - Track your learning progress with visual statistics (Partially completed).
+  - Track your learning progress with visual statistics. (Partially completed)
 
 ## Getting Started
 
