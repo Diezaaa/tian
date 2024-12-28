@@ -1,4 +1,4 @@
-![Tian logo](https://ibb.co/9yj8kVR)
+![Tian logo]("https://i.ibb.co/c2dgSCz/TianLogo.png")
 
 # Python Learning Platform - Study Project
 
