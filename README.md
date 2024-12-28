@@ -4,7 +4,7 @@
 
 Welcome to the Python Learning Platform! This web application is designed to help absolute beginners learn Python programming in an engaging and interactive way. With step-by-step lessons, quizzes, and hands-on practice, users will be able to master Python fundamentals and start coding confidently.
 
-**Note:** This project is a **practice project** created for my personal learning and development. It serves as a way for me to apply and improve my programming skills, particularly in web development and Python.
+**Note:** This project is a **practice project** created for my personal learning and development. It serves as a way for me to apply and improve my programming skills, particularly in web development.
 
 ## Table of Contents
 
@@ -52,3 +52,14 @@ The Python Learning Platform is designed to teach Python programming in a fun, i
 To get started with the Python Learning Platform locally, follow the instructions below.
 
 (Will be written soon)
+
+## Technologies-used
+
+This project uses the following technologies:
+
+Backend:
+- ASP.NET Core: A cross-platform, high-performance framework for building modern web applications.
+- C#: The programming language used for server-side development.
+Frontend:
+- CSS & HTML: For structuring and styling the web pages.
+- JavaScript: Programming language used for front-end interactivity.
