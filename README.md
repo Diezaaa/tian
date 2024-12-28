@@ -67,3 +67,12 @@ This project uses the following technologies:
 
 ## Contributing
 (will be open soon)
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+If you have any questions, feel free to reach out:
+
+Email: kotvesopogah@gmail.com
+GitHub: Diezaaa
