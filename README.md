@@ -66,10 +66,10 @@ This project uses the following technologies:
 - JavaScript: Programming language used for front-end interactivity.
 
 ## Contributing
-(will be open soon)
+(will be opend soon)
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+(will be defineded soon)
 
 ## Contact
 If you have any questions, feel free to reach out:
