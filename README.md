@@ -1,4 +1,4 @@
-![Tian logo]("https://i.ibb.co/c2dgSCz/TianLogo.png")
+[![TianLogo](https://i.postimg.cc/SQvx4V0H/TianLogo.png)](https://postimg.cc/14DQcG3K)
 
 # Python Learning Platform - Study Project
 
