@@ -60,6 +60,7 @@ This project uses the following technologies:
 Backend:
 - ASP.NET Core: A cross-platform, high-performance framework for building modern web applications.
 - C#: The programming language used for server-side development.
+
 Frontend:
 - CSS & HTML: For structuring and styling the web pages.
 - JavaScript: Programming language used for front-end interactivity.
