@@ -69,7 +69,7 @@ This project uses the following technologies:
 (will be opend soon)
 
 ## License
-(will be defineded soon)
+(will be defined soon)
 
 ## Contact
 If you have any questions, feel free to reach out:
