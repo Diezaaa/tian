@@ -74,5 +74,5 @@ This project uses the following technologies:
 ## Contact
 If you have any questions, feel free to reach out:
 
-Email: kotvesopogah@gmail.com__
+Email: kotvesopogah@gmail.com <br/>
 GitHub: Diezaaa
