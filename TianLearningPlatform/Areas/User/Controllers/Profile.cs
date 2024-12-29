@@ -40,7 +40,20 @@ namespace Tian_fullstack.Areas.User.Controllers
             var userCompletedLessons = await _userDb.CompletedLessons.Where(p => p.UserId == currentUserId).ToListAsync();
             var lastLessonNumber = userCompletedLessons.Any() ? (userCompletedLessons.OrderByDescending(p => p.LessonNumber).ToList()[0]).LessonNumber : 0;
             ViewBag.iSFirstLesson = lastLessonNumber >= 1;
-            ViewBag.percents = (int)(100 * ((double)lastLessonNumber / lessonsList.Count));
+
+            /* 
+             Calculating the progress and finding the last lesson of a user that
+             HAS completed at least one lesson
+            */
+            if (userCompletedLessons.Any())
+            {
+                ViewBag.lastLessonNumber = lastLessonNumber;
+                ViewBag.percents = (int)(100 * ((double)lastLessonNumber / lessonsList.Count));
+            }
+            else
+            {
+                ViewBag.percents = 0;
+            }
 
             // Calculating days streak
             if (lastLessonNumber == 0)
@@ -57,7 +70,7 @@ namespace Tian_fullstack.Areas.User.Controllers
             if (today.Date < lastLesson.UpdatedAt.Date)
             {
                 ViewBag.streak = 0;
-                return View();
+                return View(user);
             }
             int j = 1;
             for (int i = 0; i < userCompletedLessonsSorted.Count; i++)
@@ -73,7 +86,7 @@ namespace Tian_fullstack.Areas.User.Controllers
                     else
                     {
                         ViewBag.streak = streak;
-                        return View();
+                        return View(user);
                     }                
                 }
             }
@@ -106,6 +119,14 @@ namespace Tian_fullstack.Areas.User.Controllers
                 // Signing out the current user
                 await _signInManager.SignOutAsync();
 
+                // Deleting the user's avatar and setting the path to user's avatar to null
+                var avatarPath = Path.Combine(_hostEnvironment.WebRootPath, "images/imagesForAvatars", user.ImagePath);
+                if (System.IO.File.Exists(avatarPath))
+                {
+                    System.IO.File.Delete(avatarPath);
+                }
+                user.ImagePath = "";
+
                 // Deleting the current user
                 _userDb.Remove(user);
                 await _userDb.SaveChangesAsync();
@@ -119,34 +140,48 @@ namespace Tian_fullstack.Areas.User.Controllers
         {
             // Getting current user
             var user = await _userManager.GetUserAsync(User);
-
             return View(user);
         }
 
         //
         //
-        // Add valdiation to the form
+        // -- Add valdiation to the form also for image
         //
         //
         ///
         [HttpPost]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public async Task<IActionResult> Settings(Account.Models.User editeduser,
                                                   IFormFile avatar)
         {
             // Getting current user
             var existingUser = await _userManager.GetUserAsync(User);
 
-            if (avatar!= null)
+            // Getting user's avatar path
+            var avatarPath = Path.Combine(_hostEnvironment.WebRootPath, "images/imagesForAvatars", existingUser.ImagePath);
+
+            // Deleting user's avatar from the system
+            // if he pressed the delete avatar button
+            if (Request.Form["deleteImageHidden"] == "true")
+            {
+                if (System.IO.File.Exists(avatarPath))
+                {
+                    System.IO.File.Delete(avatarPath);
+                }
+                existingUser.ImagePath = "";
+                await _userManager.UpdateAsync(existingUser);
+            }
+
+            if (avatar != null)
             {
                 // Deleting if an avatar exist
-                if (existingUser.ImagePath is not null)
+                if (existingUser.ImagePath != "")
                 {
-                    var avatarPath = Path.Combine(_hostEnvironment.WebRootPath, "images/imagesForAvatars", existingUser.ImagePath);
                     if (System.IO.File.Exists(avatarPath))
                     {
                         System.IO.File.Delete(avatarPath);
                     }
-                    existingUser.ImagePath = null;
+                    existingUser.ImagePath = "";
                     await _userManager.UpdateAsync(existingUser);
                 }
 
@@ -195,6 +230,8 @@ namespace Tian_fullstack.Areas.User.Controllers
                 return RedirectToAction("Index");
             }
 
+            // Returning that the passwords don't match
+            ViewBag.noMatch = true;
             return View();
         }
     }

@@ -1,4 +1,7 @@
-﻿function addNewMessage(msg, elem)
+﻿// Disabling the submit buttom first
+document.getElementById('sumbitBtn').disabled = true;
+
+function addNewMessage(msg, elem)
 {
     if (!(elem.innerText.includes(msg))) {
         elem.innerHTML += msg + "</br>";
@@ -67,15 +70,40 @@ function checkOptions() {
     return isValid
 }
 
-function checkMandatoryFields()
-{
-    let isValid = true
+function checkMandatoryFields() {
+    let isValid = true;
+    let title = document.getElementById(`Title`)
+    let order = document.getElementById(`Order`)
+    let titleError = document.getElementById(`TitleError`)
+    let orderError = document.getElementById("OrderError")
+    if (title.value.trim() === "" ||
+        order.value.trim() === ""
+    ) {
+        if (title.value.trim() == "") {
+            addNewMessage("This field must be filled", titleError)
+        }
+        else {
+            removeMessage("This field must be filled", titleError)
+        }
+        if (order.value.trim() == "") {
+            addNewMessage("This field must be filled", orderError)
+        }
+        else {
+            removeMessage("This field must be filled", orderError)
+        }
+        isValid = false
+    }
+
+    else 
+    {
+        titleError.innerHTML = ""
+        orderError.innerHTML = ""
+        isValid = true;
+
+    }
+
     for (let i = 0; i < document.getElementsByClassName("slide").length; i++) {
         let content = document.getElementById(`slide${i}Content`)
-        let title = document.getElementById(`Title`)
-        let order = document.getElementById(`Order`)
-        let titleError = document.getElementById(`TitleError`)
-        let orderError = document.getElementById("OrderError")
         let contentError = document.getElementById(`slide${i}ContentError`)
         if (content.value.trim() === "" ||
             title.value.trim() === "" ||
@@ -106,17 +134,33 @@ function checkMandatoryFields()
             titleError.innerHTML = ""
             orderError.innerHTML = ""
             contentError.innerHTML = ""
+            let isValid = true;
         }
     }
     return isValid
 }
 
-document.getElementById("lessonForm").addEventListener("submit", (event) => {
-    event.preventDefault()
-    checkOptions()
-    checkMandatoryFields()
-    if (checkOptions() && checkMandatoryFields())
-    {
-        document.getElementById("lessonForm").submit()
+function isThereSlide() {
+    slidesError = document.getElementById("slidesError");
+    if (document.getElementsByClassName("slide").length >= 1) {
+        removeMessage("A lesson must contain at least one slide", slidesError)
+        return true;
+    }
+    else {
+        addNewMessage("A lesson must contain at least one slide", slidesError)
+        return false
+    }
+}
+
+
+document.getElementById("lessonForm").addEventListener("input", (event) => {
+    let isValid = checkOptions() && checkMandatoryFields() && isThereSlide();
+    if (isValid) {
+        document.getElementById('sumbitBtn').disabled = false;
     }
 })
+
+document.getElementById('sumbitBtn').addEventListener("click", () => {
+    document.getElementById('sumbitBtn').disabled = true;
+    document.getElementById("lessonForm").submit();
+});

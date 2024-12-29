@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Tian_fullstack.Areas.Account.Models
+@model User
+@{
     ViewData["Title"] = "Profile";
     Layout = "_LayoutRegistered";
 }
@@ -10,19 +12,18 @@
         <img src="~/images/settings.svg" id="settings" />
     </a>
 }
-@using Tian_fullstack.Areas.Account.Models
-@model User
+
 
 <div id="inner">
     <div id="avatar">
-        @if (Model.ImagePath != null)
+        @if (Model.ImagePath != "")
         {
-            <img src="~/images/imagesForAvatars/@Model.ImagePath" id="image" />
+            <img src="~/images/imagesForAvatars/@(Model.ImagePath)" id="image" />
         }
 
         else
         {
-        <img src="~/images/avatar_default.svg" id="image"/>
+            <img src="@Url.Content("~/images/avatar_default.svg")" id="image" />
         }
         <p id="nickname">@Model.UserName</p>
     </div>

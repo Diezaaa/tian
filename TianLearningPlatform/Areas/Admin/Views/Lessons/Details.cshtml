@@ -1,0 +1,57 @@
+﻿@using Tian_fullstack.Areas.Learning.Models
+@model Lesson
+@{
+    ViewData["Title"] = "Create a lesson";
+    Layout = "_LayoutRegistered";
+}
+
+@section Style {
+    <link rel="stylesheet" href="~/css/ModelDetailes.css" />
+}
+<h1>Detailes of lesson @Model.Order</h1>
+<div id="lesson">
+    <p><span class="bold">Order:</span> @Model.Order</p>
+    <p><span class="bold">Title:</span> @Model.Title</p>
+    <span class="bold">Slides:</span>
+    <div id="slides">
+        @for (int i = 0; i < Model.Slides.Count(); i++)
+        {
+        <div>
+            <hr />
+            <span class="bold">Slide @(i + 1):</span>
+            <hr />
+            <span class="bold">Contnet: </span>
+            <div class="content">
+                <p >@Html.Raw(@Model.Slides[i].Content.Replace(Environment.NewLine, "<br />"))</p>
+            </div>
+            <p><span class="bold">Is code editor enabled:</span> @(Model.Slides[i].enableCodeEditor)</p>
+            <div class="currentImage">
+                <span class="bold">Current image:</span>
+            @if (@Model.Slides[i].ImagePath != null)
+            {
+                <img src="~/images/imagesForSlides/@Model.Slides[i].ImagePath" />
+            }
+            else
+            {
+                <span>no image</span>
+            }
+            </div>
+            <p class="bold">Options:</p>
+            @if (Model.Slides[i].CorrectOptionIndex != null)
+            {
+                    <p><span class="bold">Option 1:</span>@(Model.Slides[i].Options[0])</p>
+                    <p><span class="bold">Option 2:</span>@(Model.Slides[i].Options[1])</p>
+                    <p><span class="bold">Option 3:</span>@(Model.Slides[i].Options[2])</p>
+                    <p><span class="bold">Option 4:</span>@(Model.Slides[i].Options[3])</p>
+                    <p><span class="bold">Correct option:</span>@(Model.Slides[i].CorrectOptionIndex)</p>
+            }
+            else
+            {
+                <p>There are not options</p>
+            }
+    </div>
+        }
+    </div>
+</div>
+<a asp-controller="Lessons" asp-action="Index">&lt;&lt; Back to the lessons</a>
+<a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>

@@ -14,7 +14,7 @@
 <h1>Edit a lesson</h1>
 <form method="post" enctype="multipart/form-data" id="lessonForm">
     <label for="Order">Order: </label>
-    <input id="Order" asp-for="Order" />
+    <select id="Order" asp-for="Order" asp-items="@ViewBag.Orders"></select>
     <span class="error" id="OrderError"></span>
     <label for="Title">Title: </label>
     <input id="Title" asp-for="Title" />
@@ -22,6 +22,7 @@
     <span>Slides:</span>
     <button type="button" id="addSlideBtn">Add a slide</button>
     <div id="slides">
+    <span class="error" id="slidesError"></span>
     @for (i = 0; i < Model.Slides.Count();i++)
     {
         <div class="slide">
@@ -40,7 +41,7 @@
             {
                 <div class="currentImage">
                     <label for="slideFile">Upload Image</label>
-                    <input id="slideFile" type="file" name="imageFiles" class="uploadFiles" />
+                    <input id="slideFile" type="file" name="imageFiles" class="imageUpload" />
                     <span>Original image: </span>
                     <img src="~/images/imagesForSlides/@Model.Slides[i].ImagePath" />
                         <div class="labelAndCheckBox">
@@ -52,7 +53,7 @@
             else
             {
                 <label for="slideFile">Upload Image</label>
-                <input type="file" name="imageFiles" id="slideFile">
+                <input type="file" name="imageFiles" id="slideFile" class="imageUpload">
             }
             <span>Options:</span>
             <label for="slide@(i)Option1">Option 1:</label>
@@ -75,87 +76,85 @@
 <a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>
 
 @section Scripts
-{
-    <script src="~/js/lessonValidation.js"></script>
-<script>
-    document.querySelectorAll('input[type="file"]').forEach(input => {
-        const blankFile = new File([], " "); // Create a blank file with no extension
-        const dataTransfer = new DataTransfer(); // Create a DataTransfer object
-        dataTransfer.items.add(blankFile); // Add the blank file to the DataTransfer object
-        input.files = dataTransfer.files; // Assign the files property of the file input
-    });
-</script>
-    <script>
-        function addAblankFile() {
-            let file = new File([], " ");
-            let allInputs = document.querySelectorAll('input[type="file"]');
-            let input = allInputs[allInputs.length - 1];
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            input.files = dataTransfer.files;
-        }
+{    <script>
+        /*
+        * The goal of the script: this script is used to add and delete slides in the lesson edit form.
+        * It also re-orders the slides and updates the slide numbers in the form elements.
+        */
+
+        /*
+        * Variables
+        */
         let addSlideBtn = document.getElementById('addSlideBtn');
         let slidesDiv = document.getElementById('slides');
-        addSlideBtn.addEventListener("click", function () {
-            slidesDiv.insertAdjacentHTML('beforeend', `
+        let deleteBtns = document.getElementsByClassName("delete");
+        let blankSlide = `
                 <div class="slide">
-                        <hr>
-                        <span>Slide : </span>
-                        <button class="delete" type="button">Delete</button>
-                        <hr>
-                        <label for="slideContent">Contnet: </label>
-                        <textarea id="slideContent" name="Slides[].Content"></textarea>
-                        <span id="slideContentError" class="error"></span>
-                        <div class="enableEditor">
-                                <input type="checkbox" name="Slides[].enableCodeEditor" id="slideEditor" value="true">
-                                <label for="slideEditor">Enable code editor?</label>
-                        </div>
-                        <div>
+                    <hr>
+                    <span>Slide : </span>
+                    <button class="delete" type="button">Delete</button>
+                    <hr>
+                    <label for="slideContent">Content: </label>
+                    <textarea id="slideContent" name="Slides[].Content"></textarea>
+                    <span id="slideContentError" class="error"></span>
+                    <div class="enableEditor">
+                        <input type="checkbox" name="Slides[].enableCodeEditor" id="slideEditor" value="true">
+                        <label for="slideEditor">Enable code editor?</label>
+                    </div>
+                    <div>
                         <label for="slideFile">Upload Image</label>
-                        <input type="file" name="imageFiles" id="slideFile">
-                        </div>
-                        <span>Options:</span>
-                        <br>
-                        <label for="option1">Option 1:</label>
-                        <input id="slideOption1" type="text" name="Slides[].Options[0]" value="">
-                        <label for="slideOption2">Option 2:</label>
-                        <input id="slideOption2" type="text" name="Slides[].Options[1]" value="">
-                        <label for="slideOption3">Option 3:</label>
-                        <input id="slideOption3" type="text" name="Slides[].Options[2]" value="">
-                        <label for="slideOption4">Option 4:</label>
-                        <input id="slideOption4" type="text" name="Slides[].Options[3]" value="">
-                        <label for="slideCorrectAnswer">Correct Answer:</label>
-                        <input id="slideCorrectAnswer" type="number" name="Slides[].CorrectOptionIndex">
-                        <span id="slideOptionsMessage" class="error"></span>
-                 </div>`);
-            addAblankFile();
-        })
+                        <input type="file" name="imageFiles" id="slideFile" class="imageUpload">
+                    </div>
+                    <span>Options:</span>
+                    <br>
+                    <label for="option1">Option 1:</label>
+                    <input id="slideOption1" type="text" name="Slides[].Options[0]" value="">
+                    <label for="option2">Option 2:</label>
+                    <input id="slideOption2" type="text" name="Slides[].Options[1]" value="">
+                    <label for="option3">Option 3:</label>
+                    <input id="slideOption3" type="text" name="Slides[].Options[2]" value="">
+                    <label for="option4">Option 4:</label>
+                    <input id="slideOption4" type="text" name="Slides[].Options[3]" value="">
+                    <label for="slideCorrectAnswer">Correct Answer:</label>
+                    <input id="slideCorrectAnswer" type="number" name="Slides[].CorrectOptionIndex">
+                    <span id="slideOptionsMessage" class="error"></span>
+                </div>`;
 
-    </script>
-    <script>
-        let deleteBtns = document.getElementsByClassName("delete")
-        for (let i = 0; i < deleteBtns.length; i++) {
-            deleteBtns[i].addEventListener("click", () => { deleteSlide(event); orderSlides() })
-        }
-        addSlideBtn.addEventListener("click", () => {
-            orderSlides()
-            let deleteBtns = document.getElementsByClassName("delete")
-            for (let i = 0; i < deleteBtns.length; i++) {
-                deleteBtns[i].addEventListener("click", () => { deleteSlide(event); orderSlides() })
+        /* 
+        * Event listeners
+        */
+
+        // Initilizing event listeners for delete buttons
+        attachEventListnersForDeleteBtns();
+
+        function attachEventListnersForDeleteBtns ()
+        {
+            for (let i = 0; i < deleteBtns.length; i++) 
+            {
+                deleteBtns[i].addEventListener("click", () => { deleteSlide(event); reorderSlides() });
             }
-        })
-        function deleteSlide(event) {
-            event.target.parentNode.remove()
         }
-        function changeSlideNum(string, slideNum, position) {
-            if (!isNaN(parseInt(string[position]))) {
-                string = string.replace(/\d/, '');
-            }
-            let firstPart = string.slice(0, position)
-            let secondPart = string.slice(position)
-            return firstPart + slideNum + secondPart;
+
+        // Event listener for the add slide button
+        addSlideBtn.addEventListener("click", function () {
+            addSlide();
+        });
+
+
+        /*
+        * Functions
+        */
+
+        // Adding a slide
+        function addSlide() {
+            slidesDiv.insertAdjacentHTML('beforeend', blankSlide);
+            attachEventListnersForDeleteBtns();
+            reorderSlides();
         }
-        function orderSlides() {
+
+        // Re-ordering the slides and updating the slide numbers in the form elements after deleting a slide
+        function reorderSlides()
+        {
             for (let i = 0; i < document.getElementsByClassName("slide").length; i++) {
                 slideInputsLabels = document.getElementsByClassName("slide")[i].querySelectorAll("input:not([type='hidden'],[type='file']), textarea, label, .error")
                 document.getElementsByClassName("slide")[i].querySelector("span:first-of-type").innerText = `Slide ${i + 1}`
@@ -174,5 +173,54 @@
                 })
             }
         }
-    </script>
+
+        // Function to delete a slide
+        function deleteSlide(event) {
+            event.target.parentNode.remove(); // remove the slide that contains the delete button that was clicked
+        }
+
+        // Function to change the slide number in a string
+        function changeSlideNum(string, slideNum, position) {
+            if (!isNaN(parseInt(string[position]))) {
+                string = string.replace(/\d/, ''); // Remove the existing number
+            }
+            let firstPart = string.slice(0, position); // Get the first part of the string
+            let secondPart = string.slice(position); // Get the second part of the string
+            return firstPart + slideNum + secondPart; // Return the new string with the updated slide number
+        }
+
+        /* --------------------- */
+
+        /*
+        * Setting an input to null when submitting if it doesn't contain a file
+        */
+
+        // Setting image inputs where are no image to emty txt file. This is
+        // done for the server side. When the lesson is submitted, the server can
+        // recoginze emty inputs by detecting a txt file.
+        let form = document.getElementsByTagName("form");
+        form[0].addEventListener('submit', function (event) {
+            let imageInputs = Array.from(document.getElementsByClassName("imageUpload"));
+            imageInputs.forEach((imageInput) => 
+            {
+                event.preventDefault(); // Prevent the form from submitting immediately
+                if (imageInput.files.length === 0 ||
+                    imageInput.files.length > 1) 
+                {
+                    // Create a new empty file
+                    const emptyFile = new File([1], 'empty.txt', { type: 'text/plain' });
+
+                    // Create a DataTransfer object to simulate the file selection
+                    const dataTransfer = new DataTransfer();
+
+                    // Add the empty file to the DataTransfer object
+                    dataTransfer.items.add(emptyFile);
+
+                    // Assign the DataTransfer's files to the input's files
+                    imageInput.files = dataTransfer.files;
+                }
+            })
+        }); 
+        </script>
+        <script src="~/js/lessonValidation.js"></script>
 }

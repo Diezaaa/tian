@@ -20,7 +20,7 @@ textarea{
     padding: 6px;
 }
 
-input, textarea {
+input, textarea, select {
     border: 1px solid #CBD5E1;
     border-radius: 123px;
     height:23px;

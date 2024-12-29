@@ -1,14 +1,17 @@
 - add good backend validations for all
-- make the birthfield must to be filled
 - add a message that says theat the credentail are wrong if the loogin failed
-- adding authtorization to admin panel
 - there's an additional to do list in the smarthpone
-- Add an error message to an unfilled birthday field
 - Check if day streak work
--refactor the register and sigin validation
-- Check if day streaks work
-- Change the deletion for lessons and users
         // Add valdiation to the form in settings
         - add a constriant for setting only 1:1 avatr pictures
         - add confirming password in changing passowrd
-        - adding validation for changing passwrod
+        - making backend and frontend validation in settings
+        - add image validation for setting an avatar
+        - Make saving images in the db
+        - Make viewmodel for each form
+        -make an algorithm that find the free orders for leesons
+        - issue: After slide deletion the image of the slide remains in the memory of the server
+        - add validation for img inputs
+        - there's a slide with curse words
+        - Saving images for models in the db
+        - add a fucntion to disabel a code editor in a slide

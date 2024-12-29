@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Tian_fullstack.Areas.Learning.Models
+@{
     ViewData["Title"] = "Learn";
     Layout = "_LayoutRegistered";
 }
@@ -13,45 +14,60 @@
 </div>
 <div id="lessons">
     @*
-    Deciding how each lesson should appear (passed, unlcoked or locked)
+    Deciding how each lesson should appear (passed, unlocked, locked or in development)
     *@
-    @foreach (var lesson in ViewBag.lessons)
+    @{
+        // Finding the order of the last lesson in the DB
+        var lastLessonInDb = (ViewBag.lessons as List<Lesson>).LastOrDefault() != null ? (ViewBag.lessons as List<Lesson>).LastOrDefault().Order : 0;
+    }
+    @for (var i = 1; i <= lastLessonInDb; i++)
     {
-        @* 
-        Each lesson which number is equal or less than the last passed lesson 
-        will be displayed as passed
-        *@
-        @if (lesson.Order <= ViewBag.lastLessonNumber )
+        var lessonI = (ViewBag.lessons as List<Lesson>).FirstOrDefault(l => l.Order == i);
+        if (lessonI == null)
         {
-            <a class="lesson" id="first_lesson" title="@lesson.Title" asp-area="Learning" asp-controller="Lesson" asp-action="Lesson" asp-route-lessonOrder="@lesson.Order" asp-route-slideOrder="1">
-                <img src="../images/play_button.svg">
-            </a>
-            <div class="line">
-            </div>
-        }
-        @* 
-        The lesson which is directly after the last passed lesson and
-        the first lesson will be unlocked.
-        NOTE: the first lesson is unlocked ALWAYS because without it
-        new users won't be able to start learning.
-         *@
-        else if (lesson.Order == ViewBag.lastLessonNumber + 1 || lesson.Order == 1)
-        {
-            <a class="lesson" id="first_lesson" title="@lesson.Title" asp-area="Learning" asp-controller="Lesson" asp-action="Lesson" asp-route-lessonOrder="@lesson.Order" asp-route-slideOrder="1">
-                <img src="../images/open.svg">
-            </a>
+            <p class="inDev" title="The lesson is in development">
+                <img src="../images/inDevelopment.svg">
+            </p>
             <div class="line">
             </div>
         }
         else
         {
-            <a class="lesson closed" id="first_lesson" title="@lesson.Title" asp-area="Learning" asp-controller="Lesson" asp-action="Lesson" asp-route-lessonOrder="@lesson.Order" asp-route-slideOrder="1">
-                <img src="../images/lock.svg">
-            </a>
-            <div class="line">
-            </div>
+            @* 
+            Each lesson which number is equal or less than the last passed lesson 
+            will be displayed as passed
+            *@
+            @if (lessonI.Order <= ViewBag.lastLessonNumber)
+            {
+                <a class="lesson" id="first_lesson" title="@lessonI.Title" asp-area="Learning" asp-controller="Lesson" asp-action="Lesson" asp-route-lessonOrder="@lessonI.Order" asp-route-slideOrder="1">
+                    <img src="../images/play_button.svg">
+                </a>
+                <div class="line">
+                </div>
+            }
+            @*
+            The lesson which is directly after the last passed lesson and
+            the first lesson will be unlocked.
+            NOTE: the first lesson is unlocked ALWAYS because without it
+            new users won't be able to start learning.
+            *@
+            else if (lessonI.Order == ViewBag.lastLessonNumber + 1 || lessonI.Order == 1)
+            {
+                <a class="lesson" id="first_lesson" title="@lessonI.Title" asp-area="Learning" asp-controller="Lesson" asp-action="Lesson" asp-route-lessonOrder="@lessonI.Order" asp-route-slideOrder="1">
+                    <img src="../images/open.svg">
+                </a>
+                <div class="line">
+                </div>
+            }
+            else
+            {
+                <a class="lesson closed" id="first_lesson" title="@lessonI.Title" asp-area="Learning" asp-controller="Lesson" asp-action="Lesson" asp-route-lessonOrder="@lessonI.Order" asp-route-slideOrder="1">
+                    <img src="../images/lock.svg">
+                </a>
+                <div class="line">
+                </div>
+            }
         }
-
     }
 </div>
 <script>

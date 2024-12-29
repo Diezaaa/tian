@@ -1,115 +1,92 @@
-// Selecting fields
-let emailField = document.getElementById("email");
+﻿/* 
+Selecting all the fields for validation
+*/
 let usernameField = document.getElementById("username");
-let firstNameField = document.getElementById("first_name");
-let surnameField = document.getElementById("surname");
-let phoneNumberField = document.getElementById("phoneNumber")
-let birthDayField = document.getElementById("birth_day");
 let passwordField = document.getElementById("password");
 let hints = document.getElementById("hints");
 let submitButton = document.getElementById("submit");
 
-// Disable the submit button whent the page is loaded
-submitButton.disabled = true; 
+// Disabling the submit button whent the page is loaded
+submitButton.disabled = true;
 
 /*
-Event listeners
+Event listeners (Dynamic validation)
 */
-usernameField.addEventListener("input", () => { isShort(usernameField, 3, "* The username must be at least 3 characters long.\n"); isAllValid(); });
-passwordField.addEventListener("input", () => { isShort(passwordField, 8, "* The password must be at least 8 characters long.\n"); isValidCharactersInPassword(); isAllValid(); })
+usernameField.addEventListener("input", () => { isAllOk(); isUsernameOk() });
+passwordField.addEventListener("input", () => { isAllOk(); isPasswordOk() });
 
+/* 
+Validation of the fields
+*/
+
+function isUsernameOk() {
+    return manageErrorMessages(isLengthCorrect(3, usernameField.value) && doesStartWithEnglishLetter(usernameField.value), "The username must be at least 3 characters and must start with a letter"); manageErrorMessages(isValidString(usernameField.value), "The username can contain only (0-9, a-z, A-Z, _, -) and must start with an English letter")
+}
+
+function isPasswordOk() {
+    return manageErrorMessages(isPasswordValid(passwordField.value) && isValidString(), "The password must be length must be between 8 and 16 and must contain at least one digit, one uppecase and lowercase letter and must contain only (0-9, a-z, A-Z, _, -)")
+}
+
+/* 
+Editing the errors displayed
+*/
+
+function manageErrorMessages(isCorrect, error) {
+    var bullet = "*"
+
+    // If the input isn't correct
+    if (!(isCorrect) && !(hints.innerText.includes(error))) {
+        hints.innerText += bullet + " " + error + "\n";
+        return false;
+    }
+
+    // If the input is correct or unfilled
+    else if (isCorrect) {
+        hints.innerText = hints.innerText.replace(bullet + " " + error + "\n", "");
+        return true;
+    }
+}
 
 /*
-Edit the hints paragraph
- */
-function addNewHint(hint) {
-    if (!(hints.innerText.includes(hint))) {
-        hints.innerText += hint;
-    }
-}
-function removeHint(hint) {
-    if (hints.innerText.includes(hint)) {
-        hints.innerText = hints.innerText.replace(hint, "");
-    }
+Validation functions
+*/
+
+// Validating a given string using the provided min. length 
+function isLengthCorrect(length, string) {
+    return string.length >= length || string == "";
 }
 
-// Checks if something is long enough
-function isShort(field, minLength, hint) {
-    if ((field.value.length < minLength)
-        && (field.value.length !== 0)) {
-        addNewHint(hint)
-        return false;
-    }
-    else if (field.value.length === 0) {
-        removeHint(hint)
-        return false
-    }
-    else {
-        removeHint(hint)
+// Validating that the password is strong enough
+function isPasswordValid(password) {
+    let validPasswordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
+    return validPasswordPattern.test(password) || password == "";
+}
+
+function doesStartWithEnglishLetter(string) {
+    let isLetterStartPattern = /^[a-zA-Z]/;
+    return isLetterStartPattern.test(string) || string == "";
+}
+
+// Validting that the string has only legal characters (0-9, a-z, A-Z, _, -)
+function isValidString(string) {
+    let validStringPattern = /[0-9a-zA-Z_-]*$/;
+    return validStringPattern.test(string) || string == "";
+}
+
+// Checking if at least one field is blank
+function isAtLeastOneFieldBlank() {
+    if (usernameField.value == "" ||
+        passwordField.value == "") {
         return true;
     }
+    return false;
 }
 
-// Check if the number is in the correct format
-function isPhoneNumberCorrect() {
-    // Regular expression pattern for phone number validation
-    const phonePattern = /^\+(\d{1,3})\s?\d{4,14}$/;
-
-    if (!(phonePattern.test(phoneNumberField.value)) && (phoneNumberField !== 0)) {
-        addNewHint("* The number must be entered in an international format (without spaces or hypenes), e.g.: +972 054 992 4098.\n");
-        return false;
-    }
-    else if (phoneNumberField.value.length === 0) {
-        removeHint("* The number must be entered in an international format (without spaces or hypenes), e.g.: +972 054 992 4098.\n")
-        return false
-    }
-    else {
-        removeHint("* The number must be entered in an international format (without spaces or hypenes), e.g.: +972 054 992 4098.\n");
-        return true;
-    }
-}
-
-// Cheks if the passowrd meets all the requirments
-function isValidCharactersInPassword() {
-    // Cheks if the passowrd is built from valid characters (0-9, A-Z. a-z, _, -)
-    const validPasswordRegExp = /^[A-Za-z0-9_-]+$/
-
-    if (!validPasswordRegExp.test(passwordField.value) && passwordField.value.length > 0) {
-        addNewHint("* The password must be built from valid chatacters only (0-9, A-Z. a-z, _, -).")
-        return false;
-    }
-    else if (passwordField.value.length === 0) {
-        removeHint("* The password must be built from valid chatacters only (0-9, A-Z. a-z, _, -).")
-        return false
-    }
-    else {
-        removeHint("* The password must be built from valid chatacters only (0-9, A-Z. a-z, _, -).")
-        return true;
-    }
-}
-
-function isPasswordStrong() {
-    const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/
-    if (!strongPasswordPattern.test(passwordField.value) && passwordField.value.length > 0) {
-        addNewHint("* The password must include at least one digit, one lowercase letter, and one uppercase letter.")
-        return false
-    }
-    else if (passwordField.value.length === 0) {
-        removeHint("* The password must include at least one digit, one lowercase letter, and one uppercase letter.")
-        return false
-    }
-    else {
-        removeHint("* The password must include at least one digit, one lowercase letter, and one uppercase letter.")
-        return true
-    }
-}
-// Cheks if all fields are filled properly, if they are filled prorperly the submit button becomes clickable
-function isAllValid() {
-    if (isShort(usernameField, 3, "* The username must be at least 3 characters long.\n") &&
-        isShort(passwordField, 6, "* The password must be at least 6 characters long.\n") &&
-        isValidCharactersInPassword() &&
-        isPasswordStrong()
-    ) {
+// If the inputs are filled and passed all the validations than the submit buttom become enabled
+function isAllOk() {
+    if (isUsernameOk() &&
+        isPasswordOk() &&
+        !(isAtLeastOneFieldBlank())) {
         submitButton.disabled = false;
     }
     else {

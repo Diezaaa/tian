@@ -13,6 +13,7 @@ namespace Tian_fullstack.Areas.Account.Controllers
         }
         public IActionResult Index()
         {
+            // The condition redirects a logged in user to learn page
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Learn", new { area = "Learning" });
@@ -22,7 +23,7 @@ namespace Tian_fullstack.Areas.Account.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string username, string password)
         {
-
+            // Tries to sign in the user
             var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
             if (result.Succeeded)
             {

@@ -1,5 +1,4 @@
-﻿@using Tian_fullstack.Areas.Learning.Models
-@model List<Lesson>
+﻿@model List<Tian_fullstack.Areas.Learning.Models.Lesson>
 @{
     ViewData["Title"] = "Create a lesson";
     Layout = "_LayoutRegistered";
@@ -38,7 +37,7 @@
                 <div class ="actions">
                     <a asp-action="Edit" asp-route-lessonId="@lesson.Id" class="editBtn">Edit</a>
                     <a asp-action="Delete" asp-route-lessonId="@lesson.Id" class="editBtn">Delete</a>
-                    <a asp-action="Detailes" asp-route-lessonId="@lesson.Id" class="editBtn">Detailes</a>
+                    <a asp-action="Details" asp-route-lessonId="@lesson.Id" class="editBtn">Details</a>
                 </div>
             </td>
         </tr>

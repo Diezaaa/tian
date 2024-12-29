@@ -32,26 +32,31 @@ namespace Tian_fullstack.Areas.Account.Controllers
         [HttpPost]
         public async Task<IActionResult> Index (Models.User newUser, string password)
         {
-            if (ModelState.IsValid)
+            // Deleting the ImagePath form model state (Use view models for simpler backend validation)
+            newUser.ImagePath = "";
+            ModelState.Remove("ImagePath");
+            var result = await _userManager.CreateAsync(newUser, password);
+
+            // Checking if whether or not th user was created successfully
+            if (result.Succeeded)
             {
-                var user = new Models.User
+                // Username "Dieza" is the head admin
+                var createdUser = await _userManager.FindByNameAsync(newUser.UserName);
+                if (createdUser.UserName == "Dieza")
                 {
-                    Email = newUser.Email,
-                    UserName = newUser.UserName,
-                    FirstName = newUser.FirstName,
-                    Surname = newUser.Surname,
-                    PhoneNumber = newUser.PhoneNumber,
-                    BirthDay = newUser.BirthDay
-                };
-                var result = await _userManager.CreateAsync(user, password);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, "User");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Learn", new { area = "Learning" });
+                    await _userManager.AddToRoleAsync(newUser, "Admin");
                 }
-                AddErrors(result);
+                else
+                {
+                    await _userManager.AddToRoleAsync(newUser, "User");
+                }
+
+                await _signInManager.SignInAsync(newUser, isPersistent: false);
+
+                return RedirectToAction("Index", "Learn", new { area = "Learning" });
             }
+
+            AddErrors(result);
             return View();
         }
 

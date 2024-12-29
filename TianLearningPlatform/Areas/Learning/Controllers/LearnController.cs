@@ -47,7 +47,7 @@ namespace Tian_fullstack.Areas.Learning.Controllers
             var user = await userTask;
             var lessonsList = await lessonsListTask;
 
-            // Passing the sorted lesosns list to the view
+            // Passing the sorted lessons list to the view
             ViewBag.lessons = lessonsList.OrderBy(x => x.Order)
                               .ToList();
 

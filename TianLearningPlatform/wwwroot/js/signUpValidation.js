@@ -1,4 +1,6 @@
-﻿// Selecting fields
+/* 
+Selecting all the fields for validation
+*/
 let emailField = document.getElementById("email");
 let usernameField = document.getElementById("username");
 let firstNameField = document.getElementById("first_name");
@@ -9,141 +11,141 @@ let passwordField = document.getElementById("password");
 let hints = document.getElementById("hints");
 let submitButton = document.getElementById("submit");
 
-// Disable the submit button whent the page is loaded
+// Disabling the submit button whent the page is loaded
 submitButton.disabled = true;
 
-// Setting the max date for birthday as current date
-birthDayField.setAttribute("max", (new Date).toISOString().substring(0, 10));
-
 /*
-Event listeners
+Event listeners (Dynamic validation)
 */
-emailField.addEventListener("input", () => { isEmailCorrect(); isAllValid() })
-usernameField.addEventListener("input", () => { isShort(usernameField, 3, "* The username must be at least 3 characters long.\n"); isAllValid(); });
-firstNameField.addEventListener("input", () => { isShort(firstNameField, 3, "* The first name must be at least 3 characters long.\n"); isAllValid(); });
-surnameField.addEventListener("input", () => { isShort(surnameField, 3, "* The surname must be at least 3 characters long.\n"); isAllValid(); });
-phoneNumberField.addEventListener("input", () => { isPhoneNumberCorrect(); isAllValid() })
-passwordField.addEventListener("input", () => { isShort(passwordField, 8, "* The password must be at least 8 characters long.\n"); isPasswordStrong(); isValidCharactersInPassword(); isAllValid(); })
+emailField.addEventListener("input", () => { isAllOk(); isEmailOk() });
+usernameField.addEventListener("input", () => { isAllOk(); isUsernameOk() });
+firstNameField.addEventListener("input", () => { isAllOk(); isFirstNameOk() });
+surnameField.addEventListener("input", () => { isAllOk(); isSurNameOk() });
+phoneNumberField.addEventListener("input", () => { isAllOk(); isPhoneNumberOk() });
+birthDayField.addEventListener("input", () => { isAllOk(); isBirthdayOk()})
+passwordField.addEventListener("input", () => { isAllOk(); isPasswordOk() });
 
-/*
-Edit the hints paragraph
- */
-function addNewHint(hint) {
-    if (!(hints.innerText.includes(hint))) {
-        hints.innerText += hint;
-    }
+
+/* 
+Validation of the fields
+*/
+function isEmailOk() {
+    return manageErrorMessages(isEmailCorrect(emailField.value), "The email is not valid")
 }
-function removeHint(hint) {
-    if (hints.innerText.includes(hint)) {
-        hints.innerText = hints.innerText.replace(hint, "");
+
+function isUsernameOk() {
+    return manageErrorMessages(isLengthCorrect(3, usernameField.value) && doesStartWithEnglishLetter(usernameField.value), "The username must be at least 3 characters and must start with a letter"); manageErrorMessages(isValidString(usernameField.value), "The username can contain only (0-9, a-z, A-Z, _, -) and must start with an English letter")
+}
+
+function isFirstNameOk() {
+    return manageErrorMessages(isLengthCorrect(2, firstNameField.value), "The first name must be at least 2 characters")
+}
+
+function isSurNameOk() {
+    return manageErrorMessages(isLengthCorrect(2, surnameField.value), "The surname must be at least 2 characters")
+}
+
+function isPhoneNumberOk() {
+    return manageErrorMessages(isValidPhoneNumber(phoneNumberField.value), "The phone number must follow the international format with a + in the start and must not have hyphens(e.g +9720559934099)")
+} 
+
+function isBirthdayOk() {
+    return manageErrorMessages(isValidBirthDay(birthDayField.value), "The birthday must not be earlier than 1900 year, and you must be 18 years old")
+} 
+
+function isPasswordOk() {
+    return manageErrorMessages(isPasswordValid(passwordField.value) && isValidString(), "The password must be length must be between 8 and 16 and must contain at least one digit, one uppecase and lowercase letter and must contain only (0-9, a-z, A-Z, _, -)")
+}
+
+/* 
+Editing the errors displayed
+*/
+function manageErrorMessages(isCorrect, error) {
+    var bullet = "*"
+
+    // If the input isn't correct
+    if (!(isCorrect) && !(hints.innerText.includes(error))) {
+        hints.innerText += bullet + " " + error + "\n";
+        return false;
+    }
+
+    // If the input is correct or unfilled
+    else if (isCorrect) {
+        hints.innerText = hints.innerText.replace(bullet + " " + error + "\n", "");
+        return true;
     }
 }
 
 /*
 Validation functions
- */
+*/
 
-// Validates email using regex, returns true if the email is valid, otherwise returns false
-function isEmailCorrect() {
-    const regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-    if (!(regex.test(emailField.value)) && emailField.value.length > 0) {
-        addNewHint("* This email is invalid\n");
-        return true;
-    }
-    else if (emailField.value.length === 0) {
-        removeHint("* This email is invalid\n")
-        return false
-    }
-    else {
-        removeHint("* This email is invalid\n");
-        return true;
-    }
+// Validting the email using regExp
+function isEmailCorrect(email) {
+    let emailPattern = /^\S+@\S+\.\S+$/;
+    return emailPattern.test(email) || email == "";
 }
 
-// Checks if something is long enough
-function isShort(field, minLength, hint) {
-    if ((field.value.length < minLength)
-        && (field.value.length !== 0)) {
-        addNewHint(hint)
-        return false;
-    }
-    else if (field.value.length === 0) {
-        removeHint(hint)
-        return false
-    }
-    else {
-        removeHint(hint)
-        return true;
-    }
+// Validating a given string using the provided min. length 
+function isLengthCorrect(length, string) {
+    return string.length >= length || string == "";
 }
 
-// Check if the number is in the correct format
-function isPhoneNumberCorrect() {
-    // Regular expression pattern for phone number validation
-    const phonePattern = /^\+(\d{1,3})\s?\d{4,14}$/;
-    if (phoneNumberField.value.length === 0) {
-        removeHint("* The number must be entered in an international format (without spaces or hypenes), e.g.: +972 054 992 4098.\n")
-        return false
-    }
-    else if (!(phonePattern.test(phoneNumberField.value)) && (phoneNumberField !== 0)) {
-        addNewHint("* The number must be entered in an international format (without spaces or hypenes), e.g.: +972 054 992 4098.\n");
-        return false;
-    }
-    else {
-        removeHint("* The number must be entered in an international format (without spaces or hypenes), e.g.: +972 054 992 4098.\n");
-        return true;
-    }
+// Validting that the string has only legal characters (0-9, a-z, A-Z, _, -)
+function isValidString(string) {
+    let validStringPattern = /[0-9a-zA-Z_-]*$/;
+    return validStringPattern.test(string) || string == "";
 }
 
-// Cheks if the passowrd meets all the requirments
-function isValidCharactersInPassword()
-{
-    // Cheks if the passowrd is built from valid characters (0-9, A-Z. a-z, _, -)
-    const validPasswordRegExp = /^[A-Za-z0-9_-]+$/
-
-    if (!validPasswordRegExp.test(passwordField.value) && passwordField.value.length >0 ) {
-        addNewHint("* The password must be built from valid chatacters only (0-9, A-Z. a-z, _, -).")
-        return true;
-    }
-    else if (passwordField.value.length === 0)
-    {
-        removeHint("* The password must be built from valid chatacters only (0-9, A-Z. a-z, _, -).")
-        return false
-    }
-    else {
-        removeHint("* The password must be built from valid chatacters only (0-9, A-Z. a-z, _, -).")
-        return true;
-    }
+function doesStartWithEnglishLetter(string) {
+    let isLetterStartPattern = /^[a-zA-Z]/;
+    return isLetterStartPattern.test(string) || string == "";
 }
 
-function isPasswordStrong() {
-    const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/
-
-    if (!(strongPasswordPattern.test(passwordField.value)) && passwordField.value.length > 0) {
-        addNewHint("* The password must include at least one digit, one lowercase letter, and one uppercase letter.")
-        return false
-    }
-    else if (passwordField.value.length === 0) {
-        removeHint("* The password must include at least one digit, one lowercase letter, and one uppercase letter.")
-        return false
-    }
-    else {
-        removeHint("* The password must include at least one digit, one lowercase letter, and one uppercase letter.")
-        return true
-    }
-
+// Validating if a string is in international format
+function isValidPhoneNumber(phoneNumber) {
+    let validPhoneNumerPattern = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+    return validPhoneNumerPattern.test(phoneNumber) || phoneNumber == "";
 }
-// Cheks if all fields are filled properly, if they are filled prorperly the submit button becomes clickable
-function isAllValid() {
-    if (isEmailCorrect() &&
-        isShort(usernameField, 3, "* The username must be at least 3 characters long.\n") &&
-        isShort(firstNameField, 3, "* The first name must be at least 3 characters long.\n") &&
-        isShort(surnameField, 3, "* The surname must be at least 3 characters long.\n") &&
-        isPhoneNumberCorrect() &&
-        isShort(passwordField, 6, "* The password must be at least 6 characters long.\n") &&
-        isValidCharactersInPassword() &&
-        isPasswordStrong()
-    ) {
+
+// Validating if the birthday isn't earlier than 1900 and not late than (now - 18 years)
+function isValidBirthDay(birthdayDateString) {
+    let birthDayDate = new Date(birthdayDateString);
+    const minDate = new Date("1900-1-1");
+    const maxDate = new Date();
+    maxDate.setFullYear(maxDate.getFullYear() - 18);
+    return (birthDayDate >= minDate && birthDayDate <= maxDate);
+}
+
+// Validating that the password is strong enough
+function isPasswordValid(password) {
+    let validPasswordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
+    return validPasswordPattern.test(password) || password == "";
+}
+
+// Checking if at least one field is blank
+function isAtLeastOneFieldBlank() {
+    if (emailField.value == "" ||
+        usernameField.value == "" ||
+        firstNameField.value == "" ||
+        surnameField.value == "" ||
+        phoneNumberField.value == "" ||
+        passwordField.value == "") {
+        return true;
+    }
+    return false;
+}
+
+// If the inputs are filled and passed all the validations than the submit buttom become enabled
+function isAllOk() {
+    if (isEmailOk() &&
+        isUsernameOk() &&
+        isFirstNameOk() &&
+        isSurNameOk() &&
+        isPhoneNumberOk() &&
+        isBirthdayOk() &&
+        isPasswordOk() &&
+        !(isAtLeastOneFieldBlank())) {
         submitButton.disabled = false;
     }
     else {

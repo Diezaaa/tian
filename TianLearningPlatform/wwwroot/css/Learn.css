@@ -60,6 +60,30 @@ main {
     transition: all .1s ease;
 }
 
+.inDev {
+    color: black;
+    border-color: black;
+    margin: auto;
+    box-shadow: 0 8px 0;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.125em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    border: 2px solid;
+    border-radius: .75rem;
+    transition: all .1s ease;
+    cursor: default;
+}
+.inDev img{
+    width: 40px;
+}
+
 .lesson img {
     width: 25px;
 }

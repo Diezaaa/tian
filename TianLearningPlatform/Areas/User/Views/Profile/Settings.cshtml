@@ -17,20 +17,24 @@
     <form asp-action="Settings" method="post" enctype="multipart/form-data">
         <div id="inputs">
             <div id="avatar">
-                @if (Model.ImagePath != null)
+                @if (Model.ImagePath != "")
                 {
                     <img src="~/images/imagesForAvatars/@Model.ImagePath" id="image"/>
                 }
                 else
                 {
-                <img src="~/images/avatar_default.svg" id="image"/>
+                    <img src="@Url.Content("~/images/avatar_default.svg")" id="image" />
                 }
-                <div class="upload-btn">
-                    Upload Image
+                <div class="avatarBtn">
+                    Upload Avatar
                     <input type="file"
                            name="avatar"
-                           accept=".png, .jpeg, .jpg">
-                </div>
+                           accept="image/*"
+                           id="imageInput">
+                </div> 
+                <input type="button" class="avatarBtn" id="deleteImage" value="Remove Avatar" />
+                <input type="hidden" name="deleteImageHidden" id="deleteImageHidden" value="false" />
+
             </div>
             <label for="userName">Username: </label>
             <input id="userName" asp-for="UserName"/>
@@ -42,6 +46,9 @@
             <input id="email" asp-for="Email" />
             <label for="phone">Phone number: </label>
             <input id="phone" asp-for=PhoneNumber/>
+            <p id="hints">
+
+            </p>
             <button type="submit" id="save">Save</button>
         </div>
     </form>
@@ -55,3 +62,40 @@
             Delete account
     </a>
 </div>
+
+@section Scripts{
+@* Script for previewing the uploaded image*@
+    <script>
+        // Selecting the input to where the image uploaded and the
+        // image elemnt to which the image will be uplaoded
+        let uploadedImg = document.getElementById("imageInput");
+        let imagePreview = document.getElementById("image");
+
+        uploadedImg.addEventListener('change', function () {
+
+            // Selecting the first image from the files that were uploaded
+            // (note: there's only one file uploded)
+            let file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function() {
+                    imagePreview.src = reader.result;
+                }
+            }
+        })
+    </script>
+    <script>
+        // Deleting the preview image and 
+        // sending a sign to the server to delete the image
+        // from its store when delete avatar button is cliked
+        let deleteImageBtn = document.getElementById("deleteImage");
+        let deleteImageHidden = document.getElementById("deleteImageHidden");
+        deleteImageBtn.addEventListener("click", function () {
+            imagePreview.src = "@Url.Content("~/images/avatar_default.svg")";
+            uploadedImg.value = "";
+            deleteImageHidden.setAttribute("value", true);
+        })
+    </script>
+    <script src="~/js/updateUserValidation.js"></script>
+}
