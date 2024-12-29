@@ -1,6 +1,6 @@
 [![TianLogo](https://i.postimg.cc/SQvx4V0H/TianLogo.png)](https://postimg.cc/14DQcG3K)
 
-# Python Learning Platform
+# Tian - Python Learning Platform
 
 Welcome to the Python Learning Platform! This web application is designed to help absolute beginners learn Python programming in an engaging and interactive way. With step-by-step lessons, quizzes, and hands-on practice, users will be able to master Python fundamentals and start coding confidently.
 
