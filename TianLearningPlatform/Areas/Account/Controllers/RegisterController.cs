@@ -57,11 +57,11 @@ namespace Tian_fullstack.Areas.Account.Controllers
                 var createdUser = await _userManager.FindByNameAsync(newUser.UserName);
                 if (createdUser.UserName == "Dieza")
                 {
-                    await _userManager.AddToRoleAsync(newUser, "Admin");
+                    await _userManager.AddToRoleAsync(createdUser, "Admin");
                 }
                 else
                 {
-                    await _userManager.AddToRoleAsync(newUser, "User");
+                    await _userManager.AddToRoleAsync(createdUser, "User");
                 }
 
                 await _signInManager.SignInAsync(newUser, isPersistent: false);
