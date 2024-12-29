@@ -65,7 +65,7 @@ Install required packages
 dotnet restore
 ```
 
-This project requires two databases. One is used for storing user data, and the other is for tracking lessons and progress.
+This project requires two databases. One is used for storing user data, and the other is for stroing all app's info except user-related data
 
 Create the databases:
 
