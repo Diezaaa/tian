@@ -40,6 +40,19 @@ namespace Tian_fullstack.Areas.Account.Controllers
             // Checking if whether or not th user was created successfully
             if (result.Succeeded)
             {
+                // Creating roles 
+                var roleNames = new[] { "Admin", "User", "Manager" };
+
+                foreach (var roleName in roleNames)
+                {
+                    var roleExist = await _roleManager.RoleExistsAsync(roleName);
+                    if (!roleExist)
+                    {
+                        var role = new IdentityRole(roleName);
+                        await _roleManager.CreateAsync(role);
+                    }
+                }
+
                 // Username "Dieza" is the head admin
                 var createdUser = await _userManager.FindByNameAsync(newUser.UserName);
                 if (createdUser.UserName == "Dieza")
