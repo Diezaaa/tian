@@ -1,18 +1,10 @@
-- add good backend validations for all
-- add a message that says theat the credentail are wrong if the loogin failed
-- there's an additional to do list in the smarthpone
+- Add good backend validations for all (e.g ViewModels)
+- Add a message that says theat the credentail are wrong if the login failed
+- There's an additional to do list in the smarthpone (my poco x3 pro)
 - Check if day streak work
-        // Add valdiation to the form in settings
-        - add a constriant for setting only 1:1 avatr pictures
-        - add confirming password in changing passowrd
-        - making backend and frontend validation in settings
-        - add image validation for setting an avatar
-        - Make saving images in the db
-        - Make viewmodel for each form
-        -make an algorithm that find the free orders for leesons
-        - issue: After slide deletion the image of the slide remains in the memory of the server
-        - add validation for img inputs
-        - there's a slide with curse words
-        - Saving images for models in the db
-        - add a fucntion to disabel a code editor in a slide
-        - make place for progress in the db
+- Add validation for an uploaded avatar (like checking if the avatar is 1:1) or if you have time implement cropping while uploading an avatar
+- Make viewmodel for each form
+- After slide deletion the image of the slide remains in the memory of the server, fix it
+- Make image saving for models in the db
+- Add a fucntion to disable a code editor in a slide
+- Implement a link to the home page in the Tian's logo
