@@ -48,9 +48,51 @@ The Python Learning Platform is designed to teach Python programming in a fun, i
 
 ## Getting Started
 
-To get started with the Python Learning Platform locally, follow the instructions below.
+To get started with the Python learning platform, follow these steps:
 
-(Will be written soon)
+### Clone the Repository
+
+First, clone the repository to your local machine:
+
+```powershell
+git clone https://github.com/Diezaaa/TianPythonLearningPlatfrom.git
+cd TianLearningPlatform
+```
+
+Install required packages
+
+```powershell
+dotnet restore
+```
+
+This project requires two databases. One is used for storing user data, and the other is for stroing all app's info except user-related data
+
+Create the databases:
+
+- Database 1: AppDb - for stroing all app's info except user-related data.
+- Database 2: UserDb - for storing user-related data. 
+
+Open the appsettings.json file and update the connection strings for both databases:
+
+```json
+  "ConnectionStrings": {
+    "AppConnection": "your_server;Database=AppDb;Trusted_Connection=True;TrustServerCertificate=true",
+    "UserConnection": "your_server;DataBase=UserDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true"
+  }
+```
+
+Run the migrations for both databases:
+
+```powershell
+dotnet ef database update --context UserDbContext
+dotnet ef database update --context ApplicationDbContext
+```
+
+Run the app:
+
+```powershell
+dotnet run
+```
 
 ## Technologies-used
 
@@ -65,7 +107,7 @@ This project uses the following technologies:
 - JavaScript: Programming language used for front-end interactivity.
 
 ## License
-Copyright © 2024 Daniel Gertsykov. All Rights Reserved.
+Copyright Â© 2024 Daniel Gertsykov. All Rights Reserved.
 Unauthorized use, modification, or distribution is prohibited.
 
 
