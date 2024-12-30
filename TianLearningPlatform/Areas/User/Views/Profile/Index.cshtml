@@ -33,7 +33,7 @@
             @ViewBag.streak days streak
         </div>
         <div id="percents">
-            @ViewBag.percents% is completed
+            @ViewBag.progressInPercentage% is completed
         </div>
     </div>
     <!-- The achievements system isn't good, make it with mdoels-->
@@ -41,7 +41,7 @@
         Achievements you have:
     </div>
     <div class="badges">
-        @if (ViewBag.percents >= 50)
+        @if (ViewBag.progressInPercentage >= 50)
         {
             <div class="badge">
                 <img src="../images/half_way_badge.png">
@@ -49,7 +49,7 @@
                 Complete 50% of the course
             </div>
         }
-        @if (ViewBag.percents == 100)
+        @if (ViewBag.progressInPercentage == 100)
         {
             <div class="badge">
                 <img src="../images/final_emoji.png">
@@ -65,16 +65,17 @@
                 Complete the first lesson
             </div>
         }
-        else if (!ViewBag.iSFirstLesson && !(ViewBag.percents == 100) && !(ViewBag.percents >= 50))
+        else if (!ViewBag.iSFirstLesson && !(ViewBag.progressInPercentage == 100) && !(ViewBag.progressInPercentage >= 50))
         {
             <p id="no_badges">You have no achievements!</p>
         }
+ 
     </div>
     <div class="badges_title">
         Achievements you don't have:
     </div>
     <div class="badges">
-        @if (ViewBag.percents < 50)
+        @if (ViewBag.progressInPercentage < 50)
         {
             <div class="badge">
                 <img src="../images/half_way_badge.png">
@@ -82,7 +83,7 @@
                 Complete 50% of the course
             </div>
         }
-        @if (ViewBag.percents != 100)
+        @if (ViewBag.progressInPercentage != 100)
         {
             <div class="badge">
                 <img src="../images/final_emoji.png">
@@ -98,7 +99,7 @@
                 Complete the first lesson
             </div>
         }
-        else if (ViewBag.iSFirstLesson && ViewBag.percents == 100 && ViewBag.percents >= 50)
+        else if (ViewBag.iSFirstLesson && ViewBag.progressInPercentage == 100 && ViewBag.progressInPercentage >= 50)
         {
             <p id="no_badges">You have gotten all the achievements!</p>
         }

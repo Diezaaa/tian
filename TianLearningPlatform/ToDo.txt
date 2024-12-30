@@ -15,3 +15,4 @@
         - there's a slide with curse words
         - Saving images for models in the db
         - add a fucntion to disabel a code editor in a slide
+        - make place for progress in the db

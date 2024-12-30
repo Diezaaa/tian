@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Microsoft.SqlServer.Server;
-using System.IO;
-using Tian_fullstack.Areas.Account.Models;
+using System.Threading.Tasks;
 using Tian_fullstack.Data;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Tian_fullstack.Areas.User.Controllers
 {
@@ -31,29 +26,51 @@ namespace Tian_fullstack.Areas.User.Controllers
             _hostEnvironment = webHostEnvironment;
 
         }
+
+        public async Task<int> CalculateProgress()
+        {
+            // Getting asynchronously two essential pieces of info for the calculation
+            var userTask = _userManager.GetUserAsync(User);
+            var lessonsTask = _db.Lessons.ToListAsync();
+
+            // Waiting to the tasks above to complete
+            await Task.WhenAll(userTask, lessonsTask);
+
+            // Retrieving the results of the tasks above
+            var user = await userTask;
+            var lessonsList = await lessonsTask;
+
+            // Getting more details about the user for further calculations
+            var userCompletedLessons = await _userDb.CompletedLessons.Where(p => p.UserId == user.Id).ToListAsync();
+            var lastCompletedLessonNumber = userCompletedLessons.Any() ? (userCompletedLessons.OrderByDescending(p => p.LessonNumber).ToList()[0]).LessonNumber : 0;
+
+
+            // Calculating progress
+            if (lessonsList.Any())
+            {
+                var lastDbLesson = lessonsList.OrderByDescending(l => l.Order)
+                                 .ToList()[0].Order;
+
+                // If there're no lessons in the DB the progress will be 0
+                if (lastDbLesson == 0)
+                {
+                    return 0; 
+                }
+
+                var progress = ((double)lastCompletedLessonNumber / lastDbLesson) * 100;
+                return Math.Min((int)progress, 100); // Ensuring the value doesn't exceed 100
+            }
+            return 0;
+        }
+
         [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            var currentUserId = user.Id.ToString();
-            var lessonsList = _db.Lessons.ToList();
-            var userCompletedLessons = await _userDb.CompletedLessons.Where(p => p.UserId == currentUserId).ToListAsync();
+            var userCompletedLessons = await _userDb.CompletedLessons.Where(p => p.UserId == user.Id).ToListAsync();
             var lastLessonNumber = userCompletedLessons.Any() ? (userCompletedLessons.OrderByDescending(p => p.LessonNumber).ToList()[0]).LessonNumber : 0;
-            ViewBag.iSFirstLesson = lastLessonNumber >= 1;
-
-            /* 
-             Calculating the progress and finding the last lesson of a user that
-             HAS completed at least one lesson
-            */
-            if (userCompletedLessons.Any())
-            {
-                ViewBag.lastLessonNumber = lastLessonNumber;
-                ViewBag.percents = (int)(100 * ((double)lastLessonNumber / lessonsList.Count));
-            }
-            else
-            {
-                ViewBag.percents = 0;
-            }
+            ViewBag.iSFirstLesson = userCompletedLessons.Any();
+            ViewBag.progressInPercentage = await CalculateProgress();
 
             // Calculating days streak
             if (lastLessonNumber == 0)

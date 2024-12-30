@@ -25,6 +25,42 @@ namespace Tian_fullstack.Areas.Learning.Controllers
             _userManager = userManager;
             _userDb = userdb;
         }
+        public async Task<int> CalculateProgress()
+        {
+            // Getting asynchronously two essential pieces of info for the calculation
+            var userTask = _userManager.GetUserAsync(User);
+            var lessonsTask = _db.Lessons.ToListAsync();
+
+            // Waiting to the tasks above to complete
+            await Task.WhenAll(userTask, lessonsTask);
+
+            // Retrieving the results of the tasks above
+            var user = await userTask;
+            var lessonsList = await lessonsTask;
+
+            // Getting more details about the user for further calculations
+            var userCompletedLessons = await _userDb.CompletedLessons.Where(p => p.UserId == user.Id).ToListAsync();
+            var lastCompletedLessonNumber = userCompletedLessons.Any() ? (userCompletedLessons.OrderByDescending(p => p.LessonNumber).ToList()[0]).LessonNumber : 0;
+
+
+            // Calculating progress
+            if (lessonsList.Any())
+            {
+                var lastDbLesson = lessonsList.OrderByDescending(l => l.Order)
+                                 .ToList()[0].Order;
+
+                // If there're no lessons in the DB the progress will be 0
+                if (lastDbLesson == 0)
+                {
+                    return 0;
+                }
+
+                var progress = ((double)lastCompletedLessonNumber / lastDbLesson) * 100;
+                return Math.Min((int)progress, 100); // Ensuring the value doesn't exceed 100
+            }
+            return 0;
+        }
+
         [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public async Task<IActionResult> Index()
         {
@@ -51,31 +87,17 @@ namespace Tian_fullstack.Areas.Learning.Controllers
             ViewBag.lessons = lessonsList.OrderBy(x => x.Order)
                               .ToList();
 
-            // Getting the completed lessons of the user
-            var completedLessons = _userDb.CompletedLessons
-                                   .Where(x => x.UserId == user.Id)
-                                   .Any() ? await _userDb.CompletedLessons.Where(x => x.UserId == user.Id).ToListAsync() : new List<CompletedLesson>();
+            // Calculating progress for displaying
+            ViewBag.progressInPercentage = await CalculateProgress();
 
-            // Default values for users that haven't completed any lesson
-            ViewBag.progress = 0;
-            ViewBag.lastLessonNumber = 0;
-
-            /* 
-             Calculating the progress and finding the last lesson of a user that
-             HAS completed at least one lesson
-            */
-            if (completedLessons.Any())
+            // Getting the number of the last completed lesson
+            if (_userDb.CompletedLessons.Where(x => x.UserId == user.Id).Any())
             {
-                // Getting the number of the last completed lesson
-                int lastLessonNumber = completedLessons.Count;
-                ViewBag.lastLessonNumber = lastLessonNumber;
-                ViewBag.progress = (int)(100 * ((double)lastLessonNumber / lessonsList.Count));
+                var completedLesson = await _userDb.CompletedLessons.Where(x => x.UserId == user.Id).ToListAsync();
+                ViewBag.lastLessonNumber = completedLesson.OrderBy(l => l.LessonNumber).ToList().Last().LessonNumber;
                 return View();
             }
-
-            /*
-             This return statement is excuted only if a user have NOT completed any lesson
-            */
+            ViewBag.lastLessonNumber = 0;
             return View();
         }
     }

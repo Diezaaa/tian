@@ -36,27 +36,36 @@ namespace Tian_fullstack.Areas.Admin.Controllers
             // Getting an ordered lessons list
             var lessonsList = _db.Lessons.ToList().OrderBy(lesson => lesson.Order).ToList();
 
-
-            // Getting lessons' orders
-            var usedOrders = new List<int>();
-            foreach (var lesson in lessonsList)
+            
+            if (lessonsList.Any())
             {
-                usedOrders.Add(lesson.Order);
+                // Getting lessons' orders
+                var usedOrders = new List<int>();
+                foreach (var lesson in lessonsList)
+                {
+                    usedOrders.Add(lesson.Order);
+                }
+
+                // Finding free orders between lessons
+                // and passing the options to the select input
+                ViewBag.Orders = new List<SelectListItem> { };
+                for (int i = 1; i <= usedOrders.Last() + 1; i++)
+                {
+                    if (!usedOrders.Contains(i))
+                    {
+                        ViewBag.Orders.Add(new SelectListItem { Value = i.ToString(), Text = "Lesson " + i.ToString() + ": " + "[no lesson]" });
+                    }
+                    else
+                    {
+                        ViewBag.Orders.Add(new SelectListItem { Value = i.ToString(), Text = "Lesson " + i.ToString() + ": " + lessonsList.First(lesson => lesson.Order == i).Title, Disabled = true });
+                    }
+                }
             }
-
-            // Finding free orders between lessons
-            // and passing the options to the select input
-            ViewBag.Orders = new List<SelectListItem> { };
-            for (int i = 1; i <= usedOrders.Last() + 1; i++)
+            // If there's no lessons, only option for the first lesson will be available
+            else
             {
-                if (!usedOrders.Contains(i))
-                {
-                    ViewBag.Orders.Add( new SelectListItem { Value= i.ToString(), Text = "Lesson " + i.ToString() + ": " + "[no lesson]" });
-                }
-                else
-                {
-                    ViewBag.Orders.Add( new SelectListItem { Value = i.ToString(), Text = "Lesson " + i.ToString() + ": " + lessonsList.First(lesson => lesson.Order == i).Title, Disabled = true});
-                }
+                ViewBag.Orders = new List<SelectListItem> { };
+                ViewBag.Orders.Add(new SelectListItem { Value = "1", Text = "Lesson " + "1" + ": " + "[no lesson]" });
             }
 
             return View();
@@ -256,8 +265,9 @@ namespace Tian_fullstack.Areas.Admin.Controllers
             if (isConfirmed)
             {
                 // FIx deletion
-                var lessonsAndSlides = _db.Lessons.Include(b => b.Slides).First(l => l.Id == int.Parse(HttpContext.Request.Query["lessonId"]));
-                _db.Remove(lessonsAndSlides);
+                var lessons = _db.Lessons.Include(b => b.Slides).First(l => l.Id == int.Parse(HttpContext.Request.Query["lessonId"]));
+                _db.Slides.RemoveRange(lessons.Slides);
+                _db.Lessons.Remove(lessons);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
