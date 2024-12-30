@@ -57,6 +57,7 @@ First, clone the repository to your local machine:
 ```powershell
 git clone https://github.com/Diezaaa/TianPythonLearningPlatfrom.git
 cd TianLearningPlatform
+TianPythonLearningPlatfrom
 ```
 
 Install required packages
