@@ -59,9 +59,8 @@ namespace Tian_fullstack.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(bool isConfirmed)
         {
-
             // Getting the requested user
-            var user = await _userDb.Users.FirstOrDefaultAsync(x => x.UserName == HttpContext.Request.Query["user"].ToString());
+            var user = await _userDb.Users.FirstOrDefaultAsync(x => x.UserName == HttpContext.Request.Query["username"].ToString());
 
             // Checking if the user confirmed the deletion
             if (isConfirmed)
