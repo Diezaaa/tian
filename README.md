@@ -88,8 +88,8 @@ Open the appsettings.json file and update the connection strings for both databa
 
 ```json
   "ConnectionStrings": {
-    "AppConnection": "your_server;Database=AppDb;Trusted_Connection=True;TrustServerCertificate=true",
-    "UserConnection": "your_server;DataBase=UserDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true"
+    "AppConnection": "Server=your_server;Database=AppDb;Trusted_Connection=True;TrustServerCertificate=true",
+    "UserConnection": "Server=your_server;DataBase=UserDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true"
   }
 ```
 
