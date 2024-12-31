@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 using Tian_fullstack.Data;
 
@@ -68,46 +69,51 @@ namespace Tian_fullstack.Areas.User.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var userCompletedLessons = await _userDb.CompletedLessons.Where(p => p.UserId == user.Id).ToListAsync();
-            var lastLessonNumber = userCompletedLessons.Any() ? (userCompletedLessons.OrderByDescending(p => p.LessonNumber).ToList()[0]).LessonNumber : 0;
             ViewBag.iSFirstLesson = userCompletedLessons.Any();
             ViewBag.progressInPercentage = await CalculateProgress();
 
-            // Calculating days streak
-            if (lastLessonNumber == 0)
+            // If the user hasn't completed any lesson the days streak will be 0
+            if (!userCompletedLessons.Any())
             {
                 ViewBag.streak = 0;
                 return View(user);
             }
-            int streak = 0;
-            var userCompletedLessonsSorted = userCompletedLessons.OrderByDescending(p => p.UpdatedAt).ToList();
-            var today = DateTime.Now;
-            var oneDay = new TimeSpan(days: 1, 0, 0, 0);
-            var lastLesson = userCompletedLessonsSorted[0];
-            // FIX ALL THE CONTOLLER
-            if (today.Date < lastLesson.UpdatedAt.Date)
+            
+            // Getting essential info for calculating a day streak
+            var userCompletedLessonsDescendingByDate = userCompletedLessons.OrderByDescending(lc => lc.UpdatedAt).ToList();
+            var lastCompletedLessonDate = userCompletedLessonsDescendingByDate[0].UpdatedAt.Date;
+
+            // Check if streak is still valid
+            if (lastCompletedLessonDate < DateTime.Now.Date.AddDays(-1))
             {
                 ViewBag.streak = 0;
                 return View(user);
             }
-            int j = 1;
-            for (int i = 0; i < userCompletedLessonsSorted.Count; i++)
+
+            // Calculating day streak
+            int dayStreak = 1;
+            for (int i = 1; i < userCompletedLessonsDescendingByDate.Count; i++)
             {
-                for (; j < userCompletedLessonsSorted.Count;)
+                var currentLessonDate = userCompletedLessonsDescendingByDate[i - 1].UpdatedAt.Date;
+                var previousLessonDate = userCompletedLessonsDescendingByDate[i].UpdatedAt.Date;
+
+                if (currentLessonDate == previousLessonDate)
                 {
-                    if (userCompletedLessonsSorted[i].UpdatedAt.Date == userCompletedLessonsSorted[j].UpdatedAt.Date + oneDay )
-                    {
-                        streak++;
-                        j = j + 1;
-                        break;
-                    }
-                    else
-                    {
-                        ViewBag.streak = streak;
-                        return View(user);
-                    }                
+                    // Same day, continue
+                    continue;
+                }
+                else if (currentLessonDate.AddDays(-1) == previousLessonDate)
+                {
+                    // Consecutive day
+                    dayStreak++;
+                }
+                else
+                {
+                    // Break in the streak
+                    break;
                 }
             }
-            ViewBag.streak = streak;
+            ViewBag.streak = dayStreak;
             return View(user);
         }
 
