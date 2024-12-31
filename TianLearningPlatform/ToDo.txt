@@ -8,3 +8,4 @@
 - Make image saving for models in the db
 - Add a fucntion to disable a code editor in a slide
 - Implement a link to the home page in the Tian's logo
+- Make the code editor more convinent fo mobile devices

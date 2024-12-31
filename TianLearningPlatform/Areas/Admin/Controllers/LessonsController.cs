@@ -191,9 +191,15 @@ namespace Tian_fullstack.Areas.Admin.Controllers
             int i = 0;
             foreach (var image in imageFiles)
             {
+                // Deleting the slide's image if it was requested
+                if (Request.Form["deleteOriginal " + i] == "on")
+                {
+                    deleteSlideImageIfExist(i);
+                    obj.Slides[i].ImagePath = null;
+                }
                 //  A txt file is sent if no image has been set.
                 //  If an image has been sent to a slide, this condition will be excuted
-                if (Path.GetExtension(image.FileName) != ".txt")
+                else if (Path.GetExtension(image.FileName) != ".txt")
                 {
                     // Deleting slide's image if it exist
                     deleteSlideImageIfExist(i);
@@ -226,13 +232,6 @@ namespace Tian_fullstack.Areas.Admin.Controllers
                     {
                         obj.Slides[i].ImagePath = (await _db.Slides.FirstAsync(s => s.Order == i + 1 && s.LessonNumber == obj.Order)).ImagePath;
                     }
-                }
-
-                // Deleting the slide's image if it was requested
-                if (Request.Form["deleteOriginal " + i] == "on")
-                {
-                    deleteSlideImageIfExist(i);
-                    obj.Slides[i].ImagePath = null;
                 }
                 i++;
             }
