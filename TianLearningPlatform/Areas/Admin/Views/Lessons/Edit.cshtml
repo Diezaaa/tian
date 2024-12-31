@@ -195,32 +195,30 @@
         * Setting an input to null when submitting if it doesn't contain a file
         */
 
-        // Setting image inputs where are no image to emty txt file. This is
-        // done for the server side. When the lesson is submitted, the server can
-        // recoginze emty inputs by detecting a txt file.
-        let form = document.getElementsByTagName("form");
-        form[0].addEventListener('submit', function (event) {
-            let imageInputs = Array.from(document.getElementsByClassName("imageUpload"));
-            imageInputs.forEach((imageInput) => 
-            {
-                event.preventDefault(); // Prevent the form from submitting immediately
-                if (imageInput.files.length === 0 ||
-                    imageInput.files.length > 1) 
-                {
-                    // Create a new empty file
-                    const emptyFile = new File([1], 'empty.txt', { type: 'text/plain' });
+            // Setting image inputs where are no image to emty txt file. This is
+            // done for the server side. When the lesson is submitted, the server can
+            // recoginze emty inputs by detecting a txt file.
+            let submitBtn = document.getElementById("sumbitBtn");
+            submitBtn.addEventListener('click', function (event) {
+                 let imageInputs = Array.from(document.getElementsByClassName("imageUpload"));
+                 imageInputs.forEach((imageInput) => {
+                     event.preventDefault(); // Prevent the form from submitting immediately
+                     if (imageInput.files.length === 0 ||
+                         imageInput.files.length > 1) {
+                         // Create a new empty file
+                         const emptyFile = new File([1], 'empty.txt', { type: 'text/plain' });
 
-                    // Create a DataTransfer object to simulate the file selection
-                    const dataTransfer = new DataTransfer();
+                         // Create a DataTransfer object to simulate the file selection
+                         const dataTransfer = new DataTransfer();
 
-                    // Add the empty file to the DataTransfer object
-                    dataTransfer.items.add(emptyFile);
+                         // Add the empty file to the DataTransfer object
+                         dataTransfer.items.add(emptyFile);
 
-                    // Assign the DataTransfer's files to the input's files
-                    imageInput.files = dataTransfer.files;
-                }
-            })
-        }); 
+                         // Assign the DataTransfer's files to the input's files
+                         imageInput.files = dataTransfer.files;
+                     }
+                 })
+             });
         </script>
         <script src="~/js/lessonValidation.js"></script>
 }
