@@ -11,3 +11,8 @@
 - Make the code editor more convinent fo mobile devices
 - In edit view of lessons enabling code editor doesn't work
 - Add validation for uploading images for slides
+- Add back to settings button to change password
+- Reanme Lesson view to Index and the contoleer also
+- Add site map to github repo
+- It would be great to think again about the names of the areas
+- add viewing profil eo fanother person (achiegvemnts + name+ day streak + progress)

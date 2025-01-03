@@ -84,7 +84,7 @@ namespace Tian_fullstack.Areas.User.Controllers
             var lastCompletedLessonDate = userCompletedLessonsDescendingByDate[0].UpdatedAt.Date;
 
             // Check if streak is still valid
-            if (lastCompletedLessonDate < DateTime.Now.Date.AddDays(-1))
+                    if (lastCompletedLessonDate < DateTime.Now.Date.AddDays(-1))
             {
                 ViewBag.streak = 0;
                 return View(user);
