@@ -5,7 +5,8 @@ let emailField = document.getElementById("email");
 let usernameField = document.getElementById("userName");
 let firstNameField = document.getElementById("firstName");
 let surnameField = document.getElementById("surname");
-let phoneNumberField = document.getElementById("phone")
+let phoneNumberField = document.getElementById("phone");
+let passwordField = document.getElementById("password");
 let hints = document.getElementById("hints");
 let submitButton = document.getElementById("save");
 
@@ -18,6 +19,7 @@ usernameField.addEventListener("input", () => { isAllOk(); isUsernameOk() });
 firstNameField.addEventListener("input", () => { isAllOk(); isFirstNameOk() });
 surnameField.addEventListener("input", () => { isAllOk(); isSurNameOk() });
 phoneNumberField.addEventListener("input", () => { isAllOk(); isPhoneNumberOk() });
+passwordField.addEventListener("input", () => { isPasswordOk(); isAllOk(); });
 
 /* 
 Validation of the fields
@@ -40,6 +42,10 @@ function isSurNameOk() {
 
 function isPhoneNumberOk() {
     return manageErrorMessages(isValidPhoneNumber(phoneNumberField.value), "The phone number must follow the international format with a + in the start and must not have hyphens(e.g +9720559934099)")
+}
+
+function isPasswordOk() {
+    return manageErrorMessages(isPasswordValid(passwordField.value) && isValidString(), "The password must be length must be between 8 and 16 and must contain at least one digit, one uppecase and lowercase letter and must contain only (0-9, a-z, A-Z, _, -)")
 }
 
 /* 
@@ -128,6 +134,7 @@ function isAllOk() {
         isFirstNameOk() &&
         isSurNameOk() &&
         isPhoneNumberOk() &&
+        isPasswordOk() &&
         !(isAtLeastOneFieldBlank())) {
         submitButton.disabled = false;
     }

@@ -179,3 +179,12 @@ input[type="checkbox"]{
 label{
     height:fit-content;
 }
+#image {
+    width: 75px;
+    border-radius: 50%;
+    display:block;
+    margin-bottom: 8px;
+}
+#imageInput{
+    margin-top: 5px;
+}

@@ -17,7 +17,7 @@
     <form asp-action="Settings" method="post" enctype="multipart/form-data">
         <div id="inputs">
             <div id="avatar">
-                @if (Model.ImagePath != "")
+                @if (Model.ImagePath != null)
                 {
                     <img src="~/images/imagesForAvatars/@Model.ImagePath" id="image"/>
                 }

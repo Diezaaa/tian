@@ -1,0 +1,84 @@
+﻿@model Tian_fullstack.Areas.Account.Models.User
+@{
+    ViewData["Title"] = "Admin panel";
+}
+@{
+    Layout = "_LayoutRegistered";
+}
+
+@section Style {
+    <link rel="stylesheet" href="~/css/ModelCreate.css" />
+}
+<h1>Create a user</h1>
+<form method="post" enctype="multipart/form-data" id="lessonForm">
+    <div id="inputs">
+        <div id="avatar">
+            <div class="avatarBtn">
+                <img src="@Url.Content("~/images/avatar_default.svg")" id="image" />
+                Upload Avatar
+                <input type="file"
+                       name="avatar"
+                       accept="image/*"
+                       id="imageInput">
+            </div>
+            <input type="button" class="avatarBtn" id="deleteImage" value="Remove Avatar" />
+            <input type="hidden" name="deleteImageHidden" id="deleteImageHidden" value="false" />
+
+        </div>
+        <label for="username">Username: </label>
+        <input id="username" asp-for="UserName" />
+        <label for="first_name">First name: </label>
+        <input id="first_name" asp-for="FirstName" />
+        <label for="surname">Surname:</label>
+        <input id="surname" asp-for="Surname" />
+        <label for="email">Email: </label>
+        <input id="email" asp-for="Email" />
+        <label for="phoneNumber">Phone number: </label>
+        <input id="phoneNumber" asp-for=PhoneNumber />
+        <label for="password">Password:</label>
+        <input id="password" name="password"/>
+        <label for="birth_day">Birthday:</label>
+        <input id="birth_day" name="BirthDay" type="date"/>
+        <p id="hints">
+
+        </p>
+        <button type="submit" id="submit">Create</button>
+    </div>
+</form>
+<a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>
+@section Scripts {
+    <script src="~/js/signUpValidation.js"></script>
+    @* Script for previewing the uploaded image*@
+    <script>
+        // Selecting the input to where the image uploaded and the
+        // image elemnt to which the image will be uplaoded
+        let uploadedImg = document.getElementById("imageInput");
+        let imagePreview = document.getElementById("image");
+
+        uploadedImg.addEventListener('change', function () {
+
+            // Selecting the first image from the files that were uploaded
+            // (note: there's only one file uploded)
+            let file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    imagePreview.src = reader.result;
+                }
+            }
+        })
+    </script>
+    <script>
+        // Deleting the preview image and
+        // sending a sign to the server to delete the image
+        // from its store when delete avatar button is cliked
+        let deleteImageBtn = document.getElementById("deleteImage");
+        let deleteImageHidden = document.getElementById("deleteImageHidden");
+        deleteImageBtn.addEventListener("click", function () {
+            imagePreview.src = "@Url.Content("~/images/avatar_default.svg")";
+            uploadedImg.value = "";
+            deleteImageHidden.setAttribute("value", true);
+        })
+    </script>
+}

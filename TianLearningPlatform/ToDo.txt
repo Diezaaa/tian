@@ -16,3 +16,4 @@
 - Add site map to github repo
 - It would be great to think again about the names of the areas
 - add viewing profil eo fanother person (achiegvemnts + name+ day streak + progress)
+- Make the all the navigation on the wesbtie usign a keborad

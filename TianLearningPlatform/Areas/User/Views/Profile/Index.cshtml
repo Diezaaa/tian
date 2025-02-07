@@ -16,7 +16,7 @@
 
 <div id="inner">
     <div id="avatar">
-        @if (Model.ImagePath != "")
+        @if (Model.ImagePath != null)
         {
             <img src="~/images/imagesForAvatars/@(Model.ImagePath)" id="image" />
         }

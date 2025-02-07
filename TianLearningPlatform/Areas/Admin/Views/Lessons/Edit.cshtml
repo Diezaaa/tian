@@ -12,7 +12,8 @@
 }
 
 <h1>Edit a lesson</h1>
-<form method="post" enctype="multipart/form-data" id="lessonForm">
+<div id="tableWrapper">
+    <form method="post" enctype="multipart/form-data" id="lessonForm">
     <label for="Order">Order: </label>
     <select id="Order" asp-for="Order" asp-items="@ViewBag.Orders"></select>
     <span class="error" id="OrderError"></span>
@@ -71,7 +72,8 @@
     }
     </div>
     <button type="submit" id="sumbitBtn">Save</button>
-</form>
+    </form>
+</div>
 <a asp-controller="Lessons" asp-action="Index">&lt;&lt; Back to the lessons</a>
 <a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>
 

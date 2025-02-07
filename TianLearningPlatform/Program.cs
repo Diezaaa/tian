@@ -29,7 +29,7 @@ builder.Services.Configure<FormOptions>(options =>
     options.MultipartBodyLengthLimit = 52428800; // 50 MB
 });
 
-builder.Services.AddIdentity<Tian_fullstack.Areas.Account.Models.User, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
+builder.Services.AddIdentity<Tian_fullstack.Areas.Account.Models.User, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
 // Changes the requirements of the apssword all over the app
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -40,6 +40,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 8;
     options.Password.RequiredUniqueChars = 1;
 });
+
 
 
 var app = builder.Build();

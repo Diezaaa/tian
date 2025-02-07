@@ -9,43 +9,146 @@
 @section Style {
     <link rel="stylesheet" href="~/css/ModelIndex.css" />
 }
-<div>
-    <h1>Users list:</h1>
-    <table>
+<h1>Users list:</h1>
+<div id="searchDiv" class="group">
+    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+    <input name="text" placeholder="Search by username" type="search" oninput="searchUsers()" id="search" class="input">
+</div>
+<div id="tableWrapper">
+    <table id="table">
         <thead>
             <tr>
                 <th>
+                    Avatar
+                </th>
+                <th>
                     Username
+                </th>
+                <th>
+                    First name
+                </th>
+                <th>
+                    Surname
+                </th>
+                <th>
+                    Birth day
                 </th>
 
                 <th>
                     Email
                 </th>
                 <th>
+                    Phone number
+                </th>
+                <th>
                     Actions
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="userTableBody">
             @foreach (var user in Model)
             {
                 <tr>
-                    <td>
+                    <td data-label="Avatar">
+                        @if (user.ImagePath != null)
+                        {
+                            <img src="~/images/imagesForAvatars/@(user.ImagePath)" id="image" />
+                        }
+
+                        else
+                        {
+                            <img src="@Url.Content("~/images/avatar_default.svg")" id="image" />
+                        }
+                    </td>
+                    <td data-label="Username">
                         @user.UserName
                     </td>
-                    <td>
+                    <td data-label="First name">
+                        @user.FirstName
+                    </td>
+                    <td data-label="Surname">
+                        @user.Surname
+                    </td>
+                    <td data-label="Birth date">
+                        @user.BirthDay
+                    </td>
+                    <td data-label="Email">
                         @user.Email
                     </td>
-                    <td>
+                    <td data-label="Phone number">
+                        @user.PhoneNumber
+                    </td>
+                    <td data-label="Actions">
                         <div class="actions">
-                            <a asp-action="Detailes" asp-route-user="@user.UserName" class="editBtn">Detailes</a>
                             <a asp-action="Delete" asp-route-user="@user.UserName">Delete</a>
+                            <a asp-action="Edit" asp-route-user="@user.UserName">Edit</a>
                         </div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-
-</div>
+    <p id="noResults" style="display: none;">No results found</p>
+</div>    
+<a asp-action="Create">Create</a>
 <a asp-area="Admin" asp-controller="Home" asp-action="Index"> &lt;&lt; Back to admin panel</a>
+<script>
+    function searchUsers() {
+        // Get search input value
+        const username = document.getElementById('search').value;
+
+        // Create a new XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+
+        // Configure the request
+        xhr.open('GET', `Users/SearchByUserName?username=${encodeURIComponent(username)}`, true);
+
+        // Set up a function to handle the response
+        xhr.onload = function () 
+        {
+            if (xhr.status === 200) 
+            {
+                const data = JSON.parse(xhr.responseText);  // Parse the JSON response
+
+                let html = '';
+
+                if (Object.keys(data).length == 0) {
+                    document.getElementById('userTableBody').innerHTML = "";
+                    document.getElementById('noResults').style.display = 'block';
+                }
+                else 
+                {
+                    document.getElementById('noResults').style.display = 'none';
+                    // Build HTML table rows from response
+                    data.forEach((x) => {
+                        html += `<tr>
+                        <td><img src = "${x.Avatar == "" ? "/images/avatar_default.svg" : x.Avatar}" id="image"></td>
+                        <td>${x.UserName}</td>
+                        <td>${x.FirstName}</td>
+                        <td>${x.Surname}</td>
+                        <td>${x.BirthDay}</td>
+                        <td>${x.Email}</td>
+                        <td>${x.PhoneNumber}</td>
+                        <td>
+                            <div>
+                                <a href="Users/Delete?user=${x.UserName}">Delete</a>
+                                <a href="Users/Edit?user=${x.UserName}">Edit</a>
+                            </div>
+                        </td>
+                    </tr>`;
+                    });                
+                    // Insert rows into table
+                    document.getElementById('userTableBody').innerHTML = html;
+                }
+
+            } 
+            else
+            {
+                console.error('Request failed with status:', xhr.status);
+            }
+        };
+
+        // Send the request
+        xhr.send();
+    }
+</script>

@@ -3,8 +3,8 @@
     width: 90%;
     margin: auto;
     background-color: rgba(215, 220, 227, 0.48);
-    min-height: calc(100vh - 88.25px);
     padding-bottom: 20px;
+    font-size: 13px;
     border-radius: 20px;
 }
 
@@ -52,48 +52,139 @@ button:hover {
     animation-duration: 1s;
     animation-fill-mode: forwards
 }
-table {
-    border-collapse:separate;
-    border:solid black 1px;
-    border-radius:6px;
-    margin: auto;
-    max-width: 90%;
-    min-width: 50%
-}
-
-td, th {
-    border-left:solid black 1px;
-    border-top:solid black 1px;
-}
-
-td{
-    text-align: center;
-    vertical-align: middle;
-    padding: 5px;
-}
-
-th {
-    background-color: none;
-    border-top: none;
-}
-
-td:first-child, th:first-child {
-     border-left: none;
-}
 h1, a{
     display:block;
     text-align: center;
     padding: 10px;
 }
 
-.actions {
-    display: flex;
-    flex-direction:column;
-    vertical-align:middle
+
+#tableWrapper {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0;
+    overflow-x: auto;
+    border-radius: 10px;
+}
+#image {
+    width: 75px;
+    border-radius: 50%;
 }
 
-.editBtn{
-    padding:0;
-    display: block;
-    margin:5px;
+
+
+
+
+
+
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    border-radius: 12px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures the rounded corners are applied correctly */
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    align-content: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #4F46E5; /* Purple background for the header */
+    color: white; /* White text in the header */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Make the table responsive */
+@media screen and (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+    }
+
+        td:before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            font-weight: bold;
+        }
+}
+
+
+
+
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.input {
+    border: 1px solid #4F46E5;
+    width: 200px;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: .3s ease;
+}
+
+    .input::placeholder {
+        color: #9e9ea7;
+    }
+
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
+@keyframes glowing {
+    from {
+        box-shadow: 0px 0px 0px 0px #4F46E5;
+    }
+
+    to {
+        box-shadow: 0px 2.5px 15px 0px #4F46E5;
+    }
+}
+
+input:focus {
+    outline: none;
+    animation-name: glowing;
+    animation-duration: 2s;
+    animation-fill-mode: forwards
 }
