@@ -33,7 +33,7 @@ namespace Tian_fullstack.Areas.Account.Controllers
         public async Task<IActionResult> Index (Models.User newUser, string password)
         {
             // Deleting the ImagePath form model state (Use view models for simpler backend validation)
-            newUser.ImagePath = "";
+            newUser.ImagePath = null;
             ModelState.Remove("ImagePath");
             var result = await _userManager.CreateAsync(newUser, password);
 
