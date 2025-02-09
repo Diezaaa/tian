@@ -65,13 +65,21 @@ h1, a{
     margin-left: auto;
     padding: 0;
     overflow-x: auto;
+    overflow-y: auto;
     border-radius: 10px;
 }
 #image {
     width: 75px;
     border-radius: 50%;
 }
+#noResults
+{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
 
+}
 
 
 
@@ -94,6 +102,7 @@ th, td {
     text-align: left;
     align-content: center;
     border: 1px solid #ddd;
+    background-color: white;
 }
 
 th {
@@ -101,9 +110,6 @@ th {
     color: white; /* White text in the header */
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
 
 /* Make the table responsive */
 @media screen and (max-width: 600px) {
@@ -129,6 +135,11 @@ tr:nth-child(even) {
             left: 10px;
             font-weight: bold;
         }
+    tr {
+        background-color: white;
+        border-bottom: 3px solid rgba(215, 220, 227, 0.48);
+        border-radius: 12px;
+    }
 }
 
 

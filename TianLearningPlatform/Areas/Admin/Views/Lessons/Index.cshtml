@@ -28,13 +28,13 @@
     @foreach (var lesson in Model)
         {
         <tr>
-            <td>
+            <td data-label="Order">
                 @lesson.Order
             </td>
-            <td>
+            <td data-label="Title"> 
                 @lesson.Title
             </td>
-            <td >
+            <td data-label="Actions">
                 <div class ="actions">
                     <a asp-action="Edit" asp-route-lessonId="@lesson.Id" class="editBtn">Edit</a>
                     <a asp-action="Delete" asp-route-lessonId="@lesson.Id" class="editBtn">Delete</a>
