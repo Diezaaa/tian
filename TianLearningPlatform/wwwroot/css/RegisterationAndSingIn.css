@@ -3,9 +3,9 @@ main {
     max-width: 800px;
     width: 90%;
     margin: auto;
-    background-color: rgba(215, 220, 227, 0.48);
     min-height: calc(100vh - 88.25px);
     padding-bottom: 20px;
+    background-color: rgb(215, 220, 227);
     border-radius: 20px;
 }
 

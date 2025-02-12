@@ -90,7 +90,7 @@ button{
 }
 
 main {
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: #D7DCE37A;
     width: 90%;
     margin: auto;
     max-width: 800px;
@@ -154,7 +154,7 @@ h1{
 .arrow{
     height: 32px;
 }
-main{
+main {
     display: flex;
     flex-direction: column;
 }

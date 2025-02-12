@@ -1,7 +1,7 @@
-﻿main{
+﻿main {
     display: flex;
-    flex-direction:column;
-    justify-content:center;
+    flex-direction: column;
+    justify-content: center;
 }
 #continner {
     width: 90%;

@@ -33,7 +33,6 @@ main {
     margin: auto;
     max-width: 800px;
     position: relative;
-    background-color: rgba(215, 220, 227, 0.48);
     min-height: 100vh;
     border-radius: 20px;
 }

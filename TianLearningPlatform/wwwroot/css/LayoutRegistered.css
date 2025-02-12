@@ -31,7 +31,7 @@ nav * {
 nav {
     max-width: 800px;
     position: sticky;
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: rgb(215, 220, 227);
     width: 90%;
     height: 70px;
     bottom: 10px;
@@ -63,7 +63,7 @@ footer {
     border-radius: 20px 20px 0px 0px;
     width: 90%;
     margin: auto;
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: rgb(215, 220, 227);
     height: 120px;
     text-align: center;
     max-width: 800px;
@@ -96,7 +96,7 @@ main {
     width: 90%;
     max-width: 800px;
     margin: auto;
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: rgb(215, 220, 227);
     border-radius: 20px;
 }
 #inner{

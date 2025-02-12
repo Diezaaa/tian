@@ -1,6 +1,6 @@
-﻿#top {
+#top {
     margin: auto;
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: rgb(215, 220, 227);
     padding-bottom: 1px;
     border-radius: 20px;
 }
@@ -73,7 +73,7 @@
 #demo {
     margin-right: auto;
     margin-left: auto;
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: rgb(215, 220, 227);
     border-radius: 20px;
     margin-top: 20px;
     padding-top: 40px;
@@ -139,7 +139,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    background-color: rgba(226,232,240, 0.48);
+    background-color: rgb(226,232,240);
     border-radius: 20px;
     min-height: 200px;
 }

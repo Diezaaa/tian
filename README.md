@@ -102,6 +102,8 @@ dotnet ef database update --context UserDbContext
 dotnet ef database update --context ApplicationDbContext
 ```
 
+Run the server
+
 Run the app:
 
 ```powershell

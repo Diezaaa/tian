@@ -45,7 +45,7 @@ footer {
     border-radius: 20px 20px 0px 0px;
     width: 90%;
     margin: auto;
-    background-color: rgba(215, 220, 227, 0.48);
+    background-color: rgb(215, 220, 227);
     height: 120px;
     margin-top: 20px;
     display: flex;
