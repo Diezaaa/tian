@@ -59,7 +59,7 @@ Before running the project, ensure you have the following software installed:
 
 - **SQL Server**: You need to have SQL Server installed, as the project requires two databases. Download it from [here](https://download.microsoft.com/download/c/c/9/cc9c6797-383c-4b24-8920-dc057c1de9d3/SQL2022-SSEI-Dev.exe).
 
-- **MSSM**: You should've an interface for creating\editing\DBs. You can downlaod it from [here] (https://download.microsoft.com/download/9/b/e/9bee9f00-2ee2-429a-9462-c9bc1ce14c28/SSMS-Setup-ENU.exe).
+- **MSSM**: You should've an interface for creating\editing\DBs. You can downlaod it from [here] ([https://download.microsoft.com/download/9/b/e/9bee9f00-2ee2-429a-9462-c9bc1ce14c28/SSMS-Setup-ENU.exe](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)).
 
 To get started with the Python learning platform, follow these steps:
 
