@@ -55,7 +55,7 @@ Before running the project, ensure you have the following software installed:
 - **Git**: To clone the repository from GitHub, you will need Git installed. You can download it from [here](https://git-scm.com/downloads)
 .
 
-- **.NET SDK**: Since the project uses .NET, you will need the .NET SDK installed to run commands like dotnet restore, dotnet ef, and dotnet run. You can download it from [here](https://dotnet.microsoft.com/en-us/download).
+- **.NET 8 SDK**: Since the project uses .NET, you will need the .NET SDK installed to run commands like dotnet restore, dotnet ef, and dotnet run. You can download it from [here](https://dotnet.microsoft.com/en-us/download).
 
 - **SQL Server**: You need to have SQL Server installed, as the project requires two databases. You can use Microsoft SQL Server Management Studio 20. Download it from [here](https://download.microsoft.com/download/c/c/9/cc9c6797-383c-4b24-8920-dc057c1de9d3/SQL2022-SSEI-Dev.exe).
 
