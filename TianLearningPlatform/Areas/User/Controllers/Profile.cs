@@ -84,7 +84,7 @@ namespace Tian_fullstack.Areas.User.Controllers
             var lastCompletedLessonDate = userCompletedLessonsDescendingByDate[0].UpdatedAt.Date;
 
             // Check if streak is still valid
-                    if (lastCompletedLessonDate < DateTime.Now.Date.AddDays(-1))
+            if (lastCompletedLessonDate < DateTime.Now.Date.AddDays(-1))
             {
                 ViewBag.streak = 0;
                 return View(user);
@@ -181,20 +181,17 @@ namespace Tian_fullstack.Areas.User.Controllers
             var existingUser = await _userManager.GetUserAsync(User);
 
             // Getting user's avatar path
-            if (existingUser.ImagePath != null)
+            if (existingUser.ImagePath != null && Request.Form["deleteImageHidden"] == "true")
             {
                 var avatarPath = Path.Combine(_hostEnvironment.WebRootPath, "images/imagesForAvatars", existingUser.ImagePath);
                 // Deleting user's avatar from the system
                 // if he pressed the delete avatar button
-                if (Request.Form["deleteImageHidden"] == "true")
+                if (System.IO.File.Exists(avatarPath))
                 {
-                    if (System.IO.File.Exists(avatarPath))
-                    {
-                        System.IO.File.Delete(avatarPath);
-                    }
-                    existingUser.ImagePath = null;
-                    await _userManager.UpdateAsync(existingUser);
+                    System.IO.File.Delete(avatarPath);
                 }
+                existingUser.ImagePath = null;
+                await _userManager.UpdateAsync(existingUser);
             }
 
             if (avatar != null)

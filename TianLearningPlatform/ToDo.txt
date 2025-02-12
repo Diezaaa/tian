@@ -18,3 +18,4 @@
 - add viewing profil eo fanother person (achiegvemnts + name+ day streak + progress)
 - Make the all the navigation on the wesbtie usign a keborad
 - Add th option to enable code editor through lesson editding page
+- Make a table for users' avatars, and connect them to users using relationship
