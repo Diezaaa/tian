@@ -93,8 +93,8 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 0;
-    border-radius: 12px; /* Rounded corners for the table */
-    overflow: hidden; /* Ensures the rounded corners are applied correctly */
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 th, td {
@@ -105,9 +105,11 @@ th, td {
     background-color: white;
 }
 
+
+
 th {
-    background-color: #4F46E5; /* Purple background for the header */
-    color: white; /* White text in the header */
+    background-color: #4F46E5;
+    color: white;
 }
 
 

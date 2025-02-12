@@ -32,7 +32,7 @@ namespace Tian_fullstack.Areas.Account.Controllers
         [HttpPost]
         public async Task<IActionResult> Index (Models.User newUser, string password)
         {
-            // Deleting the ImagePath form model state (Use view models for simpler backend validation)
+            // Deleting the ImagePath from model state (Use view models for simpler backend validation for later)
             newUser.ImagePath = null;
             ModelState.Remove("ImagePath");
             var result = await _userManager.CreateAsync(newUser, password);
@@ -43,6 +43,7 @@ namespace Tian_fullstack.Areas.Account.Controllers
                 // Creating roles 
                 var roleNames = new[] { "Admin", "User", "Manager" };
 
+                // Creating roles if it's necessary 
                 foreach (var roleName in roleNames)
                 {
                     var roleExist = await _roleManager.RoleExistsAsync(roleName);
@@ -53,7 +54,8 @@ namespace Tian_fullstack.Areas.Account.Controllers
                     }
                 }
 
-                // Username "Dieza" is the head admin
+                // Assigning a role to the new user
+                // Note: Username "Dieza" is the head admin
                 var createdUser = await _userManager.FindByNameAsync(newUser.UserName);
                 if (createdUser.UserName == "Dieza")
                 {
@@ -64,6 +66,7 @@ namespace Tian_fullstack.Areas.Account.Controllers
                     await _userManager.AddToRoleAsync(createdUser, "User");
                 }
 
+                // Logging in the new user
                 await _signInManager.SignInAsync(newUser, isPersistent: false);
 
                 return RedirectToAction("Index", "Learn", new { area = "Learning" });

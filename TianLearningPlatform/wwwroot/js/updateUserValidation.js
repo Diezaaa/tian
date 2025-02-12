@@ -7,6 +7,7 @@ let firstNameField = document.getElementById("firstName");
 let surnameField = document.getElementById("surname");
 let phoneNumberField = document.getElementById("phone");
 let passwordField = document.getElementById("password");
+
 let hints = document.getElementById("hints");
 let submitButton = document.getElementById("save");
 
@@ -19,7 +20,8 @@ usernameField.addEventListener("input", () => { isAllOk(); isUsernameOk() });
 firstNameField.addEventListener("input", () => { isAllOk(); isFirstNameOk() });
 surnameField.addEventListener("input", () => { isAllOk(); isSurNameOk() });
 phoneNumberField.addEventListener("input", () => { isAllOk(); isPhoneNumberOk() });
-passwordField.addEventListener("input", () => { isPasswordOk(); isAllOk(); });
+passwordField.addEventListener("input", () => { isAllOk(); isPasswordOk() });
+
 
 /* 
 Validation of the fields
@@ -37,7 +39,7 @@ function isFirstNameOk() {
 }
 
 function isSurNameOk() {
-    return manageErrorMessages(isLengthCorrect(2, surnameField.value), "Th surname must be at least 2 characters")
+    return manageErrorMessages(isLengthCorrect(2, surnameField.value), "The surname must be at least 2 characters")
 }
 
 function isPhoneNumberOk() {
@@ -47,6 +49,7 @@ function isPhoneNumberOk() {
 function isPasswordOk() {
     return manageErrorMessages(isPasswordValid(passwordField.value) && isValidString(), "The password must be length must be between 8 and 16 and must contain at least one digit, one uppecase and lowercase letter and must contain only (0-9, a-z, A-Z, _, -)")
 }
+
 
 /* 
 Editing the errors displayed
@@ -125,6 +128,11 @@ function isAtLeastOneFieldBlank() {
         return true;
     }
     return false;
+}
+
+function isPasswordValid(password) {
+    let validPasswordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
+    return validPasswordPattern.test(password) || password == "";
 }
 
 // If the inputs are filled and passed all the validations than the submit buttom become enabled

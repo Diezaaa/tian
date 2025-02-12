@@ -98,8 +98,6 @@ function checkMandatoryFields() {
     {
         titleError.innerHTML = ""
         orderError.innerHTML = ""
-        isValid = true;
-
     }
 
     for (let i = 0; i < document.getElementsByClassName("slide").length; i++) {
@@ -134,7 +132,6 @@ function checkMandatoryFields() {
             titleError.innerHTML = ""
             orderError.innerHTML = ""
             contentError.innerHTML = ""
-            let isValid = true;
         }
     }
     return isValid
@@ -157,6 +154,10 @@ document.getElementById("lessonForm").addEventListener("input", (event) => {
     let isValid = checkOptions() && checkMandatoryFields() && isThereSlide();
     if (isValid) {
         document.getElementById('sumbitBtn').disabled = false;
+    }
+    else {
+        document.getElementById('sumbitBtn').disabled = true;
+
     }
 })
 

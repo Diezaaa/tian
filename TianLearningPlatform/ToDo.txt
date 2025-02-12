@@ -17,3 +17,4 @@
 - It would be great to think again about the names of the areas
 - add viewing profil eo fanother person (achiegvemnts + name+ day streak + progress)
 - Make the all the navigation on the wesbtie usign a keborad
+- Add th option to enable code editor through lesson editding page

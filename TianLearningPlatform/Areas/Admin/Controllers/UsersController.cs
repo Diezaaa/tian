@@ -38,25 +38,6 @@ namespace Tian_fullstack.Areas.Admin.Controllers
             return View(usersList);
         }
 
-        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-        public async Task<IActionResult> Details()
-        {
-            // Getting the requested username
-            var requstedUsername = HttpContext.Request.Query["user"].ToString();
-
-            // Getting the requested user by username
-            var user = await _userDb.Users.FirstOrDefaultAsync(x => x.UserName == requstedUsername);
-
-            // Finding his role
-            var role = (await _userManager.GetRolesAsync(user))[0];
-
-
-            // Passing the info to the view
-            ViewBag.user = user;
-            ViewBag.role = role;
-
-            return View();
-        }
         public async Task<IActionResult> Delete()
         {
             // Getting the requested username
@@ -81,9 +62,9 @@ namespace Tian_fullstack.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Passing the user to the view and returning the view
-            return View(user);
+            return View();
         }
+
         public async Task<IActionResult> Edit()
         {
             // Getting the requested username
@@ -92,6 +73,7 @@ namespace Tian_fullstack.Areas.Admin.Controllers
             var user = await _userDb.Users.FirstOrDefaultAsync(x => x.UserName == requstedUsername);
             return View(user);
         }
+
         [HttpPost] 
         public async Task<IActionResult> Edit(Tian_fullstack.Areas.Account.Models.User editedUser,
                                                 IFormFile avatar, string password)
@@ -102,24 +84,24 @@ namespace Tian_fullstack.Areas.Admin.Controllers
             // Getting the requested user by username
             var existingUser = await _userDb.Users.FirstOrDefaultAsync(x => x.UserName == requestedUsername);
 
-            // Getting user's avatar path
-            var avatarPath = Path.Combine(_hostEnvironment.WebRootPath, "images/imagesForAvatars", existingUser.ImagePath);
+            // Getting user's avatar path if exist
+            var avatarPath = Path.Combine(_hostEnvironment.WebRootPath, "images/imagesForAvatars", existingUser.ImagePath ?? "");
 
             // Deleting user's avatar from the system
             // if he pressed the delete avatar button
-            if (Request.Form["deleteImageHidden"] == "true")
+            if (Request.Form["deleteImageHidden"] == "true" )
             {
                 if (System.IO.File.Exists(avatarPath))
                 {
                     System.IO.File.Delete(avatarPath);
                 }
-                existingUser.ImagePath = "";
+                existingUser.ImagePath = null;
                 await _userManager.UpdateAsync(existingUser);
             }
 
             if (avatar != null)
             {
-                // Deleting if an avatar exist
+                // Deleting if an avatar exist and sets the image path to null
                 if (existingUser.ImagePath != "")
                 {
                     if (System.IO.File.Exists(avatarPath))
@@ -162,8 +144,7 @@ namespace Tian_fullstack.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchByUserName(string username)
         {
-            string wwwRootPath = _hostEnvironment.WebRootPath;
-
+            // Retrieving users
             List<Account.Models.User> users;
             if (username != null)
             {
@@ -176,21 +157,25 @@ namespace Tian_fullstack.Areas.Admin.Controllers
                 users = await _userDb.Users.ToListAsync();
             }
             
+            // Retrieving users' avatars
             List<string> avatars = new List<string>();
+            string wwwRootPath = _hostEnvironment.WebRootPath;
             foreach (var user in users)
             {
                 if (user.ImagePath != null)
                 {
                     var avatarPath = Path.Combine(wwwRootPath + "/images/imagesForAvatars", user.ImagePath);
-
                     byte[] avatarBytes = System.IO.File.ReadAllBytes(avatarPath);
                     string avatar64Image = Convert.ToBase64String(avatarBytes);
                     avatars.Add("data:image/" + Path.GetExtension(avatarPath).Substring(1) + ";base64," + avatar64Image);
                 }
-                avatars.Add("");
+                else 
+                { 
+                    avatars.Add(""); 
+                }
             }
 
-
+            // Adding avatars to a json
             string json = System.Text.Json.JsonSerializer.Serialize(users);
             List<JsonObject> jsonUsersObjs = System.Text.Json.JsonSerializer.Deserialize<List<JsonObject>>(json);
 
