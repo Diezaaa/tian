@@ -8,15 +8,16 @@ The project is no longer maintained.
 
 This web application is intended to teach absolute beginners Python programming in an engaging and interactive manner. With step-by-step lessons, quizzes, and hands-on practice, users will be able to master Python fundamentals and begin coding with confidence.
 
+## **Demonstration video**
+
+**Link to the demonstration video: 
+https://www.youtube.com/watch?v=9IbWCHOr5sM**
+
 ## Screenshots
 
 <img src="lessons_page.png" alt="drawing" width="100%"/>
 
 <img src="profile_page.png" alt="drawing" width="100%"/>
-
-## Demonstration video
-
-Link: [https://www.youtube.com/watch?v=9IbWCHOr5sM](https://www.youtube.com/watch?v=9IbWCHOr5sM)
 
 ## Main Features
 
